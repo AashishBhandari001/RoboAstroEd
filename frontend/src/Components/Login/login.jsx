@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Input } from "@material-tailwind/react";
+import { AiOutlineGooglePlus } from "react-icons/ai";
 
 function Login() {
   return (
@@ -45,7 +45,8 @@ function Login() {
             <button className="bg-[#B0F0F6] hover:bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full">
               Sign in
             </button>
-            <button className="bg-[#B0F0F6] hover:bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full">
+            <button className="bg-[#B0F0F6] hover:bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full flex items-center justify-center">
+              <AiOutlineGooglePlus className="w-4 h-4 pl-0 mr-2" />
               Sign in with Google
             </button>
           </div>
