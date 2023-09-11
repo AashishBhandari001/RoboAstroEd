@@ -5,6 +5,7 @@ module.exports = {
     "./public/index.html",
     "./src/Components/Header/header.jsx",
     "./src/Components/Hero/hero.jsx",
+    "./src/Components/Login/login.jsx",
   ],
   theme: {
     extend: {

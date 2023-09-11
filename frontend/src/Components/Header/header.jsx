@@ -13,16 +13,16 @@ function Header() {
   return (
     <header>
       <div
-        className={`bg-white text-black font-open-sans md:mr-10 md:ml-10 relative ${
+        className={`bg-white text-black font-open-sans md:mr-8 md:ml-8${
           isOpen ? "h-screen" : ""
         }`}
       >
         <div>
-          <nav className="container flex flex-col md:flex-row justify-between items-center">
+          <nav className="container flex md:flex-row justify-between items-center">
             {!isOpen && (
               <div className="text-xs">
                 <div className="flex items-center">
-                  <div className="md:mx-4">
+                  <div className=" mx-4 md:mx-4">
                     <img
                       src={logo}
                       className="w-12 h-12 pt-2 "
@@ -125,7 +125,7 @@ function Header() {
                 </Link>
               </li>
               <li>
-              <button className="bg-[#B0F0F6] px-2 py-1 rounded-md hover:text-color-[#FF4F1D] border-transparent hover:opacity-80 ease-in duration-200">
+                <button className="bg-[#B0F0F6] px-2 py-1 rounded-md hover:text-color-[#FF4F1D] border-transparent hover:opacity-80 ease-in duration-200">
                   Account
                 </button>
               </li>
