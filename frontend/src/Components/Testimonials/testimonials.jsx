@@ -1,4 +1,5 @@
 import React from "react";
+import Rating from "./rating";
 
 function testimonials() {
   return (
@@ -44,25 +45,7 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <div className="rating px-2">
-                  <ul className="flex items-center list-none">
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Rating />
               </div>
               <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
@@ -88,25 +71,7 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <div className="rating px-2">
-                  <ul className="flex items-center list-none">
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Rating />
               </div>
             </div>
             <div className="px-3 md:w-1/3">
@@ -133,25 +98,7 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <div className="rating px-2">
-                  <ul className="flex items-center list-none">
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Rating />
               </div>
               <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
@@ -178,25 +125,7 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <div className="rating px-2">
-                  <ul className="flex items-center list-none">
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Rating />
               </div>
             </div>
             <div className="px-3 md:w-1/3 ">
@@ -226,25 +155,7 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <div className="rating px-2">
-                  <ul className="flex items-center list-none">
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Rating />
               </div>
               <div className="hidden md:flex flex-col w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
@@ -269,25 +180,7 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <div className="rating px-2">
-                  <ul className="flex items-center list-none">
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] fas fa-star"></i>
-                    </li>
-                    <li>
-                      <i className="text-[#42ADE2] far fa-star"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Rating />
               </div>
             </div>
           </div>
