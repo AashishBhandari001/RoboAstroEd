@@ -85,7 +85,7 @@ function Header() {
               </li>
               <li>
                 <button className="block bg-[#B0F0F6] px-1 py-1 rounded-md hover:text-color-[#FF4F1D] border-transparent hover:opacity-80 ease-in duration-200">
-                  Account
+                  Login
                 </button>
               </li>
             </ul>
@@ -126,7 +126,7 @@ function Header() {
               </li>
               <li>
                 <button className="bg-[#B0F0F6] px-2 py-1 rounded-md hover:text-color-[#FF4F1D] border-transparent hover:opacity-80 ease-in duration-200">
-                  Account
+                  Login
                 </button>
               </li>
             </ul>

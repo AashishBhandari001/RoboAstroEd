@@ -6,6 +6,7 @@ module.exports = {
     "./src/Components/Header/header.jsx",
     "./src/Components/Hero/hero.jsx",
     "./src/Components/Login/login.jsx",
+    "./src/Components/Testimonials/testimonials.jsx",
   ],
   theme: {
     extend: {

@@ -4,7 +4,7 @@ import Sajilobot from "../../Assets/Sajilobot.png";
 function Hero() {
   return (
     <div className="md:flex md:bg-[#6FD9FF] md:mr-8 md:ml-8">
-      <div className="hero font-open-sans md:mr-10 md:ml-10">
+      <div className="hero font-open-sans md:mr-10 md:ml-10 md:rounded-b-lg">
         <div className="container flex justify-between items-center">
           <div className="text-black font-semibold text-sm pl-6 md:pl-4 md:pt-4">
             Fusion of Electronic and Education

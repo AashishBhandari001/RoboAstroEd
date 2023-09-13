@@ -53,7 +53,7 @@ function Login() {
           <div className="text-center text-gray-400">
             Don't have an account?{" "}
             <Link to={""} className="no-underline text-blue-600">
-              Sign up
+              Register
             </Link>
           </div>
         </div>
