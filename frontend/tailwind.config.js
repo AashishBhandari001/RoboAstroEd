@@ -3,10 +3,10 @@ module.exports = {
   content: [
     "./src/**/*.js",
     "./public/index.html",
-    "./src/Components/Header/header.jsx",
     "./src/Components/Hero/hero.jsx",
     "./src/Components/Login/login.jsx",
     "./src/Components/Testimonials/testimonials.jsx",
+    "./src/Components/Navbar/navbar.jsx",
   ],
   theme: {
     extend: {
