@@ -7,6 +7,8 @@ module.exports = {
     "./src/Components/Login/login.jsx",
     "./src/Components/Testimonials/testimonials.jsx",
     "./src/Components/Navbar/navbar.jsx",
+    "./src/Components/Button/button.jsx",
+    "./src/Components/LogoCarausel/logocarausel.jsx",
   ],
   theme: {
     extend: {
@@ -19,6 +21,16 @@ module.exports = {
 
         desktop: "1280px",
         // => @media (min-width: 1280px) { ... }
+      },
+
+      animation: {
+        "infinite-slider": "infinite-slider 25s linear infinite",
+      },
+      keyframes: {
+        "infinite-slider": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-250px * 5))" },
+        },
       },
 
       colors: {
@@ -34,6 +46,7 @@ module.exports = {
         skyblue: "#6fd9ff",
         paleturquoise: "#b0f0f6",
       },
+
       fontFamily: {
         "open-sans": ["'Open Sans', sans-serif"],
       },
