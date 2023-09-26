@@ -9,6 +9,9 @@ module.exports = {
     "./src/Components/Navbar/navbar.jsx",
     "./src/Components/Button/button.jsx",
     "./src/Components/LogoCarausel/logocarausel.jsx",
+    "./src/Elements/Dash/dash.jsx",
+    "./src/Components/Footer/footer.jsx",
+    "./src/Elements/Socials/socials.jsx",
   ],
   theme: {
     extend: {
@@ -24,12 +27,12 @@ module.exports = {
       },
 
       animation: {
-        "infinite-slider": "infinite-slider 25s linear infinite",
+        "infinite-slider": "infinite-slider 40s linear infinite",
       },
       keyframes: {
         "infinite-slider": {
           "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(calc(-250px * 5))" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
 

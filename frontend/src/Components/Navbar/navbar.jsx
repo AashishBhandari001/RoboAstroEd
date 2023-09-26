@@ -15,7 +15,7 @@ function Navbar() {
         <li>
           <Link
             to="/Home"
-            className="flex items-center text-black no-underline hover:text-color-[#FF4F1D]"
+            className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
           >
             <img src={logo} className="h-16 mr-3" alt="Flowbite Logo" />
             <div className="text-black font-bold">RoboAstroEd</div>
