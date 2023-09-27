@@ -12,6 +12,8 @@ module.exports = {
     "./src/Elements/Dash/dash.jsx",
     "./src/Components/Footer/footer.jsx",
     "./src/Elements/Socials/socials.jsx",
+    "./src/Components/Branding/branding.jsx",
+    "./src/Components/Card/card.jsx",
   ],
   theme: {
     extend: {

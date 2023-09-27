@@ -12,7 +12,7 @@ function Footer() {
         <div className="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
           {/* ----------------------------Home page-----------------------------------*/}
           <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-500 font-medium">
+            <div className="text-xs uppercase text-gray-400 font-medium">
               Home Page
             </div>
             <Link
@@ -43,7 +43,7 @@ function Footer() {
 
           {/* ----------------------------User-----------------------------------*/}
           <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-500 font-medium">
+            <div className="text-xs uppercase text-gray-400 font-medium">
               User
             </div>
             <Link
@@ -68,7 +68,7 @@ function Footer() {
 
           {/* ----------------------------Resources-----------------------------------*/}
           <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-500 font-medium">
+            <div className="text-xs uppercase text-gray-400 font-medium">
               Resources
             </div>
             <Link
@@ -87,7 +87,7 @@ function Footer() {
 
           {/* ----------------------------Product-----------------------------------*/}
           <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-500 font-medium">
+            <div className="text-xs uppercase text-gray-400 font-medium">
               Product
             </div>
             <Link
@@ -118,7 +118,7 @@ function Footer() {
 
           {/* ----------------------------Contact us-----------------------------------*/}
           <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-500 font-medium">
+            <div className="text-xs uppercase text-gray-400 font-medium">
               Contact us
             </div>
             <div className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500">

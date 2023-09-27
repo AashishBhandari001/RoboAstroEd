@@ -6,6 +6,7 @@ function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
+    console.log("ToggleNav called");
     setIsNavOpen(!isNavOpen);
   };
 
@@ -17,8 +18,8 @@ function Navbar() {
             to="/Home"
             className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
           >
-            <img src={logo} className="h-16 mr-3" alt="Flowbite Logo" />
-            <div className="text-black font-bold">RoboAstroEd</div>
+            <img src={logo} className="h-10 md:h-16 mr-3" alt="Flowbite Logo" />
+            <div className="text-black font-bold text-sm">RoboAstroEd</div>
           </Link>
         </li>
         <button
@@ -46,7 +47,7 @@ function Navbar() {
         <div
           className={`${
             isNavOpen ? "block" : "hidden"
-          } w-full md:block md:w-auto`}
+          } w-full md:block md:w-auto sm:mr-14`}
           id="navbar-default"
         >
           <ul className="font-medium flex flex-col p-4 no-underline list-none md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
@@ -101,7 +102,7 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      <div className="flex items-stretch bg-[#B0F0F6] border-8  border-transparent border-solid mr-8 ml-8"></div>
+      <div className="flex items-stretch bg-[#B0F0F6] border-8  border-transparent border-solid mr-4 ml-4"></div>
     </nav>
   );
 }
