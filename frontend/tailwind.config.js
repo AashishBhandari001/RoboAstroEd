@@ -14,6 +14,7 @@ module.exports = {
     "./src/Elements/Socials/socials.jsx",
     "./src/Components/Branding/branding.jsx",
     "./src/Components/Card/card.jsx",
+    "./src/Components/ContactUs/contactus.jsx",
   ],
   theme: {
     extend: {

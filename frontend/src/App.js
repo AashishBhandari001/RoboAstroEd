@@ -8,17 +8,20 @@ import LogoCarousel from "./Components/LogoCarausel";
 import Dash from "./Elements/Dash";
 import Branding from "./Components/Branding/branding";
 import Card from "./Components/Card/card";
+import Contactus from "./Components/ContactUs/contactus"; 
 
 
 function App() {
   return (
     <>
-      {/* <Navbar />
-      <Hero />
-      <Branding />
-      <Footer /> */}
+      <Navbar />
+      {/* <Hero /> */}
+      {/* <Branding /> */}
+      
       {/* <LogoCarousel /> */}
-      <Card />
+      {/* <Card /> */}
+      <Contactus />
+      <Footer />
       
     
     </>
