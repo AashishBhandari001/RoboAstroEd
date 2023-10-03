@@ -30,7 +30,7 @@ module.exports = {
       },
 
       animation: {
-        "infinite-slider": "infinite-slider 40s linear infinite",
+        "infinite-slider": "infinite-slider 30s linear infinite",
       },
       keyframes: {
         "infinite-slider": {

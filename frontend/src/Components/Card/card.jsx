@@ -1,116 +1,129 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Picture from "../../Assets/child-robo.jpeg";
-// import { Carousel } from "@trendyol-js/react-carousel";
-import Dash from "../../Elements/Dash";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Samplecard from "./samplecard";
+import Picture1 from "../../Assets/child-robo.jpeg"; //card1
+import Picture2 from "../../Assets/Student2.png" //card 2
+import Picture3 from "../../Assets/Student3.png"
+import Dash from "../../Elements/Dash"
 
 function Card() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3, // Display 3 cards at a time by default
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1024, // Medium screen (laptop)
+        settings: {
+          slidesToShow: 3, // Display 3 cards at a time
+          slidesToScroll: 3, // Slide 3 cards at a time
+        },
+      },
+      {
+        breakpoint: 640, // Small screen (tablet)
+        settings: {
+          slidesToShow: 1, // Display 1 card at a time in small screens
+          slidesToScroll: 1, // Slide 1 card at a time in small screens
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="bg-white font-open-sans ml-4 mr-4">
+    <div className="bg-white font-open-sans ml-6 mr-6 mb-10">
       <div>
-        <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2 ">
+        <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2">
           Transforming young minds into innovators
         </h1>
         <Dash />
       </div>
+
       <div>
-        <p className="flex flex-row justify-center font-normal items-center text-justify md:text-center mx-3 md:mx-10 ">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non,
-          inventore natus hic quis magnam sit nobis assumenda omnis
-          necessitatibus dolor labore nemo possimus sint cumque ipsum veniam
-          accusamus similique saepe iure distinctio laboriosam officiis deleniti
-          dicta! Odit laudantium fugiat natus sit accusamus consectetur, totam
-          et at velit corrupti nesciunt id numquam, incidunt dolor vero nemo
-          doloribus expedita. Ipsum perferendis tempore debitis saepe reiciendis
-          quos labore, voluptatibus blanditiis nam deleniti aliquid possimus
-          accusamus nulla sed ratione praesentium commodi, voluptatum omnis
-          explicabo veniam sequi, architecto maiores. Sed corrupti enim
-          asperiores est? Iste error suscipit quisquam veritatis ipsam eos ipsum
-          illo quaerat odio.
+        <p className="flex flex-row justify-center font-normal items-center text-justify  mx-3 md:mx-10">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
+          veniam explicabo voluptates et rerum odit iure molestiae sunt, error
+          sapiente sit quisquam eaque reprehenderit repellendus nostrum
+          praesentium voluptas quae voluptate a, quia cumque saepe tempore.
+          Rerum, iure maiores, dolorem aliquam corporis molestiae neque ullam
+          explicabo veniam perferendis fugiat vitae odio mollitia. Qui dicta
+          cumque quasi. Esse voluptatibus placeat provident eius earum in
+          aliquam laborum molestiae porro architecto, similique soluta aliquid,
+          vel assumenda? Deleniti tempore ipsum suscipit nam beatae vel saepe
+          praesentium incidunt nesciunt, accusantium in asperiores vero quam
+          tenetur ad odit quo! Maiores, porro excepturi beatae quibusdam
+          sapiente eius aliquid?
         </p>
+        
       </div>
 
-      {/* -----------------------------------Card----------------------------------- */}
-      <div className="flex flex-col md:flex-row md:space-x-4 mr-4 ml-4">
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow font-open-sans">
-          <div className="flex justify-center items-center h-48 sm:h-auto">
-            {" "}
-            <img className="rounded-t-lg" src={Picture} alt="" />
-          </div>
-          <div className="text-center py-3">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-              Inter School Robotics Competition 2022
-            </h5>
+      {/* Carousel */}
+      <Slider {...settings}>
+        {/* Card 1 */}
+        <Samplecard
+          picture={Picture1}
+          title="Inter School Competition"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
+          nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
+          Molestias voluptas eum eos tempore nesciunt"
+        />
 
-            <p className="mb-3 font-normal text-gray-700 text-center md:px-4 pb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-              voluptatibus reprehenderit, voluptas reiciendis quae maiores
-              libero nesciunt quisquam ipsum perferendis facere aliquid, culpa
-              quia! Molestias voluptas eum eos tempore nesciunt.
-            </p>
-          </div>
-        </div>
+        {/* Card 2 */}
+        <Samplecard
+          picture={Picture2}
+          title="Lunar Habitat Challenge"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
+          nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
+          Molestias voluptas eum eos tempore nesciunt"
+        />
 
-        {/* Card */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow font-open-sans">
-          <div className="flex justify-center items-center h-48 sm:h-auto">
-            {" "}
-            <img className="rounded-t-lg" src={Picture} alt="" />
-          </div>
-          <div className="text-center py-3">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-              Lunar Habitat Challenge
-            </h5>
+        {/* Card 3 */}
+        <Samplecard
+          picture={Picture3}
+          title="Hackathon 1.O"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
+          nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
+          Molestias voluptas eum eos tempore nesciunt"
+        />
 
-            <p className="mb-3 font-normal text-gray-700 text-center md:px-4 pb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-              voluptatibus reprehenderit, voluptas reiciendis quae maiores
-              libero nesciunt quisquam ipsum perferendis facere aliquid, culpa
-              quia! Molestias voluptas eum eos tempore nesciunt.
-            </p>
-          </div>
-        </div>
+        {/* Add more cards as needed */}
+        {/* Card 4 */}
+        <Samplecard
+          picture={Picture1}
+          title="Inter School Competition"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
+          nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
+          Molestias voluptas eum eos tempore nesciunt"
+        />
 
-        {/* Another card */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow font-open-sans">
-          <div className="flex justify-center items-center h-48 sm:h-auto">
-            {" "}
-            <img className="rounded-t-lg" src={Picture} alt="" />
-          </div>
-          <div className="text-center py-3">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-              Educathon 1.O 2023
-            </h5>
+        {/* Card 5 */}
+        <Samplecard
+          picture={Picture1}
+          title="Inter School Competition"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
+          nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
+          Molestias voluptas eum eos tempore nesciunt"
+        />
 
-            <p className="mb-3 font-normal text-gray-700 text-center md:px-4 pb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-              voluptatibus reprehenderit, voluptas reiciendis quae maiores
-              libero nesciunt quisquam ipsum perferendis facere aliquid, culpa
-              quia! Molestias voluptas eum eos tempore nesciunt.
-            </p>
-          </div>
-        </div>
-
-        {/* Another card*/}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow font-open-sans">
-          <div className="flex justify-center items-center h-48 sm:h-auto">
-            {" "}
-            <img className="rounded-t-lg" src={Picture} alt="" />
-          </div>
-          <div className="text-center py-3">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-              Codding Challenge
-            </h5>
-
-            <p className="mb-3 font-normal text-gray-700 text-center md:px-4 pb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-              voluptatibus reprehenderit, voluptas reiciendis quae maiores
-              libero nesciunt quisquam ipsum perferendis facere aliquid, culpa
-              quia! Molestias voluptas eum eos tempore nesciunt.
-            </p>
-          </div>
-        </div>
-      </div>
+        {/* Add more cards as needed */}
+        {/* card 6 */}
+        <Samplecard
+          picture={Picture1}
+          title="Inter School Competition"
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
+          nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
+          Molestias voluptas eum eos tempore nesciunt"
+        />
+      </Slider>
     </div>
   );
 }

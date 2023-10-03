@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import logo from "../../Assets/logo.png";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import Button from "../Button";
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
-    console.log("ToggleNav called");
     setIsNavOpen(!isNavOpen);
   };
 
   return (
     <nav className="">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mr-8 md:ml-8 p-4">
-        <li>
+      <div className="max-w-screen-xl  flex flex-wrap  items-center justify-between font-open-sans list-none no-underline md:mr-8 md:ml-8 p-4">
+        <li className="md:ml-5">
           <Link
             to="/Home"
             className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
           >
-            <img src={logo} className="h-10 md:h-16 mr-3" alt="Flowbite Logo" />
-            <div className="text-black font-bold text-sm">RoboAstroEd</div>
+            <img src={logo} className="h-10 md:h-10 mr-3" alt="Flowbite Logo" />
+            <div className="text-black font-bold text-sm">Beyond Apogee</div>
           </Link>
         </li>
         <button
@@ -50,11 +50,11 @@ function Navbar() {
           } w-full md:block md:w-auto sm:mr-14`}
           id="navbar-default"
         >
-          <ul className="font-medium flex flex-col p-4 no-underline list-none md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
+          <ul className="font-medium flex flex-col justify-end p-4 no-underline list-none mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
             <li>
               <Link
                 to="/Home"
-                className="block py-2 pl-3 pr-4 text-black bg-[#B0F0F6] md:bg-transparent md:text-black md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                className="block py-2 pl-3 pr-4 text-black bg-[#B0F0F6] md:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
                 aria-current="page"
               >
                 Home
@@ -86,23 +86,32 @@ function Navbar() {
             </li>
             <li>
               <Link
-                to="/login"
+                to="/ContactUs"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+              >
+                Contact Us
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/Cart"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
               >
                 Cart
               </Link>
             </li>
-
-            <Link
-              to="/login"
-              className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
-            >
-              Login
-            </Link>
+            <li>
+              <Link
+                to="/login"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+              >
+                Login
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
-      <div className="flex items-stretch bg-[#B0F0F6] border-8  border-transparent border-solid mr-4 ml-4"></div>
+      {/* <div className="flex items-stretch bg-[#B0F0F6] border-8  border-transparent border-solid mr-4 ml-4"></div> */}
     </nav>
   );
 }

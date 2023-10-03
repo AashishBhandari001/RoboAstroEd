@@ -5,25 +5,31 @@ import Testimonials from "./Components/Testimonials";
 import Posts from "./Components/Posts/Posts";
 import Footer from "./Components/Footer";
 import LogoCarousel from "./Components/LogoCarausel";
-import Dash from "./Elements/Dash";
 import Branding from "./Components/Branding/branding";
 import Card from "./Components/Card/card";
-import Contactus from "./Components/ContactUs/contactus"; 
-
-
+import Contactus from "./Components/ContactUs/contactus";
 function App() {
   return (
     <>
       <Navbar />
-      {/* <Hero /> */}
-      {/* <Branding /> */}
+
+      {/* landing page */}
+
+      {/* <Hero />
+      <Branding />
       
-      {/* <LogoCarousel /> */}
-      {/* <Card /> */}
-      <Contactus />
+      <Testimonials />
+      <LogoCarousel /> */}
+
+      <Card />
+
+      {/* <Contactus /> */}
+
+      {/* <Posts /> */}
+
+      {/* <Login /> */}
+
       <Footer />
-      
-    
     </>
   );
 }

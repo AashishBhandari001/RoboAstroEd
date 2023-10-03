@@ -43,7 +43,7 @@ const LogoCarousel = () => {
             <div
               className="slide w-20 md:w-28 h-auto"
               key={index}
-              style={{ animationDelay: `${index * 4}s` }}
+              style={{ animationDelay: `${index * 3}s` }}
             >
               <img
                 src={logo}

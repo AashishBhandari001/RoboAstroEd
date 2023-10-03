@@ -59,10 +59,10 @@ function Footer() {
               Sign up
             </Link>
             <Link
-              to="/RegisterSchool"
+              to="/ContactUs"
               className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
             >
-              Register School
+              Contact Us
             </Link>
           </div>
 

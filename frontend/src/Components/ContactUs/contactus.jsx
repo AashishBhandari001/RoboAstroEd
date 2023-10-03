@@ -20,7 +20,7 @@ function Contactus() {
         <div className="flex flex-col md:flex-row md_space-x-6 md:space-y-0 space-y-6  w-full max-w-4xl p-8 rounded-xl shadow-lg mt-8">
           <div className="flex flex-col space-y-8 justify-between">
             <div>
-              <p className="pt-2 text-gray-400 text-sm">
+              <p className="pt-2 text-gray-600 text-sm">
                 We're always here to help. If you have questions about our
                 products, services, our website, or anything else, please don't
                 hesitate to contact us. We are dedicated to providing the best
