@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import logo from "../../Assets/logo.png";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import Button from "../Button";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,17 +10,19 @@ function Navbar() {
   };
 
   return (
-    <nav className="">
-      <div className="max-w-screen-xl  flex flex-wrap  items-center justify-between font-open-sans list-none no-underline md:mr-8 md:ml-8 p-4">
-        <li className="md:ml-5">
-          <Link
+    <nav className="mr-5 ml-5">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mx-auto p-4">
+        <div className="md:ml-6">
+          <NavLink // Adding Navlink
             to="/Home"
             className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
           >
-            <img src={logo} className="h-10 md:h-10 mr-3" alt="Flowbite Logo" />
-            <div className="text-black font-bold text-sm">Beyond Apogee</div>
-          </Link>
-        </li>
+            <img src={logo} className="h-12 mr-3 md:h-16" alt="Flowbite Logo" />
+            <div className="text-black font-bold text-sm md:text-xl">
+              Beyond Apogee
+            </div>
+          </NavLink>
+        </div>
         <button
           onClick={toggleNav}
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm md:hidden focus:outline-none focus:ring-2"
@@ -47,71 +48,63 @@ function Navbar() {
         <div
           className={`${
             isNavOpen ? "block" : "hidden"
-          } w-full md:block md:w-auto sm:mr-14`}
+          } w-full md:block md:w-auto mt-4 md:mt-0 md:mr-5`}
           id="navbar-default"
         >
-          <ul className="font-medium flex flex-col justify-end p-4 no-underline list-none mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
+          <ul className="font-medium flex flex-col list-none md:flex-row md:space-x-8">
             <li>
-              <Link
+              <NavLink // Adding Navlink
                 to="/Home"
                 className="block py-2 pl-3 pr-4 text-black bg-[#B0F0F6] md:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
                 aria-current="page"
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink // Adding Navlink
                 to="/Products"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
               >
                 Products
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink // Adding Navlink
                 to="/Lessons"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
               >
                 Lessons
-              </Link>
+              </NavLink>
             </li>
+            {/* Add similar code for other navigation links */}
             <li>
-              <Link
-                to="/Blog"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
-              >
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/ContactUs"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+              <NavLink // Adding Navlink
+                to="/Contact"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
               >
                 Contact Us
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink // Adding Navlink
                 to="/Cart"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
               >
                 Cart
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to="/login"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF4F1D] md:p-0 no-underline"
+              <NavLink // Adding Navlink
+                to="/Account"
+                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
               >
-                Login
-              </Link>
+                My Account
+              </NavLink>
             </li>
           </ul>
         </div>
       </div>
-      {/* <div className="flex items-stretch bg-[#B0F0F6] border-8  border-transparent border-solid mr-4 ml-4"></div> */}
     </nav>
   );
 }

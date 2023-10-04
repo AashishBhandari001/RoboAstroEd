@@ -1,5 +1,6 @@
 import React from "react";
 import Rating from "./rating";
+import Dash from "../../Elements/Dash";
 
 function testimonials() {
   return (
@@ -7,15 +8,11 @@ function testimonials() {
       <div className="w-full bg-white border-t border-b border-gray-200 px-5 py-16 md:py-10 text-gray-800">
         <div className="w-full max-w-6xl mx-auto">
           <div className="text-center max-w-xl mx-auto">
-            <h1 className="text-6xl md:text-7xl font-bold mb-5 text-gray-600">
-              "Listen to the Voices of Our Valued Students!"
-            </h1>
-            <div className="text-center mb-10">
-              <span className="inline-block w-1 h-1 rounded-full bg-[#B0F0F6] ml-1"></span>
-              <span className="inline-block w-3 h-1 rounded-full bg-[#B0F0F6] ml-1"></span>
-              <span className="inline-block w-40 h-1 rounded-full bg-[#B0F0F6]"></span>
-              <span className="inline-block w-3 h-1 rounded-full bg-[#B0F0F6] ml-1"></span>
-              <span className="inline-block w-1 h-1 rounded-full bg-[#B0F0F6] ml-1"></span>
+            <div>
+              <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2">
+                Listen to the voices of our valued students
+              </h1>
+              <Dash />
             </div>
           </div>
           <div className="-mx-3 md:flex items-start">

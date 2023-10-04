@@ -1,36 +1,20 @@
-import Navbar from "./Components/Navbar";
-import Hero from "./Components/Hero";
-import Login from "./Components/Login";
-import Testimonials from "./Components/Testimonials";
-import Posts from "./Components/Posts/Posts";
-import Footer from "./Components/Footer";
-import LogoCarousel from "./Components/LogoCarausel";
-import Branding from "./Components/Branding/branding";
-import Card from "./Components/Card/card";
-import Contactus from "./Components/ContactUs/contactus";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from "./Router/Layout";
+import Home from "./Router/Home";
+
 function App() {
   return (
-    <>
-      <Navbar />
-
-      {/* landing page */}
-
-      {/* <Hero />
-      <Branding />
-      
-      <Testimonials />
-      <LogoCarousel /> */}
-
-      <Card />
-
-      {/* <Contactus /> */}
-
-      {/* <Posts /> */}
-
-      {/* <Login /> */}
-
-      <Footer />
-    </>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

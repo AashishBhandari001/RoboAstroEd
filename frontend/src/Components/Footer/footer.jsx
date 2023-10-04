@@ -8,7 +8,7 @@ import { CgMailOpen } from "react-icons/cg";
 function Footer() {
   return (
     <footer>
-      <div className="footer bg-gray-100 font-open-sans mr-4 ml-4">
+      <div className="footer bg-gray-100 font-open-sans">
         <div className="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
           {/* ----------------------------Home page-----------------------------------*/}
           <div className="p-5 w-48 md:w-auto">

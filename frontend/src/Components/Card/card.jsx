@@ -4,9 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Samplecard from "./samplecard";
 import Picture1 from "../../Assets/child-robo.jpeg"; //card1
-import Picture2 from "../../Assets/Student2.png" //card 2
-import Picture3 from "../../Assets/Student3.png"
-import Dash from "../../Elements/Dash"
+import Picture2 from "../../Assets/Student2.png"; //card 2
+import Picture3 from "../../Assets/Student3.png";
+import Dash from "../../Elements/Dash";
 
 function Card() {
   const settings = {
@@ -43,7 +43,7 @@ function Card() {
       </div>
 
       <div>
-        <p className="flex flex-row justify-center font-normal items-center text-justify  mx-3 md:mx-10">
+        <p className="flex flex-row font-normal mb-4 text-justify text-sm md:mr-16 md:ml-16 mx-3 md:mx-10">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
           veniam explicabo voluptates et rerum odit iure molestiae sunt, error
           sapiente sit quisquam eaque reprehenderit repellendus nostrum
@@ -57,73 +57,73 @@ function Card() {
           tenetur ad odit quo! Maiores, porro excepturi beatae quibusdam
           sapiente eius aliquid?
         </p>
-        
       </div>
-
-      {/* Carousel */}
-      <Slider {...settings}>
-        {/* Card 1 */}
-        <Samplecard
-          picture={Picture1}
-          title="Inter School Competition"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+      <div className="mr-4 ml-4">
+        {/* Carousel */}
+        <Slider {...settings}>
+          {/* Card 1 */}
+          <Samplecard
+            picture={Picture1}
+            title="Inter School Competition"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
           voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
           nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
           Molestias voluptas eum eos tempore nesciunt"
-        />
+          />
 
-        {/* Card 2 */}
-        <Samplecard
-          picture={Picture2}
-          title="Lunar Habitat Challenge"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          {/* Card 2 */}
+          <Samplecard
+            picture={Picture2}
+            title="Lunar Habitat Challenge"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
           voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
           nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
           Molestias voluptas eum eos tempore nesciunt"
-        />
+          />
 
-        {/* Card 3 */}
-        <Samplecard
-          picture={Picture3}
-          title="Hackathon 1.O"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          {/* Card 3 */}
+          <Samplecard
+            picture={Picture3}
+            title="Hackathon 1.O"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
           voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
           nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
           Molestias voluptas eum eos tempore nesciunt"
-        />
+          />
 
-        {/* Add more cards as needed */}
-        {/* Card 4 */}
-        <Samplecard
-          picture={Picture1}
-          title="Inter School Competition"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          {/* Add more cards as needed */}
+          {/* Card 4 */}
+          <Samplecard
+            picture={Picture1}
+            title="Inter School Competition"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
           voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
           nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
           Molestias voluptas eum eos tempore nesciunt"
-        />
+          />
 
-        {/* Card 5 */}
-        <Samplecard
-          picture={Picture1}
-          title="Inter School Competition"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          {/* Card 5 */}
+          <Samplecard
+            picture={Picture1}
+            title="Inter School Competition"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
           voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
           nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
           Molestias voluptas eum eos tempore nesciunt"
-        />
+          />
 
-        {/* Add more cards as needed */}
-        {/* card 6 */}
-        <Samplecard
-          picture={Picture1}
-          title="Inter School Competition"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
+          {/* Add more cards as needed */}
+          {/* card 6 */}
+          <Samplecard
+            picture={Picture1}
+            title="Inter School Competition"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
           voluptatibus reprehenderit, voluptas reiciendis quae maiores libero
           nesciunt quisquam ipsum perferendis facere aliquid, culpa quia!
           Molestias voluptas eum eos tempore nesciunt"
-        />
-      </Slider>
+          />
+        </Slider>
+      </div>
     </div>
   );
 }

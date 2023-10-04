@@ -29,7 +29,7 @@ const logos = [
 
 const LogoCarousel = () => {
   return (
-    <div className="bg-white text-black font-open-sans mr-4 ml-4 md:mr-8 md:ml-8">
+    <div className="bg-white text-black font-open-sans mr-4 ml-4 md:mr-8 md:ml-8 mb-2">
       <div className="flex flex-col items-center text-center">
         <h3 className="md:justify-center">
           Institutions of Learningnpm That Trust Us! Join Us for a Unique
