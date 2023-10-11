@@ -4,7 +4,7 @@ import Student from "../../Assets/Student_1.png";
 
 function Hero() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center mx-auto md:px-16 md:ml-30">
+    <div className="flex flex-col md:flex-row items-center justify-center mt-20 mx-auto md:px-16 md:ml-30">
       <div className="mb-14 md:ml-10 lg:mb-0 lg:w-1/2 md:w-1/2 mx-auto md:text-center">
         <h1 className="max-w-xl md:text-5xl leading-none text-gray-900 font-bold text-center lg:text-left lg:leading-tight">
           Empowering Young Minds Through Innovation

@@ -27,7 +27,6 @@ function Error() {
             </NavLink>
           </div>
           <div className="max-w-lg">
-            {/* Include the SVG image */}
             <div dangerouslySetInnerHTML={{ __html: svgCode }} />
           </div>
         </div>

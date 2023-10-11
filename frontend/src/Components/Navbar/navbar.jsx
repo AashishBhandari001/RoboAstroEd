@@ -10,17 +10,15 @@ function Navbar() {
   };
 
   return (
-    <nav className="mr-5 ml-5">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mx-auto p-4">
         <div className="md:ml-6">
           <NavLink // Adding Navlink
             to="/Home"
             className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
           >
-            <img src={logo} className="h-12 mr-3 md:h-16" alt="Flowbite Logo" />
-            <div className="text-black font-bold text-sm md:text-xl">
-              Beyond Apogee
-            </div>
+            <img src={logo} className="h-12 mr-3 md:h-14" alt="Flowbite Logo" />
+            <div className="text-black text-sm md:text-xl">Beyond Apogee</div>
           </NavLink>
         </div>
         <button
@@ -77,7 +75,7 @@ function Navbar() {
                 Lessons
               </NavLink>
             </li>
-            {/* Add similar code for other navigation links */}
+
             <li>
               <NavLink // Adding Navlink
                 to="/Contact"
