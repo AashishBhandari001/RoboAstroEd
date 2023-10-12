@@ -6,6 +6,7 @@ import Home from "./Router/Home";
 import Contact from "./Components/ContactUs";
 import Error from "./Router/Error";
 import Login from "./Components/Login";
+import Signup from "./Components/Signup";
 
 function NotFound() {
   return <Error />;
@@ -21,6 +22,7 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/Account" element={<Login />} />
+            <Route path="/Register" element={<Signup />} />
           </Route>
           {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
