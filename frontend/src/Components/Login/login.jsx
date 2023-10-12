@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div className="flex items-center justify-center h-screen font-open-sans bg-gray-100">
+    <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
       <div className="flex flex-col  md:space-y-2 md:bg-white md:shadow-2xl rounded-2xl md:flex-row">
         <div className="flex flex-col justify-center p-6 md:p-12">
           <span className="mb-2 text-2xl md:text-4xl font-bold">
@@ -13,7 +13,7 @@ function Login() {
             Please enter your details
           </span>
           <form className="flex flex-col text-sm">
-            <div className="text-sm">
+            <div className="text-sm"> 
               <span className="text-md">Email</span>
               <input
                 type="text"
