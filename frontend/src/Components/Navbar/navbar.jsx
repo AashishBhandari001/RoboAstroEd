@@ -9,6 +9,10 @@ function Navbar() {
     setIsNavOpen(!isNavOpen);
   };
 
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mx-auto p-4">
@@ -16,6 +20,7 @@ function Navbar() {
           <NavLink // Adding Navlink
             to="/Home"
             className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
+            onClick={closeNav}
           >
             <img src={logo} className="h-12 mr-3 md:h-14" alt="Flowbite Logo" />
             <div className="text-black text-sm md:text-xl">Beyond Apogee</div>
@@ -55,6 +60,8 @@ function Navbar() {
                 to="/Home"
                 className="block py-2 pl-3 pr-4 text-black bg-[#B0F0F6] md:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
                 aria-current="page"
+                onClick={closeNav}
+                
               >
                 Home
               </NavLink>
@@ -63,6 +70,7 @@ function Navbar() {
               <NavLink // Adding Navlink
                 to="/Products"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                onClick={closeNav}
               >
                 Products
               </NavLink>
@@ -71,6 +79,7 @@ function Navbar() {
               <NavLink // Adding Navlink
                 to="/Lessons"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                onClick={closeNav}
               >
                 Lessons
               </NavLink>
@@ -80,6 +89,7 @@ function Navbar() {
               <NavLink // Adding Navlink
                 to="/Contact"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                onClick={closeNav}
               >
                 Contact Us
               </NavLink>
@@ -88,6 +98,7 @@ function Navbar() {
               <NavLink // Adding Navlink
                 to="/Cart"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                onClick={closeNav}
               >
                 Cart
               </NavLink>
@@ -96,6 +107,7 @@ function Navbar() {
               <NavLink // Adding Navlink
                 to="/Account"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                onClick={closeNav}
               >
                 My Account
               </NavLink>

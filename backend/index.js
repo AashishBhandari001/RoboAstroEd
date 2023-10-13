@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
+const cors = require("cors");
 
 dotenv.config(); // Initialize dotenv
 
@@ -17,6 +18,7 @@ mongoose
 
 const app = express();
 app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use(cors());
 
 // Define your routes before starting the server
 app.use("/api/user", userRouter);
@@ -27,7 +29,7 @@ app.listen(8080, () => {
 });
 
 app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500; 
+  const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   return res.status(statusCode).json({
     success: false,

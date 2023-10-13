@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axious from "axios";
 
 function Signup() {
   const [formData, setFormData] = useState({});
@@ -10,17 +11,18 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/api/user", {
+    const res = await fetch("http://localhost:8080/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData), //converts to JSON string
     });
     const data = await res.json();
     console.log(data);
   };
   console.log(formData);
+
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
       <div className="flex flex-col  md:space-y-2 md:bg-white md:shadow-2xl rounded-2xl md:flex-row">
@@ -75,7 +77,7 @@ function Signup() {
               >
                 Sign up
               </button>
-              {/* <button className="bg-[#B0F0F6] hover:bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full flex items-center justify-center">
+              <button className="bg-[#B0F0F6] hover:bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -103,7 +105,7 @@ function Signup() {
                   ></path>
                 </svg>
                 Sign up with Google
-              </button> */}
+              </button>
             </div>
           </form>
           <div className="text-center text-gray-400">
