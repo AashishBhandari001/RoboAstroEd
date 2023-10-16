@@ -13,7 +13,7 @@ function Login() {
             Please enter your details
           </span>
           <form className="flex flex-col text-sm">
-            <div className="text-sm"> 
+            <div className="text-sm">
               <span className="text-md">Email</span>
               <input
                 type="text"
@@ -50,7 +50,7 @@ function Login() {
                 width="48"
                 height="48"
                 viewBox="0 0 48 48"
-                className="w-6 h-6 mr-2"
+                className="w-4 h-4 mr-2"
               >
                 <path
                   fill="#FFC107"
@@ -72,7 +72,7 @@ function Login() {
               Sign in with Google
             </button>
           </div>
-          <div className="text-center text-gray-400">
+          <div className="text-center text-gray-400 pt-2">
             Don't have an account?{" "}
             <Link to="/Register" className="no-underline text-blue-600">
               Sign up

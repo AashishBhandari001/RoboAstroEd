@@ -17,6 +17,7 @@ module.exports = {
     "./src/Components/Card/card.jsx",
     "./src/Components/ContactUs/contactus.jsx",
     "./src/Routers/Error/error.jsx",
+    "./src/Elements/Error/errorpopup.jsx",
   ],
   theme: {
     extend: {
