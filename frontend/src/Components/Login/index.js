@@ -1,3 +1,3 @@
-import Login from "./login";
+import Signin from "./signin";
 
-export default Login;
+export default Signin;
