@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import store from "./Redux/store.js";
+import { Provider } from "react-redux";
+
 import Layout from "./Router/Layout";
 import Home from "./Router/Home";
 import Contact from "./Components/ContactUs";

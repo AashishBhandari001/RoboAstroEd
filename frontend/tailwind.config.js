@@ -14,6 +14,7 @@ module.exports = {
     "./src/Components/Footer/footer.jsx",
     "./src/Elements/Socials/socials.jsx",
     "./src/Components/Branding/branding.jsx",
+    "./src/Components/OAuth/oauth.jsx",
     "./src/Components/Card/card.jsx",
     "./src/Components/ContactUs/contactus.jsx",
     "./src/Routers/Error/error.jsx",
