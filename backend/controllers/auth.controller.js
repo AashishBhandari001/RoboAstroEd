@@ -2,6 +2,17 @@ const User = require("../models/user.model.js");
 const bcrypt = require("bcryptjs");
 const errorHandler = require("../utils/error.js");
 const jwt = require("jsonwebtoken");
+const nodeMailer = require("nodemailer");
+const dotenv = require("dotenv");
+
+//config for email
+const transporter = nodeMailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+});
 
 const signup = async (req, res, next) => {
   const { username, email, password } = req.body; // get the username, email and password from the request body
@@ -71,9 +82,10 @@ const google = async (req, res, next) => {
 
 //send email link for password
 const passwordreset = async (req, res, next) => {
-  const { email } = req.body; //get te username from the request body
+  const { email } = req.body; //get te email from the request body
   try {
     const validUser = await User.findOne({ email }); // check if the user exists in the database
+    if (!email) return next(errorHandler(404, "Email is required"));
     if (!validUser) return next(errorHandler(404, "User does not exist"));
     if (validUser) {
       console.log(email);

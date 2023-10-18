@@ -1,20 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ErrorPopup from "../../Elements/ErrorPopup";
 
 function PasswordReset() {
   const [formData, setFormData] = useState({});
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(); // error handling
-
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(""); // email state
   const navigate = useNavigate(); // initialize navigation
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value});
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const setVal = (e) => {
@@ -24,7 +22,7 @@ function PasswordReset() {
   const sendLink = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setLoading(false);
       const res = await fetch("http://localhost:8080/api/auth/passwordreset", {
         method: "POST",
         headers: {
@@ -36,13 +34,12 @@ function PasswordReset() {
       if (data.success === false) {
         setLoading(false);
         setError(data.error);
-        return;
+      } else {
+        setMessage("Password Reset link sent Successfully in your Email");
       }
-      setLoading(false);
-      setError(null);
-      // navigate("/Account");
     } catch (err) {
       setLoading(false);
+      console.error(err);
       setError(err);
     }
   };
