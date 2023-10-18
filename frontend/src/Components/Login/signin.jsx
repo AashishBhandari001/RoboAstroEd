@@ -50,7 +50,7 @@ function Signin() {
           <ErrorPopup error={error} onBack={handleBack} />
         </div>
       ) : (
-        <div className="flex flex-col md:space-y-2 md:bg-white md:shadow-2xl rounded-2xl md:flex-row">
+        <div className="flex flex-col md:space-y-2 bg-white shadow-2xl rounded-2xl">
           <div className="flex flex-col justify-center p-6 md:p-12">
             <span className="mb-2 text-2xl md:text-4xl font-bold">
               Welcome back!
@@ -74,17 +74,20 @@ function Signin() {
                   type="password"
                   id="password"
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
+                  className="w-full p-2 mb-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
                 />
               </div>
 
-              <ul className="list-none pl-0 mt-0 text-sm">
-                <li>
-                  <Link to={""} className="text-sm text-blue-600 no-underline">
+              <div>
+                <li className="list-none mb-4">
+                  <Link
+                    to="/PasswordReset"
+                    className="no-underline text-blue-600"
+                  >
                     Forgot Password?
                   </Link>
                 </li>
-              </ul>
+              </div>
 
               <div className="flex flex-col items-center space-y-2">
                 <button

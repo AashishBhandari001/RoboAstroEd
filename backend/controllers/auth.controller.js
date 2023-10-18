@@ -69,4 +69,20 @@ const google = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, google };
+//send email link for password
+const passwordreset = async (req, res, next) => {
+  const { email } = req.body; //get te username from the request body
+  try {
+    const validUser = await User.findOne({ email }); // check if the user exists in the database
+    if (!validUser) return next(errorHandler(404, "User does not exist"));
+    if (validUser) {
+      console.log(email);
+    } else {
+      console.log("user does not exist");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { signup, signin, google, passwordreset };

@@ -31,8 +31,8 @@ function OAuth() {
         console.log(data.error);
         return;
       }
-      dispatch({ type: "LOGIN", payload: data.user });
-      navigate("/Home");
+      dispatch({ type: "LOGIN", payload: data.user }); //dispatch the user data to the store
+      navigate("/Home"); //if successful, navigate to Home
     } catch (err) {
       console.log("Could not sign in with google", err);
     }
