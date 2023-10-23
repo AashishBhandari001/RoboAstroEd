@@ -1,9 +1,13 @@
 const User = require("../models/user.model.js");
+const express = require("express");
+
 const bcrypt = require("bcryptjs");
 const errorHandler = require("../utils/error.js");
 const jwt = require("jsonwebtoken");
 const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
+dotenv.config();
+const router = express.Router();
 
 //config for email
 const transporter = nodeMailer.createTransport({
@@ -27,6 +31,9 @@ const signup = async (req, res, next) => {
   }
 };
 
+//signin controller function to check if the user exists in the database and if the
+// password is valid and send the token in a cookie to the frontend to be stored in the local storage  of the browser
+
 const signin = async (req, res, next) => {
   const { email, password } = req.body; // get the username, email and password from the request body
   try {
@@ -44,6 +51,10 @@ const signin = async (req, res, next) => {
     next(error);
   }
 };
+
+//google login controller function to check if the user exists in the database
+// and if not, create a new user with a random password and send the token in a cookie to the frontend
+// to be stored in the local storage  of the browser
 
 const google = async (req, res, next) => {
   try {
@@ -80,17 +91,52 @@ const google = async (req, res, next) => {
   }
 };
 
-//send email link for password
 const passwordreset = async (req, res, next) => {
-  const { email } = req.body; //get te email from the request body
+  const { email } = req.body; // get the email from the request body
   try {
+    if (!email) {
+      return next(errorHandler(404, "Email is required"));
+    }
+
     const validUser = await User.findOne({ email }); // check if the user exists in the database
-    if (!email) return next(errorHandler(404, "Email is required"));
-    if (!validUser) return next(errorHandler(404, "User does not exist"));
-    if (validUser) {
-      console.log(email);
-    } else {
-      console.log("user does not exist");
+
+    if (!validUser) {
+      return next(errorHandler(404, "User does not exist"));
+    }
+
+    // Token generation for password reset
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    }); // create a token
+
+    const setusertoken = await User.findByIdAndUpdate(
+      { _id: validUser._id },
+      { resetpasswordToken: token },
+      { new: true }
+    );
+
+    if (setusertoken) {
+      const mailOptions = {
+        from: process.env.EMAIL,
+        to: email,
+        subject: "Link To Reset Password",
+        html: `
+        <div style="background-color: #ebf4ff; padding: 20px;">
+          <h2 style="font-size: 20px; margin: 0;">Password Reset Request</h2>
+        </div>
+        <div style="background-color: #f9f9f9; padding: 20px;">
+          <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000 ">You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
+          <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000">
+            Please <a style="color: #007bff; text-decoration: none; font-weight: bold;" href="http://localhost:3000/forgetpassword/${validUser._id}/${setusertoken.resetpasswordToken}">click here</a> to reset your password within 3 minutes of receiving this email.
+          </p>
+          <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #888;">If you did not request this, please ignore this email, and your password will remain unchanged.</p>
+        </div>
+      `,
+      };
+
+      const response = await transporter.sendMail(mailOptions);
+      console.log("Password reset email sent: ", response);
+      res.status(200).json("Recovery email sent");
     }
   } catch (error) {
     next(error);

@@ -35,6 +35,7 @@ function PasswordReset() {
         setLoading(false);
         setError(data.error);
       } else {
+        setEmail("");
         setMessage("Password Reset link sent Successfully in your Email");
       }
     } catch (err) {
