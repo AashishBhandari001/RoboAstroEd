@@ -12,21 +12,29 @@ function Contactus() {
     fullName: "",
     email: "",
     phoneNumber: "",
-    dropdown: "Request for school partnership",
+    reason: "",
     messageText: "",
   });
 
   const [errors, setErrors] = useState({}); // State for form errors
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, value, options, selectedIndex } = e.target;
+    let selectedText = "";
+
+    if (id === "reason") {
+      selectedText = options[selectedIndex].text;
+    } else {
+      selectedText = value;
+    }
+
     setFormData({
       ...formData,
-      [id]: value,
+      [id]: selectedText,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Basic form validation - you can expand this with more thorough checks
     const newErrors = {};
@@ -48,13 +56,30 @@ function Contactus() {
     } else {
       // If no errors, continue with form submission (you'd handle this part)
       // For instance, you might want to make an API call to a backend endpoint to handle the form data.
+      try {
+        // Send the new password to the server for updating the user's credentials
+        const res = await fetch("http://localhost:8080/api/contact/contactus", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = res.json();
+
+        // Handle response accordingly, e.g., show success message
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle error, show an error message, etc.
+      }
       console.log("Form submitted:", formData);
       // Reset form data and errors
       setFormData({
         fullName: "",
         email: "",
         phoneNumber: "",
-        dropdown: "Request for school partnership",
+        reason: "",
         messageText: "",
       });
       setErrors({});
@@ -195,8 +220,8 @@ function Contactus() {
                 </div>
                 <div>
                   <select
-                    id="dropdown"
-                    value={formData.dropdown}
+                    id="reason"
+                    value={formData.reason}
                     onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   >
@@ -228,7 +253,12 @@ function Contactus() {
                     value={formData.messageText}
                     onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                  ></textarea>
+                    required
+                  >
+                    {errors.messageText && (
+                      <p className="text-red-500">{errors.messageText}</p>
+                    )}
+                  </textarea>
                 </div>
                 <div className="flex justify-center">
                   <Button>Submit</Button>
