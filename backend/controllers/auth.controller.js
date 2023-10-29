@@ -1,5 +1,5 @@
 const User = require("../models/user.model.js");
-const express = require("express");
+// const express = require("express");
 
 const bcrypt = require("bcryptjs");
 const errorHandler = require("../utils/error.js");
@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
 dotenv.config();
-const router = express.Router();
 
 //config for email
 const transporter = nodeMailer.createTransport({
@@ -127,7 +126,7 @@ const passwordreset = async (req, res, next) => {
         <div style="background-color: #f9f9f9; padding: 20px;">
           <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000 ">You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
           <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000">
-            Please <a style="color: #007bff; text-decoration: none; font-weight: bold;" href="http://localhost:3000/forgetpassword/${validUser._id}/${setusertoken.resetpasswordToken}">click here</a> to reset your password within 3 minutes of receiving this email.
+            Please <a style="color: #007bff; text-decoration: none; font-weight: bold;" href="http://localhost:3000/forgetpassword/${validUser._id}/${setusertoken.resetpasswordToken}"><u> click here </u></a> to reset your password within 3 minutes of receiving this email.
           </p>
           <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #888;">If you did not request this, please ignore this email, and your password will remain unchanged.</p>
         </div>
@@ -135,7 +134,7 @@ const passwordreset = async (req, res, next) => {
       };
 
       const response = await transporter.sendMail(mailOptions);
-      console.log("Password reset email sent: ", response);
+      // console.log("Password reset email sent: ", response);
       res.status(200).json("Recovery email sent");
     }
   } catch (error) {
@@ -143,4 +142,39 @@ const passwordreset = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, google, passwordreset };
+//forgetpassword controller function to check if the user exists in the database
+const forgetpassword = async (req, res, next) => {
+  const { id, token } = req.params;
+
+  const { password } = req.body; // get the password from the request body
+
+  try {
+    const validUser = await User.findOne({ _id: id }); // check if the user exists in the database
+
+    const validToken = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!validUser && !validToken) {
+      return next(errorHandler(404, "User does not exist"));
+    } else {
+      if (validUser && validToken) {
+        const hashedPassword = bcrypt.hashSync(password, 10); // 10 is the salt (how many times the password is hashed)
+        const setpassword = await User.findByIdAndUpdate(
+          { _id: id },
+          { password: hashedPassword },
+          { new: true }
+        );
+        if (setpassword) {
+          console.log("Password updated");
+          return next(errorHandler(200, "Password updated"));
+        } else {
+          console.log("Password not updated");
+          return next(errorHandler(400, "Password not updated"));
+        }
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { signup, signin, google, passwordreset, forgetpassword };

@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 function ForgetPassword() {
   const [message, setMessage] = useState(""); // email state
   const [newPassword, setNewPassword] = useState(""); // State for the new password
+  const navigate = useNavigate(); // initialize navigation
 
   const { id, token } = useParams();
-
-  const userValid = async (id, token) => {
-    try {
-      // Your existing code for user validation remains unchanged
-      // ...
-    } catch (error) {
-      console.error("Error fetching user validation:", error);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,22 +19,25 @@ function ForgetPassword() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ newPassword }),
+          body: JSON.stringify({ password: newPassword }),
         }
       );
 
-      const data = await res.json();
+      if (res.ok) {
+        setMessage("Password updated successfully!");
+        setTimeout(() => {
+          navigate("/Account");
+        }, 5000);
+      } else {
+        setMessage("Failed to update the password. Please try again.");
+      }
 
       // Handle response accordingly, e.g., show success message
     } catch (error) {
       console.error("Error updating password:", error);
-      // Handle error, show an error message, etc.
+      setMessage("Failed to update the password. Please try again.");
     }
   };
-
-  useEffect(() => {
-    userValid(id, token);
-  }, [id, token]);
 
   return (
     <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row justify-center items-center h-screen">
@@ -53,9 +47,7 @@ function ForgetPassword() {
             Enter Your New Password
           </span>
           {message ? (
-            <p className="text-green-600 font-bold ">
-              Password Reset link sent Successfully in your Email
-            </p>
+            <p className="text-green-600 font-bold ">{message}</p>
           ) : (
             ""
           )}
