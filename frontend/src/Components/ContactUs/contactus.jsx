@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dash from "../../Elements/Dash";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { GrMail } from "react-icons/gr";
@@ -8,6 +8,59 @@ import Button from "../Button";
 import Robot from "../../Assets/Robot-Hello.png";
 
 function Contactus() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    dropdown: "Request for school partnership",
+    messageText: "",
+  });
+
+  const [errors, setErrors] = useState({}); // State for form errors
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Basic form validation - you can expand this with more thorough checks
+    const newErrors = {};
+
+    if (formData.fullName === "") {
+      newErrors.fullName = "Full name is required";
+    }
+
+    if (formData.phoneNumber === "" || formData.phoneNumber.length !== 10) {
+      newErrors.phoneNumber = "Phone number must be 10 digits";
+    }
+
+    if (formData.email === "" || !formData.email.includes("@")) {
+      newErrors.email = "Please provide a valid email";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      // If no errors, continue with form submission (you'd handle this part)
+      // For instance, you might want to make an API call to a backend endpoint to handle the form data.
+      console.log("Form submitted:", formData);
+      // Reset form data and errors
+      setFormData({
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        dropdown: "Request for school partnership",
+        messageText: "",
+      });
+      setErrors({});
+    }
+  };
+
   return (
     <div className="bg-white font-open-sans">
       <div>
@@ -67,7 +120,10 @@ function Contactus() {
               Fill the Form
             </div>
             <div className="p-8">
-              <form action="" className="flex flex-col space-y-4 mr-8 md:w-80">
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col space-y-4 mr-8 md:w-80"
+              >
                 <div>
                   <label htmlFor="name" className="text-sm font-bold">
                     Full Name<span className="text-red-500">*</span>
@@ -76,11 +132,16 @@ function Contactus() {
                 <div>
                   <input
                     type="text"
-                    id="name"
+                    id="fullName"
                     placeholder="Name"
+                    value={formData.fullName}
+                    onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     required
                   />
+                  {errors.fullName && (
+                    <p className="text-red-500">{errors.fullName}</p>
+                  )}
                 </div>
 
                 {/* Email */}
@@ -94,8 +155,13 @@ function Contactus() {
                     type="email"
                     id="email"
                     placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   />
+                  {errors.email && (
+                    <p className="text-red-500">{errors.email}</p>
+                  )}
                 </div>
 
                 {/* Phone */}
@@ -106,12 +172,17 @@ function Contactus() {
                 </div>
                 <div>
                   <input
-                    type="tel"
-                    id="phone"
+                    type="text"
+                    id="phoneNumber"
                     placeholder="Phone Number"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     required
                   />
+                  {errors.phoneNumber && (
+                    <p className="text-red-500">{errors.phoneNumber}</p>
+                  )}
                 </div>
 
                 {/* Why are you contacting us? */}
@@ -125,6 +196,8 @@ function Contactus() {
                 <div>
                   <select
                     id="dropdown"
+                    value={formData.dropdown}
+                    onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   >
                     <option value="option1">
@@ -148,11 +221,13 @@ function Contactus() {
                 </div>
                 <div>
                   <textarea
-                    id="message"
+                    type="text"
+                    id="messageText"
                     placeholder="Your message for us.."
                     rows="4"
+                    value={formData.messageText}
+                    onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    required
                   ></textarea>
                 </div>
                 <div className="flex justify-center">
