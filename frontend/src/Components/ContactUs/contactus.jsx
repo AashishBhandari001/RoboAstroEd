@@ -58,7 +58,7 @@ function Contactus() {
       // For instance, you might want to make an API call to a backend endpoint to handle the form data.
       try {
         // Send the new password to the server for updating the user's credentials
-        const res = await fetch("http://localhost:8080/api/contact/contactus", {
+        const res = await fetch("http://localhost:8080/api/contact", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
