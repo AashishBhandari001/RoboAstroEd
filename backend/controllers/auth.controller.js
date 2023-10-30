@@ -1,5 +1,4 @@
 const User = require("../models/user.model.js");
-// const express = require("express");
 
 const bcrypt = require("bcryptjs");
 const errorHandler = require("../utils/error.js");
@@ -142,7 +141,7 @@ const passwordreset = async (req, res, next) => {
   }
 };
 
-//forgetpassword controller function to check if the user exists in the database
+//forgetpassword controller function to check if the user exists in the database and if the token is valid and send the token in a cookie to the frontend to be stored in the local storage  of the browser
 const forgetpassword = async (req, res, next) => {
   const { id, token } = req.params;
 

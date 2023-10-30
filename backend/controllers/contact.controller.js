@@ -12,7 +12,7 @@ const transporter = nodeMailer.createTransport({
 
 const contactus = async (req, res, next) => {
   const { fullName, email, phoneNumber, reason, messageText } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const mailOptions = {
       from: email,
