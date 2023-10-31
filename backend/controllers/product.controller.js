@@ -4,6 +4,7 @@ const errorHandler = require("../utils/error.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 
 const dotenv = require("dotenv");
+const ApiFeatures = require("../utils/apifeatures");
 dotenv.config();
 
 //create new product --Admin
@@ -18,7 +19,13 @@ const createProduct = catchAsyncErrors(async (req, res, next) => {
 
 //get all products
 const getProducts = catchAsyncErrors(async (req, res) => {
-  const products = await Product.find();
+  const productCount = await Product.countDocuments();
+  const resultPerPage = 4;
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+  const products = await apiFeature.query;
   res.status(200).json({
     success: true,
     products,
@@ -35,6 +42,7 @@ const getProductDetails = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     product,
+    productCount,
   });
 });
 
