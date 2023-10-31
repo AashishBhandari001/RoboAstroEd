@@ -5,18 +5,22 @@ const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
 const contactRouter = require("./routes/contact.route.js");
 const product = require("./routes/product.route.js");
+const errorMiddleware = require("./middleware/error.js");
 const cors = require("cors");
+const errorHandler = require("./utils/error.js");
 
 dotenv.config(); // Initialize dotenv
 
-mongoose
-  .connect(process.env.MONGODB)
-  .then(() => {
-    console.log("Connected to MongoDB!!");
-  })
-  .catch((err) => {
-    console.log("Error connecting to MongoDB", err.message);
-  });
+//handling uncaught exception
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log("Shutting down the server due to uncaught exception");
+  process.exit(1);
+});
+
+mongoose.connect(process.env.MONGODB).then(() => {
+  console.log("Connected to MongoDB!!");
+});
 
 const app = express();
 app.use(express.json()); // To parse the incoming requests with JSON payloads
@@ -29,16 +33,28 @@ app.use("/api/contact", contactRouter);
 // Path: backend/routes/product.route.js
 app.use("/api/product", product);
 
-app.listen(8080, () => {
+//mongodb error handling
+app.use((err, req, res, next) => {
+  if (err.name === "CastError") {
+    const message = `Resource not found. Invalid: ${err.path}`;
+    err = new errorHandler(message, 400);
+  }
+
+  // Pass the error to the next error handling middleware
+  next(err);
+});
+
+const server = app.listen(8080, () => {
   console.log("Server is running on port 8080!!");
 });
 
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
-  return res.status(statusCode).json({
-    success: false,
-    statusCode: statusCode,
-    error: message,
+app.use(errorMiddleware);
+
+//unhandled promise rejection
+process.on("unhandledRejection", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log("Shutting down the server due to unhandled promise rejection");
+  server.close(() => {
+    process.exit(1);
   });
 });
