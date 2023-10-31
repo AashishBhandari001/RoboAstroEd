@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
 const contactRouter = require("./routes/contact.route.js");
+const product = require("./routes/product.route.js");
 const cors = require("cors");
 
 dotenv.config(); // Initialize dotenv
@@ -25,6 +26,8 @@ app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/contact", contactRouter);
+// Path: backend/routes/product.route.js
+app.use("/api/product", product);
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080!!");
