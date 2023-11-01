@@ -9,6 +9,8 @@ dotenv.config();
 
 //create new product --Admin
 const createProduct = catchAsyncErrors(async (req, res, next) => {
+  req.body.user = req.user.id; //user id from auth middleware
+
   const product = await Product.create(req.body);
 
   res.status(201).json({
