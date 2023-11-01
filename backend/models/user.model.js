@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema(
       unique: true, // no two users can have the same username
     },
 
+    role: {
+      type: String,
+      default: "user",
+    },
+
     email: {
       type: String,
       required: true,

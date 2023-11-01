@@ -6,6 +6,7 @@ const {
   signin,
   passwordreset,
   forgetpassword,
+  logout,
 } = require("../controllers/auth.controller.js");
 
 const router = express.Router();
@@ -15,5 +16,7 @@ router.post("/signin", signin);
 router.post("/google", google);
 router.post("/passwordreset", passwordreset);
 router.post("/forgetpassword/:id/:token", forgetpassword);
+router.get("/logout", logout)
+
 
 module.exports = router;

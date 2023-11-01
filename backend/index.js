@@ -8,6 +8,8 @@ const product = require("./routes/product.route.js");
 const errorMiddleware = require("./middleware/error.js");
 const cors = require("cors");
 const errorHandler = require("./utils/error.js");
+const cookieParser = require("cookie-parser");
+// const isAuthenticatedUser = require("./middleware/auth.js");
 
 dotenv.config(); // Initialize dotenv
 
@@ -25,6 +27,8 @@ mongoose.connect(process.env.MONGODB).then(() => {
 const app = express();
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(cors());
+app.use(cookieParser());
+// app.use(isAuthenticatedUser);
 
 // Define your routes before starting the server
 app.use("/api/user", userRouter);

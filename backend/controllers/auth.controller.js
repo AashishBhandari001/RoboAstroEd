@@ -176,4 +176,23 @@ const forgetpassword = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, google, passwordreset, forgetpassword };
+// logout controller
+const logout = async (req, res, next) => {
+  try {
+    res
+      .cookie("access_token", "", { httpOnly: true, expires: new Date(0) })
+      .status(200)
+      .json({ message: "Logged out" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  signup,
+  signin,
+  google,
+  passwordreset,
+  forgetpassword,
+  logout,
+};
