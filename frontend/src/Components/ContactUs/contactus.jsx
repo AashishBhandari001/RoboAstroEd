@@ -17,6 +17,7 @@ function Contactus() {
   });
 
   const [errors, setErrors] = useState({}); // State for form errors
+  const [message, setMessage] = useState(""); // State for success/failure message
 
   const handleChange = (e) => {
     const { id, value, options, selectedIndex } = e.target;
@@ -65,6 +66,16 @@ function Contactus() {
           },
           body: JSON.stringify(formData),
         });
+
+        if (res.ok) {
+          // If the response status is OK (200), display success message
+          setMessage(
+            "We have received your response and will contact you as soon as possible!"
+          );
+        } else {
+          // If the response status is not OK, display an error message
+          setMessage("Failed to send the message. Please try again later.");
+        }
 
         const data = res.json();
 
@@ -240,8 +251,11 @@ function Contactus() {
                 {/* message */}
 
                 <div>
-                  <label htmlFor="message" className="text-sm font-bold">
-                    Message<span className="text-red-500">*</span>
+                  <label htmlFor="message" className="text-sm font-bold ">
+                    Message
+                    <span className="text-red-600 text-center justify-center ">
+                      *
+                    </span>
                   </label>
                 </div>
                 <div>
@@ -262,6 +276,9 @@ function Contactus() {
                 </div>
                 <div className="flex justify-center">
                   <Button>Submit</Button>
+                </div>
+                <div className="flex justify-center">
+                  <p className="text-red-400 font-bold">{message}</p>
                 </div>
               </form>
             </div>

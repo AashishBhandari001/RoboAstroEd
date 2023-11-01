@@ -1,5 +1,7 @@
 const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
+const errorHandler = require("../utils/error.js");
+
 dotenv.config();
 
 const transporter = nodeMailer.createTransport({
@@ -12,7 +14,6 @@ const transporter = nodeMailer.createTransport({
 
 const contactus = async (req, res, next) => {
   const { fullName, email, phoneNumber, reason, messageText } = req.body;
-  // console.log(req.body);
   try {
     const mailOptions = {
       from: email,
@@ -25,7 +26,7 @@ const contactus = async (req, res, next) => {
       <h1>Message: ${messageText}</h1>`,
     };
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Message sent" });
+    res.status(200).json({ message: "We have received your response and will contact you as soon as possible!" }); // Notify user upon successful submission
   } catch (error) {
     next(error);
   }

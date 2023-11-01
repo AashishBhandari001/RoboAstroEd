@@ -29,8 +29,7 @@ const signup = async (req, res, next) => {
   }
 };
 
-//signin controller function to check if the user exists in the database and if the
-// password is valid and send the token in a cookie to the frontend to be stored in the local storage  of the browser
+//signin controller function
 
 const signin = async (req, res, next) => {
   const { email, password } = req.body; // get the username, email and password from the request body
@@ -50,10 +49,7 @@ const signin = async (req, res, next) => {
   }
 };
 
-//google login controller function to check if the user exists in the database
-// and if not, create a new user with a random password and send the token in a cookie to the frontend
-// to be stored in the local storage  of the browser
-
+//google login controller function
 const google = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email }); // check if the user exists in the database
@@ -141,7 +137,7 @@ const passwordreset = async (req, res, next) => {
   }
 };
 
-//forgetpassword controller function to check if the user exists in the database and if the token is valid and send the token in a cookie to the frontend to be stored in the local storage  of the browser
+//forgetpassword controller function
 const forgetpassword = async (req, res, next) => {
   const { id, token } = req.params;
 
@@ -188,6 +184,87 @@ const logout = async (req, res, next) => {
   }
 };
 
+//get user details controller -- admin
+const getuserDetails = async (req, res, next) => {
+  try {
+    const users = await User.find({});
+
+    if (!users) {
+      return next(errorHandler(`User does not exist, ${req.params.id}`));
+    }
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//get all user details -- admin
+const getSingleUser = async (req, res, next) => {
+  try {
+    const users = await User.findById(req.params.id);
+
+    if (!users) {
+      return next(errorHandler(`User does not exist, ${req.params.id}`));
+    }
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//update user role -- admin
+const updateuserRole = async (req, res, next) => {
+  try {
+    const newUserData = {
+      username: req.body.username,
+      email: req.body.email,
+      role: req.body.role,
+    };
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//delete user -- admin
+const deleteUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return next(errorHandler(`User does not exist, ${req.params.id}`));
+    }
+
+    // Using deleteOne to remove the user from the database
+    await User.deleteOne({ _id: req.params.id });
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   signup,
   signin,
@@ -195,4 +272,8 @@ module.exports = {
   passwordreset,
   forgetpassword,
   logout,
+  getuserDetails,
+  getSingleUser,
+  updateuserRole,
+  deleteUser,
 };
