@@ -1,10 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
 const contactRouter = require("./routes/contact.route.js");
 const product = require("./routes/product.route.js");
+const order = require("./routes/order.route.js");
+
 const errorMiddleware = require("./middleware/error.js");
 const cors = require("cors");
 const errorHandler = require("./utils/error.js");
@@ -35,6 +38,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/contact", contactRouter);
 // Path: backend/routes/product.route.js
 app.use("/api/product", product);
+app.use("/api/order", order);
+
 
 //mongodb error handling
 app.use((err, req, res, next) => {
