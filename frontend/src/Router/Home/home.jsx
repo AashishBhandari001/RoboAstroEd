@@ -6,9 +6,12 @@ import LogoCarousel from "../../Components/LogoCarausel";
 import Branding from "../../Components/Branding/branding";
 import Card from "../../Components/Card/card";
 
+import MetaData from "../../Router/Metadata/metaData"; // Importing MetaData
+
 function Home() {
   return (
     <>
+      <MetaData title={"Beyond Apogee"} />
       <Hero />
       <Branding />
       <Card />

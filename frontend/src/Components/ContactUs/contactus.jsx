@@ -20,19 +20,22 @@ function Contactus() {
   const [message, setMessage] = useState(""); // State for success/failure message
 
   const handleChange = (e) => {
-    const { id, value, options, selectedIndex } = e.target;
-    let selectedText = "";
+    const { id, value } = e.target;
 
     if (id === "reason") {
-      selectedText = options[selectedIndex].text;
-    } else {
-      selectedText = value;
-    }
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      const selectedText = selectedOption.getAttribute("data-text");
 
-    setFormData({
-      ...formData,
-      [id]: selectedText,
-    });
+      setFormData({
+        ...formData,
+        [id]: selectedText || value, // Use the selected text or fallback to the value
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [id]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -224,7 +227,7 @@ function Contactus() {
                 {/* Why are you contacting us? */}
 
                 <div>
-                  <label htmlFor="name" className="text-sm font-bold">
+                  <label htmlFor="reason" className="text-sm font-bold">
                     Why are you contacting us
                     <span className="text-red-500">*</span>
                   </label>
@@ -235,16 +238,21 @@ function Contactus() {
                     value={formData.reason}
                     onChange={handleChange}
                     className="ring-1 ring-gray-300 rounded-md w-full px-4 py-2 border-transparent outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    required
                   >
-                    <option value="option1">
-                      Request for school partnership
+                    <option value="Request to visit school">
+                      Request to visit school/college
                     </option>
-                    <option value="option2"> Robotics Course syllabus</option>
-                    <option value="option3">Teacher Training</option>
-                    <option value="option4">Robotics Course Kit</option>
-                    <option value="option5">Satellite</option>
-                    <option value="option6">Jobs Enquiry</option>
-                    <option value="option7">Others</option>
+                    <option value="Robotics Course syllabus">
+                      Robotics Course syllabus
+                    </option>
+                    <option value="Teacher Training">Teacher Training</option>
+                    <option value="Robotics Course Kit">
+                      Robotics Course Kit
+                    </option>
+                    <option value="Satellite">Satellite</option>
+                    <option value="Jobs Enquiry">Jobs Enquiry</option>
+                    <option value="Others">Others</option>
                   </select>
                 </div>
 

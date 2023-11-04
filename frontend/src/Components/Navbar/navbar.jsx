@@ -22,7 +22,11 @@ function Navbar() {
             className="flex items-center text-black no-underline hover:text-[#FF4F1D]"
             onClick={closeNav}
           >
-            <img src={logo} className="h-12 mr-3 md:h-14" alt="Flowbite Logo" />
+            <img
+              src={logo}
+              className="h-12 mr-3 md:h-14"
+              alt="Beyond Apogee Logo"
+            />
             <div className="text-black text-sm md:text-xl">Beyond Apogee</div>
           </NavLink>
         </div>
@@ -61,7 +65,6 @@ function Navbar() {
                 className="block py-2 pl-3 pr-4 text-black bg-[#B0F0F6] md:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
                 aria-current="page"
                 onClick={closeNav}
-                
               >
                 Home
               </NavLink>
