@@ -1,6 +1,10 @@
 import Product from "../../Components/Product/product";
 
-import React from "react";
+import { React, useEffect } from "react";
+
+import { getProducts } from "../../Actions/productAction";
+
+import { useDispatch, useSelector } from "react-redux";
 
 const productData = {
   name: "Beyond Apogee",
@@ -14,10 +18,22 @@ const productData = {
 };
 
 function ProductPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   return (
-    <>
+    <div className="flex flex-wrap ml-10 max-w-full justify-center">
       <Product product={productData} />
-    </>
+      <Product product={productData} />
+      <Product product={productData} />
+      <Product product={productData} />
+      <Product product={productData} />
+      <Product product={productData} />
+      <Product product={productData} />
+    </div>
   );
 }
 

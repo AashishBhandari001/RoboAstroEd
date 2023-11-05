@@ -9,17 +9,25 @@ import {
 
 export const getProducts = () => async (dispatch) => {
   try {
-    dispatchEvent({ type: ALL_PRODUCTS_REQUEST });
+    dispatch({ type: ALL_PRODUCTS_REQUEST });
     const { data } = await axios.get("/api/product");
+    console.log(data);
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    dispatch({
-      type: ALL_PRODUCTS_FAIL,
-      payload: error.response.data.message,
-    });
+    if (error.response && error.response.data) {
+      dispatch({
+        type: ALL_PRODUCTS_FAIL,
+        payload: error.response.data.message,
+      });
+    } else {
+      dispatch({
+        type: ALL_PRODUCTS_FAIL,
+        payload: error.message,
+      });
+    }
   }
 };
 
