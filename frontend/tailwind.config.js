@@ -80,6 +80,8 @@ module.exports = {
   },
   Plugins: {
     preflight: false,
+    // Add the @tailwindcss/aspect-ratio plugin and @tailwindcss/forms
+    "@tailwindcss/aspect-ratio": {},
   },
 
   container: {

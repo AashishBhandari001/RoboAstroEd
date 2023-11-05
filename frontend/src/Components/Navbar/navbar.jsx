@@ -98,14 +98,18 @@ function Navbar() {
               </NavLink>
             </li>
             <li>
-              <NavLink // Adding Navlink
+              <NavLink
                 to="/Cart"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
-                onClick={closeNav}
+                className="block py-2 pl-3 pr-8 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline relative"
               >
                 Cart
+                <span className="inline-flex items-center rounded-full bg-[#FF4F1D] text-xs font-medium text-white px-1 absolute top-0 right-[-10px] transform translate-x-1/2 -translate-y-1/2">
+                  {" "}
+                  0
+                </span>
               </NavLink>
             </li>
+
             <li>
               <NavLink // Adding Navlink
                 to="/Account"

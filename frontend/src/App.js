@@ -9,7 +9,7 @@ import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
-// import ProductList from "./Components/Features/Product/ProductList";
+import Products from "./Router/Productpage";
 
 function NotFound() {
   return <Error />;
@@ -27,8 +27,11 @@ function App() {
             <Route path="/Account" element={<Login />} />
             <Route path="/Register" element={<Signup />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
-            <Route path="/forgetpassword/:id/:token" element={<ForgetPassword />} />
-
+            <Route path="/Products" element={<Products />} />
+            <Route
+              path="/forgetpassword/:id/:token"
+              element={<ForgetPassword />}
+            />
           </Route>
           {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
