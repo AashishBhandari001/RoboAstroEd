@@ -7,24 +7,29 @@ import { getProducts } from "../../Actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Elements/Loading";
 
+import Search from "../../Search";
+
 import { useAlert } from "react-alert";
 
-function ProductPage() {
+function ProductPage({ match }) {
   const alert = useAlert();
   const dispatch = useDispatch();
   const { products, loading, error, productCount } = useSelector(
     (state) => state.products
   );
 
+  const keyword = match ? match.params.keyword : "";
+
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
-    dispatch(getProducts());
-  }, [dispatch, error]);
+    dispatch(getProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <div>
+      <Search />
       {loading ? (
         <Loading />
       ) : (

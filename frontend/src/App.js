@@ -10,6 +10,7 @@ import Signup from "./Components/Signup";
 import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Products from "./Router/Productpage";
+import ProductDetails from "./Router/ProductDetails";
 
 function NotFound() {
   return <Error />;
@@ -28,6 +29,8 @@ function App() {
             <Route path="/Register" element={<Signup />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
             <Route path="/product" element={<Products />} />
+
+            <Route path="/product/:id" element={<ProductDetails />} />
 
             <Route
               path="/forgetpassword/:id/:token"
