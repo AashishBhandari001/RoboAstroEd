@@ -6,15 +6,22 @@ import store from "./Redux/store.js";
 import "./index.css";
 import App from "./App";
 
+import { positions, transitions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
 // import reportWebVitals from './reportWebVitals';
+
+const options = {
+  timeout: 5000,
+  position: "top center", // Positioning at top center
+  offset: "30px",
+  transition: transitions.SCALE,
+};
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <App />
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
   </Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

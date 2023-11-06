@@ -8,13 +8,13 @@ import {
 export const ProductReducers = (state = { products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCTS_REQUEST:
-      return { loading: true, product: [] };
+      return { loading: true, products: [] };
 
     case ALL_PRODUCTS_SUCCESS:
       return {
         loading: false,
-        product: action.payload.products,
-        productsCount: action.payload.productsCount,
+        products: action.payload.products,
+        productCount: action.payload.productCount,
       };
 
     case ALL_PRODUCTS_FAIL:

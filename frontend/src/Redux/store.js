@@ -1,4 +1,8 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  applyMiddleware,
+} from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { ProductReducers } from "../Reducers/productReducer";
@@ -13,10 +17,9 @@ const middleware = [thunk]; // Array of middleware - in this case, just using Re
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
-  devTools: process.env.NODE_ENV !== "production", // DevTools configuration
-  preloadedState: initialState, // Assign initial state if needed
+  middleware,
+  initialState,
+  devTools: composeWithDevTools(applyMiddleware(...middleware)),
 });
 
 export default store;

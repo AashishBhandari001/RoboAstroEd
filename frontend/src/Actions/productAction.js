@@ -17,17 +17,10 @@ export const getProducts = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    if (error.response && error.response.data) {
-      dispatch({
-        type: ALL_PRODUCTS_FAIL,
-        payload: error.response.data.message,
-      });
-    } else {
-      dispatch({
-        type: ALL_PRODUCTS_FAIL,
-        payload: error.message,
-      });
-    }
+    dispatch({
+      type: ALL_PRODUCTS_FAIL,
+      payload: error.response.data.message,
+    });
   }
 };
 
