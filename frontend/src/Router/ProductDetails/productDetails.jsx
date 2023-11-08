@@ -1,68 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Carousel from "react-material-ui-carousel";
+import { useSelector, useDispatch } from "react-redux";
+import { getProductDetails } from "../../Actions/productAction";
+import { useParams } from "react-router-dom";
 
-function ProductDetails() {
-  const [images, setImages] = useState({
-    img1: "https://www.gstatic.com/webp/gallery3/1.sm.png",
-    img2: "https://www.gstatic.com/webp/gallery3/2.sm.png",
-    img3: "https://www.gstatic.com/webp/gallery3/3.sm.png",
-    img4: "https://www.gstatic.com/webp/gallery3/4.sm.png",
-  });
+function ProductDetails({ match }) {
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  const [activeImg, setActiveImg] = useState(images.img1);
+  const { product, loading, error } = useSelector(
+    (state) => state.productDetails
+  );
+
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id]);
+
   const [amount, setAmount] = useState(1);
 
   return (
     <div className="flex flex-col justify-between mt-16 lg:flex-row p-12 max-w-7xl gap-16 mx-auto lg:items-center ">
       <div className="flex flex-col gap-6 lg:w-2/4">
-        <img
-          src={activeImg}
-          alt="Product"
-          onClick={() => setActiveImg(images.img1)}
-          className="w-3/4 h-3/4 aspect-square object-cover rounded-xl  "
-        />
-        <div className="flex flex-row justify-between h-24">
-          <img
-            src={images.img1}
-            alt="Thumbnail 1"
-            className="w-24 h-24 rounded-md cursor-pointer"
-            onClick={() => setActiveImg(images.img1)}
-          />
-          <img
-            src={images.img2}
-            alt="Thumbnail 1"
-            className="w-24 h-24 rounded-md cursor-pointer"
-            onClick={() => setActiveImg(images.img2)}
-          />
-          <img
-            src={images.img3}
-            alt="Thumbnail 2"
-            className="w-24 h-24 rounded-md cursor-pointer"
-            onClick={() => setActiveImg(images.img3)}
-          />
-          <img
-            src={images.img4}
-            alt="Thumbnail 3"
-            className="w-24 h-24 rounded-md cursor-pointer"
-            onClick={() => setActiveImg(images.img4)}
-          />
-        </div>
+        <Carousel>
+          {product.images &&
+            product.images.map((item, i) => (
+              <img
+                className="object-cover"
+                key={item.url}
+                src={item.url}
+                alt={`${i} Slide`}
+              />
+            ))}
+        </Carousel>
       </div>
       {/* About */}
       <div className="flex flex-col gap-4 lg:w-2/4">
         <div>
-          <span className="text-cyan-600 font-semibold ">Sajilobot</span>
-          <h1 className="text-3xl font-bold">
-            Robotics mini Robotics Course Kit
-          </h1>
+          <span className="text-cyan-600 font-bold ">{product.name}</span>
+          <h1 className="text-3xl font-semibold">Product # {product._id}</h1>
         </div>
-        <p className="text-gray-700">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-          ipsum ab expedita ratione quae consectetur veniam deserunt, quas
-          possimus nulla itaque asperiores iusto repellendus quam aperiam quo
-          optio alias officiis!
+        <p className="text-gray-700 text-justify">{product.description}</p>
+        <h6 className="text-lg font-bold text-red-600">{`NPR ${product.price}`}</h6>
+        <p>
+          Status: &nbsp;
+          <b className={product.stock < 1 ? "text-red-600" : "text-green-600"}>
+            {product.stock > 0 ? "In Stock" : "Out of Stock"}
+          </b>
         </p>
-        <h6 className="text-lg font-semibold text-red-600"> Rs 5000</h6>
-        <div className="flex flex-row items-center gap-16">
+        <div className="flex flex-row items-center gap-14">
           <div className="flex flex-row items-center  ">
             <button
               className="bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl"
@@ -80,7 +65,7 @@ function ProductDetails() {
               +{" "}
             </button>
           </div>
-          <button className="bg-cyan-600 text-white font-semibold py-3 px-8 rounded-xl h-full">
+          <button className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold lg:py-3 lg:px-6  px-4 py-4 rounded-xl">
             Add to Cart{" "}
           </button>
         </div>
