@@ -10,22 +10,25 @@ import {
   CLEAR_ERRORS,
 } from "../Constants/productConstants";
 
-export const getProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_PRODUCTS_REQUEST });
-    const { data } = await axios.get("/api/product");
-    dispatch({
-      type: ALL_PRODUCTS_SUCCESS,
-      payload: data,
-      productCount: data.productCount,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_PRODUCTS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const getProducts =
+  (keyword = "", active = 1) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ALL_PRODUCTS_REQUEST });
+      let link = `http://localhost:8080/api/product?keyword=${keyword}&page=${active}`;
+      const { data } = await axios.get(link);
+      dispatch({
+        type: ALL_PRODUCTS_SUCCESS,
+        payload: data,
+        productCount: data.productCount,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_PRODUCTS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {

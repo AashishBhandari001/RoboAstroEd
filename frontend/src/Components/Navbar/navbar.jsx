@@ -71,7 +71,7 @@ function Navbar() {
             </li>
             <li>
               <NavLink // Adding Navlink
-                to="/product"
+                to="/products"
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
                 onClick={closeNav}
               >
