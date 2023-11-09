@@ -17,7 +17,7 @@ function Search() {
   };
 
   return (
-    <form className="mt-28 w-1/2 mx-auto" onSubmit={searchSubmitHandler}>
+    <form className="mt-4 md:mt-28 lg:mt-28 w-1/2 mx-auto" onSubmit={searchSubmitHandler}>
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium sr-only"
