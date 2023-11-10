@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../../Actions/productAction";
 import { useParams } from "react-router-dom";
 import Loading from "../../Elements/Loading";
+import MetaData from "../Metadata/metaData";
 
 function ProductDetails({ match }) {
   const { id } = useParams();
@@ -23,6 +24,7 @@ function ProductDetails({ match }) {
         <Loading />
       ) : (
         <div className="flex flex-col justify-between mt-16 lg:flex-row p-12 max-w-7xl gap-10 mx-auto lg:items-center ">
+          <MetaData title={`${product.name}`} />
           <div className="flex flex-col gap-6 lg:w-2/4">
             <Carousel>
               {product.images &&

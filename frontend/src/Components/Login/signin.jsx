@@ -4,6 +4,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth";
 
+import { useDispatch } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../../Redux/user/userSlice";
+
 function Signin() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(); // error handling
@@ -18,10 +25,12 @@ function Signin() {
     setError(null); // Clear the error state
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch("http://localhost:8080/api/auth/signin", {
         method: "POST",
         headers: {
@@ -31,16 +40,13 @@ function Signin() {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        setError(data.error);
+        dispatch(signInFailure(data.error));
         return;
       }
-      setLoading(false);
-      setError(null);
+      dispatch(signInSuccess(data));
       navigate("/Home");
     } catch (err) {
-      setLoading(false);
-      setError(err);
+      dispatch(signInFailure(err));
     }
   };
   return (

@@ -10,6 +10,7 @@ import Loading from "../../Elements/Loading";
 import Search from "../../Search";
 import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
+import MetaData from "../Metadata/metaData";
 
 const categories = [
   "SajiloBot",
@@ -33,9 +34,15 @@ function ProductPage() {
   const { keyword } = useParams();
 
   const dispatch = useDispatch();
-  const { products, loading, error, productCount, resultPerPage } = useSelector(
-    (state) => state.products
-  );
+  const {
+    products,
+    loading,
+    error,
+    productCount,
+    resultPerPage,
+    filteredProductsCount,
+    currentPage,
+  } = useSelector((state) => state.products);
 
   useEffect(() => {
     if (error) {
@@ -63,8 +70,10 @@ function ProductPage() {
     className: "rounded-full justify-center items-center",
   });
 
+
   return (
     <div className="flex flex-col md:ml-4 md:mr-4 lg:flex-row">
+      <MetaData title={"Products"} />
       <div className="w-full md:mt-40 mt-28 lg:w-1/4">
         <div className="lg:block hidden">
           <div className="bg-gray-100 p-4 justify-center items-center text-center rounded-lg mb-4">
@@ -93,9 +102,7 @@ function ProductPage() {
               <button
                 onClick={() => setDropdownOpen(!isDropdownOpen)}
                 className="bg-gray-200 hover:bg-gray-300 rounded-full px-4 py-2 text-sm w-full text-left"
-              >
-                {category ? category : "All Categories"}
-              </button>
+              ></button>
               {isDropdownOpen && (
                 <div className="absolute z-10 w-full mt-2 py-2 bg-white border rounded-lg">
                   {categories.map((cat) => (
@@ -134,7 +141,7 @@ function ProductPage() {
         )}
 
         {/* Pagination */}
-        {productCount > resultPerPage && (
+        {resultPerPage < productCount && (
           <div className="flex flex-col sm:flex-row justify-center items-center mb-4">
             <Button
               variant="text"

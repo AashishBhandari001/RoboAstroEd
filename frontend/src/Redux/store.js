@@ -5,11 +5,16 @@ import {
 } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { ProductReducers, productDetailsReducers } from "../Reducers/productReducer";
+import {
+  ProductReducers,
+  productDetailsReducers,
+} from "../Reducers/productReducer";
+import userReducer from "./user/userSlice";
 
 const rootReducer = combineReducers({
   products: ProductReducers,
   productDetails: productDetailsReducers,
+  user: userReducer,
 });
 
 const initialState = {};
