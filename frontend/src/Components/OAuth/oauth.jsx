@@ -5,11 +5,18 @@ import { useNavigate } from "react-router-dom";
 
 import app from "../../firebase";
 
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../../Redux/user/userSlice";
+
 function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleGoogleClick = async () => {
     try {
+      dispatch(signInStart());
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
 
@@ -29,11 +36,13 @@ function OAuth() {
       if (data.success === false) {
         // Check if there's an error
         console.log(data.error);
+        dispatch(signInFailure(data.error));
         return;
       }
-      dispatch({ type: "LOGIN", payload: data.user }); //dispatch the user data to the store
+      dispatch(signInSuccess(data));
       navigate("/Home"); //if successful, navigate to Home
     } catch (err) {
+      dispatch(signInFailure(err));
       console.log("Could not sign in with google", err);
     }
   };
