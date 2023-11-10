@@ -10,22 +10,34 @@ import {
   productDetailsReducers,
 } from "../Reducers/productReducer";
 import userReducer from "./user/userSlice";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   products: ProductReducers,
   productDetails: productDetailsReducers,
-  user: userReducer,
+  user: userReducer, // Assuming userReducer is the correct user reducer
 });
+
+const persistConfig = {
+  key: "user",
+  storage,
+  version: 1,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const initialState = {};
 
-const middleware = [thunk]; // Array of middleware - in this case, just using Redux Thunk
+const middleware = [thunk];
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware,
   initialState,
   devTools: composeWithDevTools(applyMiddleware(...middleware)),
 });
+
+export const persistor = persistStore(store);
 
 export default store;

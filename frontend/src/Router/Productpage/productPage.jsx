@@ -40,8 +40,6 @@ function ProductPage() {
     error,
     productCount,
     resultPerPage,
-    filteredProductsCount,
-    currentPage,
   } = useSelector((state) => state.products);
 
   useEffect(() => {
