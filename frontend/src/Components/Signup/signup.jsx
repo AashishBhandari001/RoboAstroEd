@@ -59,13 +59,17 @@ function Signup() {
             <span className="font-light text-xs text-gray-400 mb-4 md:mb-8">
               Please enter your details
             </span>
-            <form onSubmit={handleSubmit} className="flex mr-3 flex-col text-sm">
+            <form
+              onSubmit={handleSubmit}
+              className="flex mr-3 flex-col text-sm"
+            >
               <div className="text-sm">
                 <span className="text-md">Username</span>
                 <input
                   type="text"
                   id="username"
                   onChange={handleChange}
+                  required
                   className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
                 />
               </div>
@@ -75,6 +79,7 @@ function Signup() {
                   type="text"
                   id="email"
                   onChange={handleChange}
+                  required
                   className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
                 />
               </div>
@@ -84,6 +89,7 @@ function Signup() {
                   type="password"
                   id="password"
                   onChange={handleChange}
+                  required
                   className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
                 />
               </div>

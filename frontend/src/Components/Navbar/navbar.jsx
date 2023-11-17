@@ -13,6 +13,10 @@ function Navbar() {
     setIsNavOpen(false);
   };
 
+  
+
+  
+
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mx-auto p-4 md:mr-4">

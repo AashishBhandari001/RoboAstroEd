@@ -11,12 +11,15 @@ import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
+import { useSelector } from "react-redux";
 
 function NotFound() {
   return <Error />;
 }
 
 function App() {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -40,6 +43,10 @@ function App() {
           </Route>
           {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
+
+          {/* {isAuthenticated && user.role === "admin" && (
+            <Route path="/admin" element={<AdminRoutes />} />
+          )} */}
         </Routes>
       </div>
     </BrowserRouter>
