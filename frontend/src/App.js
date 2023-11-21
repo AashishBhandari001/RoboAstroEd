@@ -35,7 +35,6 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:keyword" element={<Products />} />
-
             <Route
               path="/forgetpassword/:id/:token"
               element={<ForgetPassword />}

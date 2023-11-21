@@ -13,10 +13,6 @@ function Navbar() {
     setIsNavOpen(false);
   };
 
-  
-
-  
-
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mx-auto p-4 md:mr-4">
@@ -120,7 +116,7 @@ function Navbar() {
                 className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
                 onClick={closeNav}
               >
-                My Account
+                Account
               </NavLink>
             </li>
           </ul>
