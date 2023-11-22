@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import logo from "../../Assets/logo.png";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  logoutFailure,
+  logoutStart,
+  logoutSuccess,
+} from "../../Redux/user/userSlice";
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,6 +17,24 @@ function Navbar() {
 
   const closeNav = () => {
     setIsNavOpen(false);
+  };
+  const { isAuthenticated, currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      dispatch(logoutStart());
+      const res = await fetch("http://localhost:8080/api/auth/logout");
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.error);
+        logoutFailure(data.error);
+        return;
+      }
+      dispatch(logoutSuccess());
+    } catch (error) {
+      dispatch(logoutFailure(error));
+    }
   };
 
   return (
@@ -97,6 +121,19 @@ function Navbar() {
                 Contact Us
               </NavLink>
             </li>
+
+            {isAuthenticated && currentUser && currentUser.role === "admin" ? (
+              <li>
+                <NavLink
+                  to="/Admin"
+                  className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                  onClick={closeNav}
+                >
+                  Admin
+                </NavLink>
+              </li>
+            ) : null}
+
             <li>
               <NavLink
                 to="/Cart"
@@ -111,13 +148,22 @@ function Navbar() {
             </li>
 
             <li>
-              <NavLink
-                to="/Account"
-                className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
-                onClick={closeNav}
-              >
-                Account
-              </NavLink>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                >
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  to="/Account"
+                  className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
+                  onClick={closeNav}
+                >
+                  Login
+                </NavLink>
+              )}
             </li>
           </ul>
         </div>
