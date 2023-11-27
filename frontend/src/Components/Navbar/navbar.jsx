@@ -18,20 +18,37 @@ function Navbar() {
   const closeNav = () => {
     setIsNavOpen(false);
   };
+
+
   const { isAuthenticated, currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  // const isTokenExpired = () => {
+  //   const token = localStorage.getItem("access_token");
+  //   const expiration = localStorage.getItem("token_expiration");
+
+  //   if (!token || !expiration) {
+  //     return true; // Token is considered expired if it's not present
+  //   }
+
+  //   const currentTime = Date.now() / 1000; // Convert to seconds
+
+  //   return currentTime > expiration;
+  // };
 
   const handleLogout = async () => {
     try {
       dispatch(logoutStart());
       const res = await fetch("http://localhost:8080/api/auth/logout");
       const data = await res.json();
+
       if (data.success === false) {
         console.log(data.error);
         logoutFailure(data.error);
         return;
       }
       dispatch(logoutSuccess());
+      localStorage.removeItem("access_token");
     } catch (error) {
       dispatch(logoutFailure(error));
     }
