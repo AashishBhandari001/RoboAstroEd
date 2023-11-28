@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../../../Assets/logo.png";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -8,9 +9,10 @@ import {
   Users,
   ListOrdered,
   ArrowRightLeft,
+  ArrowBigLeftDash,
 } from "lucide-react";
 
-const navLinks = [
+const NavLinks = [
   {
     name: "Dashboard",
     icon: LayoutDashboard,
@@ -30,6 +32,11 @@ const navLinks = [
   {
     name: "Orders",
     icon: ListOrdered,
+  },
+  {
+    name: "Back",
+    icon: ArrowBigLeftDash,
+    to: "/Home",
   },
 ];
 
@@ -51,9 +58,6 @@ function Navigationbar() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
-
-  let [open, setOpen] = useState(false);
-
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
@@ -94,9 +98,10 @@ function Navigationbar() {
         </div>
 
         <div className="mt-9 flex flex-col hover:cursor-pointer space-y-8">
-          {navLinks.map((item, index) => (
-            <div
+          {NavLinks.map((item, index) => (
+            <NavLink
               key={index}
+              to={item.to}
               onClick={() => setActiveIndex(index)}
               className={
                 "flex space-x-2 items-center" +
@@ -111,7 +116,7 @@ function Navigationbar() {
               >
                 {item.name}
               </span>
-            </div>
+            </NavLink>
           ))}
         </div>
       </motion.div>
@@ -124,7 +129,7 @@ function Navigationbar() {
       >
         <div className="logo-div flex space-x-2 items-center justify-between w-full ">
           <img src={logo} className="w-12 h-12" alt="company logo" />
-          <span className="block font-semibold">Beyond Apogee</span>
+          <h1 className="block font-semibold">Beyond Apogee</h1>
           <button
             onClick={toggleNav}
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm md:hidden focus:outline-none focus:ring-2"
@@ -150,9 +155,10 @@ function Navigationbar() {
 
         {isNavOpen && (
           <div className="flex flex-col hover:cursor-pointer space-y-8 mt-5">
-            {navLinks.map((item, index) => (
-              <div
+            {NavLinks.map((item, index) => (
+              <NavLink
                 key={index}
+                to={item.to}
                 onClick={() => {
                   setActiveIndex(index);
                   closeNav();
@@ -166,7 +172,7 @@ function Navigationbar() {
               >
                 <item.icon />
                 <span className="block text-sm font-medium">{item.name}</span>
-              </div>
+              </NavLink>
             ))}
           </div>
         )}

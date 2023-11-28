@@ -13,6 +13,7 @@ import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
 import { useSelector } from "react-redux";
 import Admin from "./Router/Admin/admin";
+import Cart from "./Router/Cart";
 
 function NotFound() {
   return <Error />;
@@ -27,10 +28,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Contact" element={<Contact />} />
-            <Route path="/Account" element={<Login />} />
-            <Route path="/Register" element={<Signup />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/account" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/register" element={<Signup />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
 
             <Route path="/product/:id" element={<ProductDetails />} />
@@ -45,7 +47,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
 
           {isAuthenticated && currentUser && currentUser.role === "admin" && (
-            <Route path="/Admin" element={<Admin />} />
+            <Route path="/admin" element={<Admin />} />
           )}
         </Routes>
       </div>

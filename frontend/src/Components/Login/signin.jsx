@@ -3,7 +3,7 @@ import ErrorPopup from "../../Elements/ErrorPopup";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth";
-// import Cookies from "js-cookie";
+import MetaData from "../../Router/Metadata/metaData";
 
 import { useDispatch } from "react-redux";
 import {
@@ -57,6 +57,7 @@ function Signin() {
   };
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
+      <MetaData title="Sign In" />
       <div className="flex flex-col md:space-y-2 bg-white shadow-2xl rounded-2xl">
         <div className="flex flex-col justify-center p-6 md:p-12">
           <span className="mb-2 text-2xl md:text-4xl font-bold">
@@ -91,7 +92,7 @@ function Signin() {
             <div>
               <li className="list-none mb-4">
                 <Link
-                  to="/PasswordReset"
+                  to="/passwordReset"
                   className="no-underline text-blue-600"
                 >
                   Forgot Password?
@@ -112,7 +113,7 @@ function Signin() {
           </form>
           <div className="text-center text-gray-400 pt-2">
             Dont have an Account?
-            <Link to="/Register" className="no-underline text-blue-600">
+            <Link to="/register" className="no-underline text-blue-600">
               Sign up
             </Link>
           </div>

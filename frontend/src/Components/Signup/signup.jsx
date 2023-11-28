@@ -3,6 +3,7 @@ import ErrorPopup from "../../Elements/ErrorPopup";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth/oauth";
+import MetaData from "../../Router/Metadata/metaData";
 
 function Signup() {
   const [formData, setFormData] = useState({});
@@ -46,6 +47,7 @@ function Signup() {
 
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
+      <MetaData title="Sign Up" />
       {error ? ( // Check if there's an error
         <div className="text-center">
           <ErrorPopup error={error} onBack={handleBack} />
@@ -107,7 +109,7 @@ function Signup() {
             </form>
             <div className="text-center text-gray-400 pt-2">
               Already have an account?
-              <Link to="/Account" className="no-underline text-blue-600">
+              <Link to="/account" className="no-underline text-blue-600">
                 Sign in
               </Link>
             </div>

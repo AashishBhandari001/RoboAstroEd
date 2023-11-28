@@ -3,35 +3,13 @@
 module.exports = {
   content: [
     "./src/**/*{.js,.jsx,.ts,.tsx}",
-    // "./public/index.html",
-    // "./src/Components/Hero/hero.jsx",
-    // "./src/Components/Login/login.jsx",
-    // "./src/Components/Signup/signup.jsx",
-    // "./src/Components/Testimonials/testimonials.jsx",
-    // "./src/Components/Navbar/navbar.jsx",
-    // "./src/Components/Button/button.jsx",
-    // "./src/Components/LogoCarausel/logocarausel.jsx",
-    // "./src/Elements/Dash/dash.jsx",
-    // "./src/Components/Footer/footer.jsx",
-    // "./src/Elements/Socials/socials.jsx",
-    // "./src/Components/Branding/branding.jsx",
-    // "./src/Components/OAuth/oauth.jsx",
-    // "./src/Components/Card/card.jsx",
-    // "./src/Components/ContactUs/contactus.jsx",
-    // "./src/Routers/Error/error.jsx",
-    // "./src/Elements/Error/errorpopup.jsx",
   ],
   theme: {
     extend: {
       screens: {
         tablet: "640px",
-        // => @media (min-width: 640px) { ... }
-
         laptop: "1024px",
-        // => @media (min-width: 1024px) { ... }
-
         desktop: "1280px",
-        // => @media (min-width: 1280px) { ... }
       },
 
       animation: {

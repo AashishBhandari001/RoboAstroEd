@@ -22,7 +22,7 @@ function Error() {
               But don't worry, you can find plenty of other things on our
               homepage.
             </p>
-            <NavLink to="/Home">
+            <NavLink to="/home">
               <Button>Back to Home Page</Button>
             </NavLink>
           </div>
