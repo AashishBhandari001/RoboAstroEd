@@ -12,11 +12,13 @@ import {
 import userReducer from "./user/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { cartReducer } from "../Reducers/cartReducer";
 
 const rootReducer = combineReducers({
   products: ProductReducers,
   productDetails: productDetailsReducers,
-  user: userReducer, // Assuming userReducer is the correct user reducer
+  user: userReducer,
+  cart: cartReducer,
 });
 
 const persistConfig = {
@@ -27,7 +29,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const initialState = {};
+let initialState = {
+  cart: {
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
+  },
+};
 
 const middleware = [thunk];
 
