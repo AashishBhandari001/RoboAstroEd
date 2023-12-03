@@ -30,17 +30,12 @@ function ProductPage() {
   const alert = useAlert();
   const [active, setActive] = useState(1);
   const [category, setCategory] = useState("");
-
   const { keyword } = useParams();
 
   const dispatch = useDispatch();
-  const {
-    products,
-    loading,
-    error,
-    productCount,
-    resultPerPage,
-  } = useSelector((state) => state.products);
+  const { products, loading, error, productCount, resultPerPage } = useSelector(
+    (state) => state.products
+  );
 
   useEffect(() => {
     if (error) {
@@ -63,11 +58,10 @@ function ProductPage() {
 
   const getItemProps = (index) => ({
     variant: active === index ? "filled" : "text",
-    color: "blue",
+    color: active === index ? "blue" : "gray",
     onClick: () => setActive(index),
     className: "rounded-full justify-center items-center",
   });
-
 
   return (
     <div className="flex flex-col md:ml-4 md:mr-4 lg:flex-row">

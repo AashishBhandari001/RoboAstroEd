@@ -12,6 +12,7 @@ function ProductDetails({ match }) {
   const dispatch = useDispatch();
 
   const { product, loading } = useSelector((state) => state.productDetails);
+  console.log(product);
 
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -34,11 +35,11 @@ function ProductDetails({ match }) {
         <Loading />
       ) : (
         <div className="flex flex-col justify-between mt-16 lg:flex-row p-12 max-w-7xl gap-10 mx-auto lg:items-center ">
-          <MetaData title={`${product.name}`} />
+          {/* <MetaData title={`${product.name}`} /> */}
           <div className="flex flex-col gap-6 lg:w-2/4">
             <Carousel>
-              {product.images &&
-                product.images.map((item, i) => (
+              {product?.images &&
+                product?.images.map((item, i) => (
                   <img
                     className="object-cover"
                     key={item.url}
@@ -51,21 +52,21 @@ function ProductDetails({ match }) {
           {/* About */}
           <div className="flex flex-col gap-4 lg:w-2/4">
             <div>
-              <span className="text-cyan-600 font-bold ">{product.name}</span>
+              <span className="text-cyan-600 font-bold ">{product?.name}</span>
               <h1 className="text-3xl font-semibold">
-                Product # {product._id}
+                Product # {product?._id}
               </h1>
             </div>
-            <p className="text-gray-700 text-justify">{product.description}</p>
-            <h6 className="text-lg font-bold text-red-600">{`NPR ${product.price}`}</h6>
+            <p className="text-gray-700 text-justify">{product?.description}</p>
+            <h6 className="text-lg font-bold text-red-600">{`NPR ${product?.price}`}</h6>
             <p>
               Status: &nbsp;
               <b
                 className={
-                  product.stock < 1 ? "text-red-600" : "text-green-600"
+                  product?.stock < 1 ? "text-red-600" : "text-green-600"
                 }
               >
-                {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                {product?.stock > 0 ? "In Stock" : "Out of Stock"}
               </b>
             </p>
             {showSuccessMessage && (
@@ -93,7 +94,7 @@ function ProductDetails({ match }) {
                 <button
                   className="bg-gray-200 py-2 px-4 rounded-lg text-cyan-700 text-3xl "
                   onClick={() => {
-                    if (amount < product.stock) {
+                    if (amount < product?.stock) {
                       setAmount((prev) => prev + 1);
                     }
                   }}
