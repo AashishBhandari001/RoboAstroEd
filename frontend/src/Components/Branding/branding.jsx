@@ -24,7 +24,7 @@ function Branding() {
         <p className="mt-0 text-gray-500 font-semibold text-center">
           Students Affected
         </p>
-      </div>
+      </div>  
 
       {/* Robot */}
       <div className="flex flex-col w-44  h-48 pr-2 pl-2 pb-2 bg-white/80 shadow-lg  rounded-md justify-center items-center">

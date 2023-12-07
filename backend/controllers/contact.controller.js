@@ -26,7 +26,12 @@ const contactus = async (req, res, next) => {
       <h1>Message: ${messageText}</h1>`,
     };
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "We have received your response and will contact you as soon as possible!" }); // Notify user upon successful submission
+    res
+      .status(200)
+      .json({
+        message:
+          "We have received your response and will contact you as soon as possible!",
+      }); // Notify user upon successful submission
   } catch (error) {
     next(error);
   }
