@@ -12,7 +12,6 @@ function ProductDetails({ match }) {
   const dispatch = useDispatch();
 
   const { product, loading } = useSelector((state) => state.productDetails);
-  console.log(product);
 
   useEffect(() => {
     dispatch(getProductDetails(id));

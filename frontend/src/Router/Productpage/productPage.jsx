@@ -64,108 +64,110 @@ function ProductPage() {
   });
 
   return (
-    <div className="flex flex-col md:ml-4 md:mr-4 lg:flex-row">
-      <MetaData title={"Products"} />
-      <div className="w-full md:mt-40 mt-28 lg:w-1/4">
-        <div className="lg:block hidden">
-          <div className="bg-gray-100 p-4 justify-center items-center text-center rounded-lg mb-4">
-            <p className="font-bold mb-2">Category</p>
-            <div className="flex flex-wrap hover:cursor-pointer gap-4 justify-center">
-              {categories.map((cat) => (
+    <div className="mx-auto max-w-6xl justify-center ">
+      <div className="flex flex-col md:ml-4 md:mr-4 lg:flex-row">
+        <MetaData title={"Products"} />
+        <div className="w-full md:mt-40 mt-28 lg:w-1/4">
+          <div className="lg:block hidden">
+            <div className="bg-gray-100 p-4 justify-center items-center text-center rounded-lg mb-4">
+              <p className="font-bold mb-2">Category</p>
+              <div className="flex flex-wrap hover:cursor-pointer gap-4 justify-center">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    className="bg-gray-200 hover:bg-gray-300 rounded-full px-4 py-2 text-sm"
+                    onClick={() => setCategory(cat)}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="lg:hidden ml-4 mr-4 block">
+            <div className="mb-6">
+              <Search />
+            </div>
+
+            {/* Category dropdown on small screens below the search */}
+            <div className="mb-4">
+              <div className="relative">
                 <button
-                  key={cat}
-                  className="bg-gray-200 hover:bg-gray-300 rounded-full px-4 py-2 text-sm"
-                  onClick={() => setCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
+                  onClick={() => setDropdownOpen(!isDropdownOpen)}
+                  className="bg-gray-200 hover:bg-gray-300 rounded-full px-4 py-2 text-sm w-full text-left"
+                ></button>
+                {isDropdownOpen && (
+                  <div className="absolute z-10 w-full mt-2 py-2 bg-white border rounded-lg">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => {
+                          setCategory(cat);
+                          setDropdownOpen(false);
+                        }}
+                        className="block px-4 py-2 text-sm text-left hover:bg-gray-200 w-full"
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-        <div className="lg:hidden ml-4 mr-4 block">
-          <div className="mb-6">
+
+        <div className="w-full lg:w-3/4">
+          <div className="hidden md:flex lg:flex">
             <Search />
           </div>
 
-          {/* Category dropdown on small screens below the search */}
-          <div className="mb-4">
-            <div className="relative">
-              <button
-                onClick={() => setDropdownOpen(!isDropdownOpen)}
-                className="bg-gray-200 hover:bg-gray-300 rounded-full px-4 py-2 text-sm w-full text-left"
-              ></button>
-              {isDropdownOpen && (
-                <div className="absolute z-10 w-full mt-2 py-2 bg-white border rounded-lg">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => {
-                        setCategory(cat);
-                        setDropdownOpen(false);
-                      }}
-                      className="block px-4 py-2 text-sm text-left hover:bg-gray-200 w-full"
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              )}
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="flex flex-wrap ml-10 max-w-full justify-center">
+              {products &&
+                products.map((product) => (
+                  <Product key={product.id} product={product} />
+                ))}
             </div>
-          </div>
-        </div>
-      </div>
+          )}
 
-      <div className="w-full lg:w-3/4">
-        <div className="hidden md:flex lg:flex">
-          <Search />
-        </div>
-
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="flex flex-wrap ml-10 max-w-full justify-center">
-            {products &&
-              products.map((product) => (
-                <Product key={product.id} product={product} />
-              ))}
-          </div>
-        )}
-
-        {/* Pagination */}
-        {resultPerPage < productCount && (
-          <div className="flex flex-col sm:flex-row justify-center items-center mb-4">
-            <Button
-              variant="text"
-              className="flex items-center gap-2 text-gray-600 rounded-full mb-2 sm:mb-0 sm:mr-2"
-              onClick={prev}
-              disabled={active === 1}
-            >
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
-            </Button>
-            <div className="flex flex-row items-center gap-2">
-              {Array.from({
-                length: Math.ceil(productCount / resultPerPage),
-              }).map((_, index) => (
-                <IconButton
-                  key={index}
-                  {...getItemProps(index + 1)}
-                  className="text-sm"
-                >
-                  {index + 1}
-                </IconButton>
-              ))}
+          {/* Pagination */}
+          {resultPerPage < productCount && (
+            <div className="flex flex-col sm:flex-row justify-center items-center mb-4">
+              <Button
+                variant="text"
+                className="flex items-center gap-2 text-gray-600 rounded-full mb-2 sm:mb-0 sm:mr-2"
+                onClick={prev}
+                disabled={active === 1}
+              >
+                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+              </Button>
+              <div className="flex flex-row items-center gap-2">
+                {Array.from({
+                  length: Math.ceil(productCount / resultPerPage),
+                }).map((_, index) => (
+                  <IconButton
+                    key={index}
+                    {...getItemProps(index + 1)}
+                    className="text-sm"
+                  >
+                    {index + 1}
+                  </IconButton>
+                ))}
+              </div>
+              <Button
+                variant="text"
+                className="flex items-center gap-2 text-gray-600 rounded-full mt-2 sm:mt-0 sm:ml-2"
+                onClick={next}
+                disabled={active === Math.ceil(productCount / resultPerPage)}
+              >
+                Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+              </Button>
             </div>
-            <Button
-              variant="text"
-              className="flex items-center gap-2 text-gray-600 rounded-full mt-2 sm:mt-0 sm:ml-2"
-              onClick={next}
-              disabled={active === Math.ceil(productCount / resultPerPage)}
-            >
-              Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
