@@ -3,6 +3,7 @@ import MetaData from "../Metadata/metaData";
 import { useDispatch, useSelector } from "react-redux";
 import { Trash2Icon } from "lucide-react";
 import CardItemCard from "../../Elements/CartItemCard";
+import EmptyCart from "../../Elements/EmptyCart";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -16,11 +17,18 @@ function Cart() {
       <MetaData title="Cart" />
       <div className="bg-gray-50 pt-20 mt-8 mb-5">
         <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+
         <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-          <div className="rounded-lg md:w-2/3">
-            {cartItems && cartItems.map((item) => <CardItemCard item={item} />)}
-            <div></div>
-          </div>
+          {cartItems.length === 0 ? (
+            <EmptyCart />
+          ) : (
+            <div className="rounded-lg md:w-2/3">
+              {cartItems &&
+                cartItems.map((item) => (
+                  <CardItemCard key={item.product} item={item} />
+                ))}
+            </div>
+          )}
 
           <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3 mb-5">
             <div className="text-gray-700">

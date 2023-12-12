@@ -35,6 +35,7 @@ function CartItemCard({ item }) {
     dispatch(removeItemsFromCart(id));
   };
 
+
   return (
     <div>
       <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">

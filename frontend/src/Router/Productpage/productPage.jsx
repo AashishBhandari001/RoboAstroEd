@@ -128,7 +128,7 @@ function ProductPage() {
             <div className="flex flex-wrap ml-10 max-w-full justify-center">
               {products &&
                 products.map((product) => (
-                  <Product key={product.id} product={product} />
+                  <Product key={product._id} product={product} />
                 ))}
             </div>
           )}
