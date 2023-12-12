@@ -9,6 +9,7 @@ import {
 } from "../../Redux/user/userSlice";
 
 function Navbar() {
+  const { cartItems } = useSelector((state) => state.cart);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
@@ -46,7 +47,7 @@ function Navbar() {
         logoutFailure(data.error);
         return;
       }
-      dispatch(logoutSuccess());  
+      dispatch(logoutSuccess());
       localStorage.removeItem("access_token");
     } catch (error) {
       dispatch(logoutFailure(error));
@@ -160,8 +161,8 @@ function Navbar() {
                   className="block py-2 pl-3 pr-8 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline relative"
                 >
                   Cart
-                  <span className="inline-flex items-center rounded-full bg-[#FF4F1D] text-xs font-medium text-white px-1 absolute top-0 right-[-10px] transform translate-x-1/2 -translate-y-1/2">
-                    0
+                  <span className="inline-flex items-center rounded-full  text-xs font-medium bg-cyan-600  text-white px-1 absolute top-0 right-[-10px] transform translate-x-1/2 -translate-y-1/2">
+                    {cartItems.length}
                   </span>
                 </NavLink>
               </li>

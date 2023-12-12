@@ -12,6 +12,7 @@ function Cart() {
 
   const [amount, setAmount] = useState(1);
 
+
   return (
     <div>
       <MetaData title="Cart" />
