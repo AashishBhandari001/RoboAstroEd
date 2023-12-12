@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import MetaData from "../Metadata/metaData";
 import { useDispatch, useSelector } from "react-redux";
-import { Trash2Icon } from "lucide-react";
 import CardItemCard from "../../Elements/CartItemCard";
 import EmptyCart from "../../Elements/EmptyCart";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
-  const { product } = useSelector((state) => state.productDetails);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
-  const [amount, setAmount] = useState(1);
-
+  const handleCheckout = () => {
+    // Redirect to checkout page if authenticated
+    if (isAuthenticated) {
+      navigate("/home"); // Use the navigate function
+    } else {
+      navigate("/account"); // Use the navigate function
+    }
+  };
 
   return (
     <div>
@@ -35,7 +42,7 @@ function Cart() {
             <div className="text-gray-700">
               <div className="mb-2 flex justify-between">
                 <p> total </p>
-                <p>$129.99</p>
+                <p>{`NRP 500`}</p>
               </div>
               <div className="flex justify-between">
                 <p>Vat (13%)</p>
@@ -50,7 +57,10 @@ function Cart() {
                 </div>
               </div>
             </div>
-            <button className="mt-6 w-full rounded-md bg-cyan-600 py-1.5 font-medium text-white hover:bg-cyan-700">
+            <button
+              onClick={handleCheckout}
+              className="mt-6 w-full rounded-md bg-cyan-600 py-1.5 font-medium text-white hover:bg-cyan-700"
+            >
               Check out
             </button>
           </div>

@@ -8,9 +8,14 @@ function CartItemCard({ item }) {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
   const { product, loading } = useSelector((state) => state.productDetails);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const calculateSubtotal = () => {
     return item.price * amount;
+  };
+
+  const total = () => {
+    return {};
   };
 
   const increaseQuantity = (id, quantity, stock) => {
@@ -34,7 +39,6 @@ function CartItemCard({ item }) {
   const deleteCartItems = (id) => {
     dispatch(removeItemsFromCart(id));
   };
-
 
   return (
     <div>
