@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MetaData from "../Metadata/metaData";
 import { useDispatch, useSelector } from "react-redux";
 import CardItemCard from "../../Elements/CartItemCard";
@@ -14,7 +14,7 @@ function Cart() {
   const handleCheckout = () => {
     // Redirect to checkout page if authenticated
     if (isAuthenticated) {
-      navigate("/home"); // Use the navigate function
+      navigate("/shipping"); // Use the navigate function
     } else {
       navigate("/account"); // Use the navigate function
     }

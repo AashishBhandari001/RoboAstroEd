@@ -14,6 +14,7 @@ import ProductDetails from "./Router/ProductDetails";
 import { useSelector } from "react-redux";
 import Admin from "./Router/Admin/admin";
 import Cart from "./Router/Cart";
+import ShippingInfo from "./Router/ShippingInfo";
 
 function NotFound() {
   return <Error />;
@@ -41,6 +42,7 @@ function App() {
               path="/forgetpassword/:id/:token"
               element={<ForgetPassword />}
             />
+            <Route path="/shipping" element={<ShippingInfo />} />
           </Route>
           {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
