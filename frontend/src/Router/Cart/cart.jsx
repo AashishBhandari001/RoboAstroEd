@@ -20,6 +20,31 @@ function Cart() {
     }
   };
 
+  const calculateTotal = () => {
+    let total = 0;
+
+    cartItems.map((item) => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+    });
+
+    return total;
+  };
+
+  const vatAmmount = () => {
+    const vat = 0.13;
+    const total = calculateTotal();
+    const vatAmmount = total * vat;
+    return vatAmmount;
+  };
+
+  const grandTotal = () => {
+    const total = calculateTotal();
+    const vat = vatAmmount();
+    const grandTotal = total + vat;
+    return grandTotal;
+  };
+
   return (
     <div>
       <MetaData title="Cart" />
@@ -42,17 +67,17 @@ function Cart() {
             <div className="text-gray-700">
               <div className="mb-2 flex justify-between">
                 <p> total </p>
-                <p>{`NRP 500`}</p>
+                <p>{`NRP ${calculateTotal()}`}</p>
               </div>
               <div className="flex justify-between">
                 <p>Vat (13%)</p>
-                <p>$4.99</p>
+                <p>{`NRP ${vatAmmount()}`}</p>
               </div>
               <hr className="my-4" />
               <div className="flex justify-between">
                 <p className="text-lg font-bold"> Grand Total</p>
                 <div className="">
-                  <p className="mb-1 text-lg font-bold">$134.98 USD</p>
+                  <p className="mb-1 text-lg font-bold">{`NRP ${grandTotal()}`}</p>
                   <p className="text-sm">including VAT</p>
                 </div>
               </div>

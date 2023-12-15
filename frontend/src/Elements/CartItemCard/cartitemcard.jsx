@@ -11,7 +11,7 @@ function CartItemCard({ item }) {
   const { cartItems } = useSelector((state) => state.cart);
 
   const calculateSubtotal = () => {
-    return item.price * amount;
+    return item.price * item.quantity;
   };
 
   const total = () => {
