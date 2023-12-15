@@ -8,6 +8,7 @@ import { TbMapPinCode } from "react-icons/tb";
 import { MdPublic } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
 import CheckOutSteps from "../../Elements/CheckOutSteps";
+import { useNavigate } from "react-router-dom";
 
 function ShippingInfo() {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ function ShippingInfo() {
   const [phoneNo, setPhoneNo] = useState(shippingInfo?.phoneNo || "");
   const [state, setState] = useState(shippingInfo?.state || "");
   const [countries, setCountries] = useState([]);
+
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the list of countries on component mount
@@ -32,13 +36,37 @@ function ShippingInfo() {
 
   const shippingSubmit = (e) => {
     e.preventDefault();
-    // Add your logic to save shipping info using dispatch(saveShippingInfo(...))
+
+    if (phoneNo.length < 10 || phoneNo.length > 10) {
+      setMessage("Please enter a valid phone number");
+
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+      return;
+    }
+
+    dispatch(
+      saveShippingInfo({
+        address,
+        city,
+        country,
+        pinCode,
+        phoneNo,
+        state,
+        countries,
+      })
+    );
+
+    navigate("/order/confirm");
   };
 
   return (
-    <div className="mt-32 mb-10 md:mb-24  flex flex-col">
+    <div className="mt-32 mb-10 md:mb-24 flex flex-col">
       <MetaData title="Shipping" />
-      <CheckOutSteps activeStep={0} />
+      <div className=" justify-center items-center">
+        <CheckOutSteps activeStep={0} />
+      </div>
       <div className="container mt-10 mx-auto ">
         <h2 className="text-2xl text-center text-6xl justify-center font-semibold mb-4">
           Shipping Details
@@ -86,11 +114,15 @@ function ShippingInfo() {
             <div className="mb-8 flex items-center">
               <Phone className="inline-block mr-2" />
               <input
-                type="number"
+                type="text"
                 placeholder="Phone Number"
                 required
                 value={phoneNo}
-                onChange={(e) => setPhoneNo(e.target.value)}
+                onChange={(e) => {
+                  const numericValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                  const limitedValue = numericValue.slice(0, 10); // Limit to 10 digits
+                  setPhoneNo(limitedValue);
+                }}
                 className="p-2 ring-2 ring-inset ring-cyan-600 flex-grow"
               />
             </div>
@@ -129,6 +161,12 @@ function ShippingInfo() {
                   ))}
                 </select>
               </div>
+            )}
+
+            {message ? (
+              <p className="text-red-600 font-bold ">{message}</p>
+            ) : (
+              ""
             )}
 
             <div className="justify-center text-center">

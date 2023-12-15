@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import Admin from "./Router/Admin/admin";
 import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
+import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
 
 function NotFound() {
   return <Error />;
@@ -43,6 +44,8 @@ function App() {
               element={<ForgetPassword />}
             />
             <Route path="/shipping" element={<ShippingInfo />} />
+            <Route path="/order/confirm" element={<ConfirmOrder />} />
+            
           </Route>
           {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
