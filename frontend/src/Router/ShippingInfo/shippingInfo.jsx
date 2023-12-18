@@ -62,7 +62,7 @@ function ShippingInfo() {
   };
 
   return (
-    <div className="mt-32 mb-10 md:mb-24 flex flex-col">
+    <div className="mt-14 py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto mb-10 md:mb-24 flex flex-col">
       <MetaData title="Shipping" />
       <div className=" justify-center items-center">
         <CheckOutSteps activeStep={0} />
@@ -71,7 +71,7 @@ function ShippingInfo() {
         <h2 className="text-2xl text-center text-6xl justify-center font-semibold mb-4">
           Shipping Details
         </h2>
-        <hr className="w-auto mb-4" />
+        <hr className="w-auto py-4" />
 
         <div className="max-w-md mx-auto  bg-white p-6 md:p-10   rounded shadow-lg">
           <form className="shipping-form" onSubmit={shippingSubmit}>
