@@ -52,6 +52,7 @@ function App() {
 
           {isAuthenticated && currentUser && currentUser.role === "admin" && (
             <Route path="/admin" element={<Admin />} />
+            
           )}
         </Routes>
       </div>
