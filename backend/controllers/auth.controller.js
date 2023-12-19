@@ -2,7 +2,7 @@ const User = require("../models/user.model.js");
 const Course = require("../models/course.model.js");
 
 const bcrypt = require("bcryptjs");
-const errorHandler = require("../utils/error.js");
+const ErrorHandler = require("../utils/error.js");
 const jwt = require("jsonwebtoken");
 const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
@@ -28,7 +28,7 @@ const signup = async (req, res, next) => {
     await newUser.save();
     res.status(201).json({ message: "User created" });
   } catch (error) {
-    next(errorHandler(500, error.message));
+    next(ErrorHandler(500, error.message));
   }
 };
 
@@ -38,9 +38,9 @@ const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
-    if (!validUser) return next(errorHandler(404, "User does not exist"));
+    if (!validUser) return next(ErrorHandler(404, "User does not exist"));
     const validPassword = bcrypt.compareSync(password, validUser.password);
-    if (!validPassword) return next(errorHandler(401, "Wrong Credentials"));
+    if (!validPassword) return next(ErrorHandler(401, "Wrong Credentials"));
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: "5m",
     }); // create a token
@@ -94,13 +94,13 @@ const passwordreset = async (req, res, next) => {
   const { email } = req.body; // get the email from the request body
   try {
     if (!email) {
-      return next(errorHandler(404, "Email is required"));
+      return next(ErrorHandler(404, "Email is required"));
     }
 
     const validUser = await User.findOne({ email }); // check if the user exists in the database
 
     if (!validUser) {
-      return next(errorHandler(404, "User does not exist"));
+      return next(ErrorHandler(404, "User does not exist"));
     }
 
     // Token generation for password reset
@@ -154,7 +154,7 @@ const forgetpassword = async (req, res, next) => {
     const validToken = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!validUser && !validToken) {
-      return next(errorHandler(404, "User does not exist"));
+      return next(ErrorHandler(404, "User does not exist"));
     } else {
       if (validUser && validToken) {
         const hashedPassword = bcrypt.hashSync(password, 10); // 10 is the salt (how many times the password is hashed)
@@ -165,10 +165,10 @@ const forgetpassword = async (req, res, next) => {
         );
         if (setpassword) {
           console.log("Password updated");
-          return next(errorHandler(200, "Password updated"));
+          return next(ErrorHandler(200, "Password updated"));
         } else {
           console.log("Password not updated");
-          return next(errorHandler(400, "Password not updated"));
+          return next(ErrorHandler(400, "Password not updated"));
         }
       }
     }
@@ -195,7 +195,7 @@ const getuserDetails = async (req, res, next) => {
     const users = await User.find({});
 
     if (!users) {
-      return next(errorHandler(`User does not exist, ${req.params.id}`));
+      return next(ErrorHandler(`User does not exist, ${req.params.id}`));
     }
 
     res.status(200).json({
@@ -213,7 +213,7 @@ const getSingleUser = async (req, res, next) => {
     const users = await User.findById(req.params.id);
 
     if (!users) {
-      return next(errorHandler(`User does not exist, ${req.params.id}`));
+      return next(ErrorHandler(`User does not exist, ${req.params.id}`));
     }
 
     res.status(200).json({
@@ -255,7 +255,7 @@ const deleteUser = async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      return next(errorHandler(`User does not exist, ${req.params.id}`));
+      return next(ErrorHandler(`User does not exist, ${req.params.id}`));
     }
 
     // Using deleteOne to remove the user from the database
@@ -277,13 +277,17 @@ const addToPlaylist = catchAsyncErrors(async (req, res, next) => {
 
     const course = await Course.findById(req.body.id);
 
-    if (!course) return next(new errorHandler("invalid course id", 404));
+    if (!course) {
+      next(ErrorHandler("invalid course id", 404));
+    }
 
     const itemExist = user.playlist.find((item) => {
       if (item.course.toString() === course._id.toString()) return true;
     });
 
-    if (!itemExist) return next(new errorHandler("Course already added", 409));
+    if (!itemExist) {
+      next(ErrorHandler("Course already added", 409));
+    }
     // Ensure that user.playlist is initialized as an array
     user.playlist = user.playlist || [];
 
@@ -304,16 +308,12 @@ const addToPlaylist = catchAsyncErrors(async (req, res, next) => {
 const removeFromPlaylist = catchAsyncErrors(async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
-
     const course = await Course.findById(req.query.id);
 
-    if (!course) return next(new errorHandler("invalid course id", 404));
+    if (!course) return next(new ErrorHandler("Invalid course id", 404));
 
-    const newPlayList = user.playlist.filter((item) => {
-      if (item.course.toString() !== course._id.toString()) return item;
-    });
-
-    user.playlist = newPlayList;
+    // Use Mongoose's pull method to remove the specified item from the array
+    user.playlist.pull({ course: course._id });
 
     await user.save();
 

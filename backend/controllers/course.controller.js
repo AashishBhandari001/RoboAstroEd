@@ -37,11 +37,49 @@ const createCourse = catchAsyncErrors(async (req, res, next) => {
 const getCoursesLectures = catchAsyncErrors(async (req, res, next) => {
   const course = await Course.findById(req.params.id);
 
-  if (!course) return next(new errorHandler("Courses not found", 404));
+  if (!course) {
+    next(errorHandler("Courses not found", 404));
+  }
+  course.views += 1;
+
+  await course.save();
+
   res.status(200).json({
     success: true,
     lectures: course.lectures,
   });
 });
 
-module.exports = { getAllCourses, createCourse, getCoursesLectures };
+const addLecture = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const { title, description } = req.body;
+
+  // const file = req.file;
+  const course = await Course.findById(id);
+
+  //upload file here
+  course.lectures.push({
+    title,
+    description,
+    video: {
+      public_id: "url",
+      url: "url",
+    },
+  });
+
+  course.numOfVideos = course.lectures.length;
+
+  await course.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Lecture added succcessfully in course",
+  });
+});
+
+module.exports = {
+  getAllCourses,
+  createCourse,
+  getCoursesLectures,
+  addLecture,
+};
