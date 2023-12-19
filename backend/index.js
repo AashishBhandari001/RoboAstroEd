@@ -30,6 +30,7 @@ mongoose.connect(process.env.MONGODB).then(() => {
 
 const app = express();
 app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
@@ -47,11 +48,11 @@ app.use((err, req, res, next) => {
   if (err.name === "CastError") {
     const message = `Resource not found. Invalid: ${err.path}`;
     err = new errorHandler(message, 400);
+    return next(err);
   }
 
   // Pass the error to the next error handling middleware
   next(err);
-  
 });
 
 const server = app.listen(8080, () => {

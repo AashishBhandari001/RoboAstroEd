@@ -65,14 +65,14 @@ const courseSchema = new mongoose.Schema({
   },
 
   createdBy: {
-    type: Date,
+    type: String,
     required: [true, "Enter course Creator Name"],
   },
 
-  createdBy: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-module.exports = mongoose.module("Course");
+module.exports = mongoose.model("Course", courseSchema);
