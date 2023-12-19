@@ -3,7 +3,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 const errorHandler = require("../utils/error.js");
 
 const getAllCourses = catchAsyncErrors(async (req, res, next) => {
-  const courses = await Course.find();
+  const courses = await Course.find().select("-lectures");
   res.status(200).json({
     success: true,
     courses,
@@ -34,4 +34,14 @@ const createCourse = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-module.exports = { getAllCourses, createCourse };
+const getCoursesLectures = catchAsyncErrors(async (req, res, next) => {
+  const course = await Course.findById(req.params.id);
+
+  if (!course) return next(new errorHandler("Courses not found", 404));
+  res.status(200).json({
+    success: true,
+    lectures: course.lectures,
+  });
+});
+
+module.exports = { getAllCourses, createCourse, getCoursesLectures };

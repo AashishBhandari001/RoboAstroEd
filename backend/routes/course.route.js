@@ -1,6 +1,7 @@
 const {
   getAllCourses,
   createCourse,
+  getCoursesLectures,
 } = require("../controllers/course.controller");
 
 const {
@@ -17,5 +18,7 @@ router.route("/courses").get(getAllCourses);
 router
   .route("/createcourse")
   .post(isAuthenticatedUser, authorizeRoles("admin"), createCourse);
+
+router.route("/course/:id").get(getCoursesLectures);
 
 module.exports = router;

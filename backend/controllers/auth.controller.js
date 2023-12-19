@@ -1,10 +1,13 @@
 const User = require("../models/user.model.js");
+const Course = require("../models/course.model.js");
 
 const bcrypt = require("bcryptjs");
 const errorHandler = require("../utils/error.js");
 const jwt = require("jsonwebtoken");
 const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
+
 dotenv.config();
 
 //config for email
@@ -267,6 +270,59 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+//add to playlist
+const addToPlaylist = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    const course = await Course.findById(req.body.id);
+
+    if (!course) return next(new errorHandler("invalid course id", 404));
+
+    const itemExist = user.playlist.find((item) => {
+      if (item.course.toString() === course._id.toString()) return true;
+    });
+
+    if (!itemExist) return next(new errorHandler("Course already added", 409));
+    // Ensure that user.playlist is initialized as an array
+    user.playlist = user.playlist || [];
+
+    user.playlist.push({
+      course: course._id,
+      poster: course.poster.url,
+    });
+
+    await user.save();
+
+    res.status(200).json({ success: true, message: "Added to playlist" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//remove from playlist
+const removeFromPlaylist = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    const course = await Course.findById(req.query.id);
+
+    if (!course) return next(new errorHandler("invalid course id", 404));
+
+    const newPlayList = user.playlist.filter((item) => {
+      if (item.course.toString() !== course._id.toString()) return item;
+    });
+
+    user.playlist = newPlayList;
+
+    await user.save();
+
+    res.status(200).json({ success: true, message: "Removed from playlist" });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = {
   signup,
   signin,
@@ -278,4 +334,6 @@ module.exports = {
   getSingleUser,
   updateuserRole,
   deleteUser,
+  addToPlaylist,
+  removeFromPlaylist,
 };

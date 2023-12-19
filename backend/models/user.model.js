@@ -27,7 +27,20 @@ const userSchema = new mongoose.Schema(
     resetpasswordToken: {
       type: String,
     },
+
+    playlist: [
+      {
+        course: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Course",
+        },
+        poster: {
+          type: String,
+        },
+      },
+    ],
   },
+
   { timestamps: true }
 );
 
