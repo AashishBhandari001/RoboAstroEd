@@ -7,6 +7,7 @@ const authRouter = require("./routes/auth.route.js");
 const contactRouter = require("./routes/contact.route.js");
 const product = require("./routes/product.route.js");
 const order = require("./routes/order.route.js");
+const courses = require("./routes/course.route.js");
 
 const errorMiddleware = require("./middleware/error.js");
 const cors = require("cors");
@@ -39,7 +40,7 @@ app.use("/api/contact", contactRouter);
 // Path: backend/routes/product.route.js
 app.use("/api/product", product);
 app.use("/api/order", order);
-
+app.use("/api", courses);
 
 //mongodb error handling
 app.use((err, req, res, next) => {
@@ -50,6 +51,7 @@ app.use((err, req, res, next) => {
 
   // Pass the error to the next error handling middleware
   next(err);
+  
 });
 
 const server = app.listen(8080, () => {
