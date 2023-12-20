@@ -12,10 +12,14 @@ import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
 import { useSelector } from "react-redux";
-import Admin from "./Router/Admin/admin";
 import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
 import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
+
+//Admin Routes
+import Adminlayout from "./Admin/AdminLayout/adminlayout";
+import Dashboard from "./Admin/Dashboard";
+import AdminProducts from "./Admin/AdminProducts/adminProducts";
 
 function NotFound() {
   return <Error />;
@@ -45,14 +49,15 @@ function App() {
             />
             <Route path="/shipping" element={<ShippingInfo />} />
             <Route path="/order/confirm" element={<ConfirmOrder />} />
-            
           </Route>
           {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
 
           {isAuthenticated && currentUser && currentUser.role === "admin" && (
-            <Route path="/admin" element={<Admin />} />
-            
+            <Route path="admin" element={<Adminlayout />}>
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/products" element={<AdminProducts />} />
+            </Route>
           )}
         </Routes>
       </div>

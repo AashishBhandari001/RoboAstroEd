@@ -4,9 +4,8 @@ import Navigationbar from "../../Components/Dashboard/Navigationbar";
 function Dashboard() {
   return (
     <div className="flex">
-   
       <div className="flex">
-        {/* <h2>Dashboard</h2> */}
+        <h1>This is my admin Dashboard</h1>
       </div>
     </div>
   );
