@@ -1,11 +1,13 @@
 import React from "react";
+import DashboardStatsGrid from "../DashboardStatsGrid/dashboardStatsGrid";
+import ChartPage from "../Chart";
 
 function Dashboard() {
-  console.log("Admin dashboard rendered");
   return (
-    <div>
+    <div className="flex flex-col gap-4 ">
+      <DashboardStatsGrid />
       <div>
-        <h1>This is dashboard section</h1>
+        <ChartPage />
       </div>
     </div>
   );

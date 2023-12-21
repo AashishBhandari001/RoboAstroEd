@@ -4,7 +4,6 @@ import Sidebar from "../SideBar";
 import Header from "../Header";
 import Dashboard from "../Dashboard";
 
-
 function AdminLayout({ children }) {
   return (
     <div className="flex">
@@ -12,6 +11,7 @@ function AdminLayout({ children }) {
       <div className="flex-1">
         <Header />
         <div className="p-4">
+
           <Outlet />
         </div>
       </div>
