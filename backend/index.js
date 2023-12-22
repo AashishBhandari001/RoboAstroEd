@@ -72,11 +72,11 @@ process.on("unhandledRejection", (err) => {
   });
 });
 
-//cloudinary connection
-cloudinary.api.ping(function (error, response) {
-  if (error) {
-    console.error("Cloudinary is not connected:", error.message);
-  } else {
-    console.log("Cloudinary is connected:", response);
-  }
-});
+// //cloudinary connection
+// cloudinary.api.ping(function (error, response) {
+//   if (error) {
+//     console.error("Cloudinary is not connected:", error.message);
+//   } else {
+//     console.log("Cloudinary is connected", response);
+//   }
+// });
