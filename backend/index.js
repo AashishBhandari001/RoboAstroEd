@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+const cloudinary = require("./utils/cloudinary.js");
+
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
 const contactRouter = require("./routes/contact.route.js");
@@ -68,4 +70,13 @@ process.on("unhandledRejection", (err) => {
   server.close(() => {
     process.exit(1);
   });
+});
+
+//cloudinary connection
+cloudinary.api.ping(function (error, response) {
+  if (error) {
+    console.error("Cloudinary is not connected:", error.message);
+  } else {
+    console.log("Cloudinary is connected:", response);
+  }
 });

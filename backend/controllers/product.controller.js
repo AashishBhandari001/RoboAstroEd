@@ -36,6 +36,16 @@ const getProducts = catchAsyncErrors(async (req, res) => {
   });
 });
 
+//get all products admin
+const getAdminProducts = catchAsyncErrors(async (req, res) => {
+  const products = await Product.find();
+
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
 //get single product
 const getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
@@ -204,6 +214,7 @@ const deleteReview = catchAsyncErrors(async (req, res, next) => {
 });
 
 module.exports = {
+  getAdminProducts,
   getProducts,
   createProduct,
   updateProduct,

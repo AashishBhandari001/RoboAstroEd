@@ -12,6 +12,7 @@ const {
   createProductReview,
   getProductReview,
   deleteReview,
+  getAdminProducts,
 } = require("../controllers/product.controller.js");
 const {
   isAuthenticatedUser,
@@ -19,6 +20,11 @@ const {
 } = require("../middleware/auth.js");
 
 router.route("/", product).get(getProducts);
+
+router
+  .route("/admin/products")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminProducts);
+
 router
   .route("/admin/product/new", product)
   .post(isAuthenticatedUser, authorizeRoles("admin"), createProduct);
