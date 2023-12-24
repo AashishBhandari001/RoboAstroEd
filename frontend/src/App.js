@@ -20,6 +20,7 @@ import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
 import Adminlayout from "./Admin/AdminLayout/adminlayout";
 import Dashboard from "./Admin/Dashboard";
 import AdminProducts from "./Admin/AdminProducts/adminProducts";
+import NewProduct from "./Admin/NewProduct";
 
 function NotFound() {
   return <Error />;
@@ -56,7 +57,8 @@ function App() {
           {isAuthenticated && currentUser && currentUser.role === "admin" && (
             <Route path="admin" element={<Adminlayout />}>
               <Route index element={<Dashboard />} />
-              <Route path="/admin/product" element={<AdminProducts />} />
+              <Route path="/admin/products" element={<AdminProducts />} />
+              <Route path="/admin/product" element={<NewProduct />} />
             </Route>
           )}
         </Routes>

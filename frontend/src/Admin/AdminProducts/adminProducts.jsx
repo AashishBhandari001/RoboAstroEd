@@ -1,11 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminProduct, clearErrors } from "../../Actions/productAction";
 import { Link } from "react-router-dom";
 import { MdEditCalendar, MdOutlineDeleteOutline } from "react-icons/md";
 import { Button } from "@mui/material";
+import DashboardStatsGrid from "../DashboardStatsGrid/dashboardStatsGrid";
 
 function AdminProducts() {
   const dispatch = useDispatch();
@@ -13,7 +13,6 @@ function AdminProducts() {
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log("Fetching data...");
     if (error) {
       dispatch(clearErrors());
     }
@@ -23,7 +22,7 @@ function AdminProducts() {
         token: currentUser.token,
       })
     );
-  }, [dispatch]);
+  }, [dispatch, currentUser.token, error]);
 
   const columns = [
     { field: "id", headerName: "Product Id", minWidth: 200, flex: 0.5 },
@@ -63,16 +62,14 @@ function AdminProducts() {
     },
   ];
 
-  const rows = [];
-  products &&
-    products.forEach((item) => {
-      rows.push({
+  const rows = products
+    ? products.map((item) => ({
         id: item._id,
         stock: item.stock,
         price: item.price,
         name: item.name,
-      });
-    });
+      }))
+    : [];
 
   return (
     <div>

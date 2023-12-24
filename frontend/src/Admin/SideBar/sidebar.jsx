@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import Logo from "../../Assets/logo.png";
 import { LuLayoutDashboard, LuArrowUpDown } from "react-icons/lu";
@@ -20,8 +19,8 @@ const navlinks = [
     label: "Product",
     dropdown: true,
     items: [
-      { key: "allProducts", label: "All Products", path: "/admin/product" },
-      { key: "addProduct", label: "Add Product", path: "/admin/product/add" },
+      { key: "allProducts", label: "All Products", path: "/admin/products" },
+      { key: "addProduct", label: "Add Product", path: "/admin/product" },
     ],
     icon: <LuArrowUpDown size={20} />,
   },
@@ -50,6 +49,10 @@ const Sidebar = () => {
 
   const toggleProductDropdown = () => {
     setProductDropdownOpen(!isProductDropdownOpen);
+  };
+
+  const closeProductDropdown = () => {
+    setProductDropdownOpen(false);
   };
 
   return (
@@ -85,6 +88,7 @@ const Sidebar = () => {
                           <Link
                             key={subItem.key}
                             to={subItem.path}
+                            onClick={closeProductDropdown}
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             role="menuitem"
                           >

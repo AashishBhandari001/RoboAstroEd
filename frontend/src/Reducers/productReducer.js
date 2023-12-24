@@ -2,6 +2,10 @@ import {
   ALL_PRODUCTS_REQUEST,
   ALL_PRODUCTS_SUCCESS,
   ALL_PRODUCTS_FAIL,
+  NEW_PRODUCTS_REQUEST,
+  NEW_PRODUCTS_SUCCESS,
+  NEW_PRODUCTS_FAIL,
+  NEW_PRODUCTS_RESET,
   ADMIN_PRODUCTS_REQUEST,
   ADMIN_PRODUCTS_SUCCESS,
   ADMIN_PRODUCTS_FAIL,
@@ -34,6 +38,33 @@ export const ProductReducers = (state = { products: [] }, action) => {
     case ALL_PRODUCTS_FAIL:
     case ADMIN_PRODUCTS_FAIL:
       return { loading: false, error: action.payload };
+
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
+
+    default:
+      return state;
+  }
+};
+
+//NEW PRODUCTS ADMIN
+export const newProductReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case NEW_PRODUCTS_REQUEST:
+      return { loading: true, ...state };
+
+    case NEW_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        product: action.payload.product,
+      };
+
+    case NEW_PRODUCTS_FAIL:
+      return { loading: false, error: action.payload };
+
+    case NEW_PRODUCTS_RESET:
+      return { ...state, success: false };
 
     case CLEAR_ERRORS:
       return { ...state, error: null };

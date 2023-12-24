@@ -7,6 +7,10 @@ import {
   ADMIN_PRODUCTS_REQUEST,
   ADMIN_PRODUCTS_SUCCESS,
   ADMIN_PRODUCTS_FAIL,
+  NEW_PRODUCTS_REQUEST,
+  NEW_PRODUCTS_SUCCESS,
+  NEW_PRODUCTS_FAIL,
+  NEW_PRODUCTS_RESET,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
@@ -89,6 +93,34 @@ export const getAdminProduct =
       });
     }
   };
+
+// create new product for admin
+export const createProduct = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_PRODUCTS_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const { data } = await axios.put(
+      "http://localhost:8080/api/product/admin/product/new",
+      productData,
+      config
+    );
+
+    dispatch({
+      type: NEW_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_PRODUCTS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {

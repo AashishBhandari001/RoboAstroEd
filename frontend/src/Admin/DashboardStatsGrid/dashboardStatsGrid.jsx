@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaSackDollar } from "react-icons/fa6";
 import { TbShoppingCartCopy } from "react-icons/tb";
 import { MdOutlineBorderColor } from "react-icons/md";
 import { RiUserSearchLine } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
 
 function DashboardStatsGrid() {
+  const { products } = useSelector((state) => state.products);
+  const { currentUser } = useSelector((state) => state.user);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    if (products) {
+      const amount = products.reduce(
+        (total, product) => total + product.price,
+        0
+      );
+      setTotalAmount(amount);
+    }
+  }, [products]);
+
   return (
     <div className="flex gap-4 w-full">
       <BoxWrapper>
@@ -17,7 +32,7 @@ function DashboardStatsGrid() {
           </span>
 
           <strong className="text-xl text-gray-700 font-semibold">
-            NPR 22220000.0000
+            NPR {totalAmount.toFixed(2)}
           </strong>
         </div>
       </BoxWrapper>
@@ -28,7 +43,9 @@ function DashboardStatsGrid() {
         <div className="pl-4 flex flex-col">
           <span className="text-sm font-light text-gray-600">Product</span>
 
-          <strong className="text-xl text-gray-700 font-semibold">60</strong>
+          <strong className="text-xl text-gray-700 font-semibold">
+            {products && products.length}
+          </strong>
         </div>
       </BoxWrapper>
       <BoxWrapper>

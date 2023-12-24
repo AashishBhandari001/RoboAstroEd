@@ -42,7 +42,7 @@ const signin = async (req, res, next) => {
     const validPassword = bcrypt.compareSync(password, validUser.password);
     if (!validPassword) return next(ErrorHandler(401, "Wrong Credentials"));
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "5m",
+      expiresIn: "1d",
     });
     const { password: pass, ...rest } = validUser._doc;
     rest.token = token;
@@ -65,7 +65,7 @@ const google = async (req, res, next) => {
       res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json(rest); // send the token in a cookie
+        .json(rest); 
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +

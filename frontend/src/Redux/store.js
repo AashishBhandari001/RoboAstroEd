@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   ProductReducers,
+  newProductReducer,
   productDetailsReducers,
 } from "../Reducers/productReducer";
 import userReducer from "./user/userSlice";
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   productDetails: productDetailsReducers,
   user: userReducer,
   cart: cartReducer,
+  newProduct: newProductReducer,
 });
 
 const persistConfig = {
