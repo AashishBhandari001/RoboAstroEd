@@ -5,18 +5,26 @@ const errorHandler = require("../utils/error.js");
 const jwt = require("jsonwebtoken");
 
 const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-  const token = req.cookies.access_token;
+  try {
+    const { authorization } = req.headers;
+    const token =
+      authorization &&
+      authorization.startsWith("Bearer") &&
+      authorization.split(" ")[1];
 
-  if (!token) {
+    if (!token) {
+      return next(errorHandler(401, "Login first to access this resource."));
+    }
+
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+    await User.findById(decodedData.id).then((user) => {
+      req.user = user;
+      next();
+    });
+  } catch (error) {
     return next(errorHandler(401, "Login first to access this resource."));
   }
-
-  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-
-  await User.findById(decodedData.id).then((user) => {
-    req.user = user;
-    next();
-  });
 });
 
 const authorizeRoles = (...roles) => {

@@ -20,7 +20,7 @@ const navlinks = [
     label: "Product",
     dropdown: true,
     items: [
-      { key: "allProducts", label: "All Products", path: "/admin/product/all" },
+      { key: "allProducts", label: "All Products", path: "/admin/product" },
       { key: "addProduct", label: "Add Product", path: "/admin/product/add" },
     ],
     icon: <LuArrowUpDown size={20} />,

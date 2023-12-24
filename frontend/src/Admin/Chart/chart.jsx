@@ -11,7 +11,7 @@ function ChartPage() {
       {
         backgroundColor: ["#2DBBB1 ", "#00A6B8"],
         hoverbackgroundColor: ["#00A6B4", "#00A6B8"],
-        data: [2, 20],
+        data: [20, 200],
       },
     ],
   };
@@ -27,10 +27,9 @@ function ChartPage() {
   };
 
   return (
-    <div className="barchart mt-10  flex flex-row">
-      <div className="flex flex-row gap-48">
+    <div className="mt-10">
+      <div className=" flex flex-row w-80 h-80 gap-20">
         <Doughnut data={stockState} />
-
         <Doughnut data={ammountState} />
       </div>
     </div>

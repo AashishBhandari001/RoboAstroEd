@@ -3,6 +3,8 @@ const {
   createCourse,
   getCoursesLectures,
   addLecture,
+  deleteCourse,
+  deleteLecture,
 } = require("../controllers/course.controller");
 
 const {
@@ -15,7 +17,7 @@ const { singleUpload } = require("../middleware/multer.js");
 
 const router = express.Router();
 
-router.route("/courses").get(getAllCourses);
+router.route("/course").get(getAllCourses);
 
 router
   .route("/createcourse")
@@ -29,7 +31,14 @@ router
 //add lecture , delete cou rse,
 router
   .route("/course/:id")
-  .get(getCoursesLectures)
-  .post(singleUpload, addLecture);
+  .get(isAuthenticatedUser, getCoursesLectures)
+  .post(isAuthenticatedUser, authorizeRoles("admin"), singleUpload, addLecture)
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteCourse);
+
+//delete lecture
+
+router
+  .route("/lecture")
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteLecture);
 
 module.exports = router;
