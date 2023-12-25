@@ -7,11 +7,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 function Layout({ children }) {
   return (
     <>
-      <ChakraProvider>
-        <Navbar />
-        <Outlet />
-        <Footer />
-      </ChakraProvider>
+      <Navbar />
+      
+      <Outlet />
+      <Footer />
     </>
   );
 }

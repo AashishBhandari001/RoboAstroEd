@@ -11,11 +11,12 @@ import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
-import Courses from "./Courses";
+
 import { useSelector } from "react-redux";
 import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
 import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
+import Course from "./Router/CoursePage/course";
 
 //Admin Routes
 import Adminlayout from "./Admin/AdminLayout/adminlayout";
@@ -38,7 +39,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/lessons" element={<Courses />} />
+            <Route path="/lessons" element={< Course />} />
             {/* this is tutor route */}
             <Route path="/account" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
