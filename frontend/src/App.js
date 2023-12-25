@@ -11,6 +11,7 @@ import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
+import Courses from "./Courses";
 import { useSelector } from "react-redux";
 import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
@@ -37,6 +38,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/lessons" element={<Courses />} />
+            {/* this is tutor route */}
             <Route path="/account" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/register" element={<Signup />} />

@@ -14,11 +14,13 @@ function ChartPage() {
 
   let outOfStock = 0;
 
-  products.forEach((product) => {
-    if (product.stock === 0) {
-      outOfStock += 1;
-    }
-  });
+  if (products) {
+    products.forEach((product) => {
+      if (product.stock === 0) {
+        outOfStock += 1;
+      }
+    });
+  }
 
   useEffect(() => {
     dispatch(
@@ -34,7 +36,7 @@ function ChartPage() {
       {
         backgroundColor: ["#2DBBB1 ", "#00A6B8"],
         hoverbackgroundColor: ["#00A6B4", "#00A6B8"],
-        data: [outOfStock, products.length - outOfStock],
+        data: [outOfStock, products ? products.length - outOfStock : 0],
       },
     ],
   };

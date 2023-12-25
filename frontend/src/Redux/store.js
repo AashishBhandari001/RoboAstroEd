@@ -8,8 +8,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   ProductReducers,
   newProductReducer,
+  productReduser,
   productDetailsReducers,
 } from "../Reducers/productReducer";
+import { courseReducer } from "../Reducers/courseReducer";
 import userReducer from "./user/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   newProduct: newProductReducer,
+  product: productReduser,
+  courses: courseReducer,
 });
 
 const persistConfig = {

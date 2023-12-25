@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { clearErrors, createProduct } from "../../Actions/productAction";
+import {
+  clearErrors,
+  createProduct,
+  getAdminProduct,
+} from "../../Actions/productAction";
 import { NEW_PRODUCTS_RESET } from "../../Constants/productConstants";
 import { IoCreateOutline } from "react-icons/io5";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
@@ -17,6 +21,7 @@ function NewProduct() {
   const navigate = useNavigate();
 
   const { loading, error, success } = useSelector((state) => state.newProduct);
+  const { currentUser } = useSelector((state) => state.user);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -47,13 +52,16 @@ function NewProduct() {
       dispatch(clearErrors());
     }
 
-    if (success) {
+    if (currentUser && success) {
+      console.log("currentUser:", currentUser);
+      getAdminProduct({
+        token: currentUser.token,
+      });
       // alert.success("Product created successfully");
       dispatch({ type: NEW_PRODUCTS_RESET });
-      // Uncomment the line below if you want to navigate after successful creation
       // navigate("/admin/dashboard");
     }
-  }, [dispatch, alert, error, success, navigate]);
+  }, [dispatch, currentUser.token, alert, error, success, navigate]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -184,7 +192,7 @@ function NewProduct() {
               key={index}
               src={image}
               alt="Avatar Preview"
-              className="w-16 h-16 object-cover"
+              className="h-16 object-cover w-full overflow-auto"
             />
           ))}
         </div>

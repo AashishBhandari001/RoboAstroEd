@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../models/product.model");
 const errorHandler = require("../utils/error.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
+const cloudinary = require("cloudinary").v2;
 
 const dotenv = require("dotenv");
 const ApiFeatures = require("../utils/apifeatures");
@@ -9,6 +10,28 @@ dotenv.config();
 
 //create new product --Admin
 const createProduct = catchAsyncErrors(async (req, res, next) => {
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.uploader.upload(images[i], {
+      folder: "products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
   req.body.user = req.user.id; //user id from auth middleware
 
   const product = await Product.create(req.body);
@@ -87,6 +110,12 @@ const deleteProduct = async (req, res, next) => {
     if (!product) {
       return next(errorHandler(404, "Product not found"));
     }
+
+    // Delete images associated with the product
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.uploader.destroy(product.images[i].public_id);
+    }
+
     res.status(200).json({
       success: true,
       message: "Product is deleted",

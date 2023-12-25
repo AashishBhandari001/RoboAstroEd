@@ -10,7 +10,9 @@ import {
   NEW_PRODUCTS_REQUEST,
   NEW_PRODUCTS_SUCCESS,
   NEW_PRODUCTS_FAIL,
-  NEW_PRODUCTS_RESET,
+  DELETE_PRODUCTS_REQUEST,
+  DELETE_PRODUCTS_SUCCESS,
+  DELETE_PRODUCTS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
@@ -95,28 +97,74 @@ export const getAdminProduct =
   };
 
 // create new product for admin
-export const createProduct = (productData) => async (dispatch) => {
+export const createProduct = (token, productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PRODUCTS_REQUEST });
+
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
       },
     };
 
-    const { data } = await axios.put(
+    const response = await axios.post(
       "http://localhost:8080/api/product/admin/product/new",
       productData,
       config
     );
 
-    dispatch({
-      type: NEW_PRODUCTS_SUCCESS,
-      payload: data,
-    });
+    if (response && response.data) {
+      dispatch({
+        type: NEW_PRODUCTS_SUCCESS,
+        payload: response.data,
+      });
+    } else {
+      dispatch({
+        type: NEW_PRODUCTS_FAIL,
+        payload: "Failed to create product. Check your network connection.",
+      });
+    }
   } catch (error) {
+    console.log(error);
+    if (error.response.status === 401) {
+      // dispatch(logoutStart());
+      // dispatch(logoutSuccess());
+      console.log("401");
+    }
     dispatch({
-      type: NEW_PRODUCTS_FAIL,
+      type: ADMIN_PRODUCTS_FAIL,
+      payload: "Failed to fetch admin products. Check your network connection.",
+    });
+  }
+};
+
+// delete product for admin
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_PRODUCTS_REQUEST });
+    const response = await axios.delete(
+      `http://localhost:8080/api/product/admin/product/${id}`
+    );
+
+    if (response && response.data) {
+      dispatch({
+        type: DELETE_PRODUCTS_SUCCESS,
+        payload: response.data,
+      });
+    } else {
+      dispatch({
+        type: DELETE_PRODUCTS_FAIL,
+        payload: "Failed to delete product. Check your network connection.",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    if (error.response.status === 401) {
+      dispatch(logoutStart());
+      dispatch(logoutSuccess());
+    }
+    dispatch({
+      type: DELETE_PRODUCTS_FAIL,
       payload: error.response.data.message,
     });
   }

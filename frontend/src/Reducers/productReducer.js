@@ -9,6 +9,10 @@ import {
   ADMIN_PRODUCTS_REQUEST,
   ADMIN_PRODUCTS_SUCCESS,
   ADMIN_PRODUCTS_FAIL,
+  DELETE_PRODUCTS_REQUEST,
+  DELETE_PRODUCTS_SUCCESS,
+  DELETE_PRODUCTS_FAIL,
+  DELETE_PRODUCTS_RESET,
   CLEAR_ERRORS,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
@@ -65,6 +69,32 @@ export const newProductReducer = (state = { product: {} }, action) => {
 
     case NEW_PRODUCTS_RESET:
       return { ...state, success: false };
+
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
+
+    default:
+      return state;
+  }
+};
+
+// delete product for admin
+export const productReduser = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case DELETE_PRODUCTS_REQUEST:
+      return { loading: true, ...state };
+
+    case DELETE_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_PRODUCTS_FAIL:
+      return { loading: false, error: action.payload };
+
+    case DELETE_PRODUCTS_RESET:
+      return { ...state, isDeleted: false };
 
     case CLEAR_ERRORS:
       return { ...state, error: null };
