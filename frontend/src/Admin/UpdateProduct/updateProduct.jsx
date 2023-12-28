@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {
   clearErrors,
-  createProduct,
-  getAdminProduct,
+  updateProduct,
+  getProductDetails,
 } from "../../Actions/productAction";
 import { NEW_PRODUCTS_RESET } from "../../Constants/productConstants";
 import { IoCreateOutline } from "react-icons/io5";
@@ -14,15 +14,17 @@ import { AiOutlineStock } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-function NewProduct() {
-  console.log("NewProduct called");
+function UpdateProduct() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
 
-  const { error, success } = useSelector((state) => state.newProduct);
   const { currentUser } = useSelector((state) => state.user);
+  const { id } = useParams();
+  const { product } = useSelector((state) => state.productDetails);
+  const { isUpdated } = useSelector((state) => state.product);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -48,21 +50,25 @@ function NewProduct() {
   ];
 
   useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
+    if (product && product._id !== id) {
+      dispatch(
+        getProductDetails({
+          token: currentUser.token,
+          id,
+        })
+      );
+    } else {
+      setName(product.name);
+      setPrice(product.price);
+      setDescription(product.description);
+      setCategory(product.category);
+      setStock(product.stock);
+      setImagePreview(product.images);
     }
-
-    if (currentUser && success) {
-      getAdminProduct({
-        token: currentUser.token,
-      });
-      dispatch({ type: NEW_PRODUCTS_RESET });
-      navigate("/admin");
-    }
-  }, [dispatch, currentUser.token, alert, error, success, navigate]);
+  }, []);
 
   const createProductSubmitHandler = (e) => {
+    console.log("createProductSubmitHandler called");
     e.preventDefault();
 
     const myForm = new FormData();
@@ -72,13 +78,13 @@ function NewProduct() {
     myForm.set("category", category);
     myForm.set("stock", stock);
 
-    console.log(images);
-
     images.forEach((image) => {
       myForm.append("images", image);
     });
 
-    dispatch(createProduct({ token: currentUser.token, productData: myForm }));
+    dispatch(
+      updateProduct({ token: currentUser.token, productData: myForm, id })
+    );
   };
 
   const createProductImageChangeHandler = (e) => {
@@ -106,7 +112,7 @@ function NewProduct() {
         onSubmit={createProductSubmitHandler}
         className="max-w-md mx-auto  border-spacing-1 md:mt-10 shadow-xl p-10 "
       >
-        <h1 className="text-3xl font-bold mb-6">Create Product</h1>
+        <h1 className="text-3xl font-bold mb-6">Update Product</h1>
 
         {/* Product Name */}
         <div className="mb-4 flex">
@@ -192,7 +198,7 @@ function NewProduct() {
           {imagePreview.map((image, index) => (
             <img
               key={index}
-              src={image}
+              src={image.url}
               alt="Avatar Preview"
               className="h-16 object-cover w-full overflow-auto"
             />
@@ -211,4 +217,4 @@ function NewProduct() {
   );
 }
 
-export default NewProduct;
+export default UpdateProduct;

@@ -39,7 +39,7 @@ function ProductPage() {
 
   useEffect(() => {
     if (error) {
-      return alert.error(error);
+      alert.error(error);
     }
     dispatch(getProducts(keyword, active, category));
   }, [dispatch, keyword, active, alert, error, category]);

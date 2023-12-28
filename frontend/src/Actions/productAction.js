@@ -13,6 +13,9 @@ import {
   DELETE_PRODUCTS_REQUEST,
   DELETE_PRODUCTS_SUCCESS,
   DELETE_PRODUCTS_FAIL,
+  UPDATE_PRODUCTS_REQUEST,
+  UPDATE_PRODUCTS_SUCCESS,
+  UPDATE_PRODUCTS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
@@ -65,6 +68,7 @@ export const getAdminProduct =
         "http://localhost:8080/api/product/admin/products",
         {
           headers: {
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         }
@@ -97,53 +101,104 @@ export const getAdminProduct =
   };
 
 // create new product for admin
-export const createProduct = (token, productData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_PRODUCTS_REQUEST });
+export const createProduct =
+  ({ token, productData }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: NEW_PRODUCTS_REQUEST });
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-    const response = await axios.post(
-      "http://localhost:8080/api/product/admin/product/new",
-      productData,
-      config
-    );
+      const response = await axios.post(
+        "http://localhost:8080/api/product/admin/product/new",
+        productData,
+        config
+      );
 
-    if (response && response.data) {
+      if (response && response.data) {
+        dispatch({
+          type: NEW_PRODUCTS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: NEW_PRODUCTS_FAIL,
+          payload: "Failed to create product. Check your network connection.",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 401) {
+        dispatch(logoutStart());
+        dispatch(logoutSuccess());
+        console.log("401");
+      }
       dispatch({
-        type: NEW_PRODUCTS_SUCCESS,
-        payload: response.data,
-      });
-    } else {
-      dispatch({
-        type: NEW_PRODUCTS_FAIL,
-        payload: "Failed to create product. Check your network connection.",
+        type: ADMIN_PRODUCTS_FAIL,
+        payload:
+          "Failed to fetch admin products. Check your network connection.",
       });
     }
-  } catch (error) {
-    console.log(error);
-    if (error.response.status === 401) {
-      // dispatch(logoutStart());
-      // dispatch(logoutSuccess());
-      console.log("401");
+  };
+
+// update product for admin
+export const updateProduct =
+  ({ token, productData, id }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_PRODUCTS_REQUEST });
+
+      const response = await axios.put(
+        `http://localhost:8080/api/product/admin/product/${id}`,
+        productData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response && response.data) {
+        dispatch({
+          type: UPDATE_PRODUCTS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: UPDATE_PRODUCTS_FAIL,
+          payload: "Failed to update product. Check your network connection.",
+        });
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        dispatch(logoutStart());
+        dispatch(logoutSuccess());
+        console.log("401");
+      }
+      dispatch({
+        type: UPDATE_PRODUCTS_FAIL,
+        payload: error.response.data.message,
+      });
     }
-    dispatch({
-      type: ADMIN_PRODUCTS_FAIL,
-      payload: "Failed to fetch admin products. Check your network connection.",
-    });
-  }
-};
+  };
 
 // delete product for admin
-export const deleteProduct = (id) => async (dispatch) => {
+export const deleteProduct = (id, token) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCTS_REQUEST });
     const response = await axios.delete(
-      `http://localhost:8080/api/product/admin/product/${id}`
+      `http://localhost:8080/api/product/admin/product/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     if (response && response.data) {
@@ -170,30 +225,40 @@ export const deleteProduct = (id) => async (dispatch) => {
   }
 };
 
-export const getProductDetails = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const response = await axios.get(`http://localhost:8080/api/product/${id}`);
+export const getProductDetails =
+  ({ id, token }) =>
+  async (dispatch) => {
+    try {
+      console.log("id", id);
+      dispatch({ type: PRODUCT_DETAILS_REQUEST });
+      const response = await axios.get(
+        `http://localhost:8080/api/product/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    if (response && response.data) {
-      dispatch({
-        type: PRODUCT_DETAILS_SUCCESS,
-        payload: response.data.product,
-      });
-    } else {
+      if (response && response.data) {
+        dispatch({
+          type: PRODUCT_DETAILS_SUCCESS,
+          payload: response.data.product,
+        });
+      } else {
+        dispatch({
+          type: PRODUCT_DETAILS_FAIL,
+          payload:
+            "Failed to fetch product details. Check your network connection.",
+        });
+      }
+    } catch (error) {
       dispatch({
         type: PRODUCT_DETAILS_FAIL,
-        payload:
-          "Failed to fetch product details. Check your network connection.",
+        payload: error.response.data.message,
       });
     }
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_DETAILS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+  };
 
 // clearing errors
 export const clearErrors = () => async (dispatch) => {

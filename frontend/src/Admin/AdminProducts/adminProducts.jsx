@@ -23,7 +23,7 @@ function AdminProducts() {
   );
 
   const deleteProductHandler = (id) => {
-    dispatch(deleteProduct(id));
+    dispatch(deleteProduct(id, currentUser.token));
   };
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function AdminProducts() {
     }
 
     if (isDeleted) {
-      alert.success("Product Deleted Successfully");
+      // alert.success("Product Deleted Successfully");
       navigate("/admin");
 
       dispatch({ type: DELETE_PRODUCTS_RESET });

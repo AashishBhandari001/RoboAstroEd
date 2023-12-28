@@ -17,12 +17,14 @@ import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
 import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
 import Course from "./Router/CoursePage/course";
+import DetailCourse from "./Router/CoursePage/detailCourse";
 
 //Admin Routes
 import Adminlayout from "./Admin/AdminLayout/adminlayout";
 import Dashboard from "./Admin/Dashboard";
 import AdminProducts from "./Admin/AdminProducts/adminProducts";
 import NewProduct from "./Admin/NewProduct";
+import UpdateProduct from "./Admin/UpdateProduct";
 
 function NotFound() {
   return <Error />;
@@ -39,8 +41,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/lessons" element={< Course />} />
             {/* this is tutor route */}
+            <Route path="/lessons" element={<Course />} />
+            <Route path="/lessons/:id" element={<DetailCourse />} />
             <Route path="/account" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/register" element={<Signup />} />
@@ -55,7 +58,6 @@ function App() {
             <Route path="/shipping" element={<ShippingInfo />} />
             <Route path="/order/confirm" element={<ConfirmOrder />} />
           </Route>
-          {/* Define a catch-all route for not found */}
           <Route path="*" element={<NotFound />} />
 
           {isAuthenticated && currentUser && currentUser.role === "admin" && (
@@ -63,6 +65,7 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="/admin/products" element={<AdminProducts />} />
               <Route path="/admin/product" element={<NewProduct />} />
+              <Route path="/admin/product/:id" element={<UpdateProduct />} />
             </Route>
           )}
         </Routes>
