@@ -109,7 +109,7 @@ export const createProduct =
 
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data;",
           Authorization: `Bearer ${token}`,
         },
       };

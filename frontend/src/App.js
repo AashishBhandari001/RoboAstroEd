@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
 import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
+
+//course routes
 import Course from "./Router/CoursePage/course";
 import DetailCourse from "./Router/CoursePage/detailCourse";
 
@@ -25,6 +27,8 @@ import Dashboard from "./Admin/Dashboard";
 import AdminProducts from "./Admin/AdminProducts/adminProducts";
 import NewProduct from "./Admin/NewProduct";
 import UpdateProduct from "./Admin/UpdateProduct";
+import CreateCourses from "./Router/CoursePage/createCourse";
+import AllCourse from "./Router/CoursePage/allCourse";
 
 function NotFound() {
   return <Error />;
@@ -66,6 +70,8 @@ function App() {
               <Route path="/admin/products" element={<AdminProducts />} />
               <Route path="/admin/product" element={<NewProduct />} />
               <Route path="/admin/product/:id" element={<UpdateProduct />} />
+              <Route path="/admin/courses" element={<AllCourse />} />
+              <Route path="/admin/createcourse" element={<CreateCourses />} />
             </Route>
           )}
         </Routes>
