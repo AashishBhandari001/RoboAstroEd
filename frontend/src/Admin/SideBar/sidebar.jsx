@@ -25,6 +25,16 @@ const navlinks = [
     icon: <LuArrowUpDown size={20} />,
   },
   {
+    key: "Course",
+    label: "Course",
+    dropdown: true,
+    items: [
+      { key: "allCourses", label: "All Courses", path: "/admin/courses" },
+      { key: "addCourse", label: "Add Course", path: "/admin/createcourse" },
+    ],
+    icon: <GoBook size={20} />,
+  },
+  {
     key: "user",
     label: "User",
     path: "/admin/user",
@@ -36,23 +46,25 @@ const navlinks = [
     path: "/admin/order",
     icon: <VscListOrdered size={20} />,
   },
-  {
-    key: "lessons",
-    label: "Lessons",
-    path: "/admin/lessons",
-    icon: <GoBook size={20} />,
-  },
 ];
 
 const Sidebar = () => {
   const [isProductDropdownOpen, setProductDropdownOpen] = useState(false);
+  const [isCourseDropdownOpen, setCourseDropdownOpen] = useState(false);
 
   const toggleProductDropdown = () => {
     setProductDropdownOpen(!isProductDropdownOpen);
+    setCourseDropdownOpen(false);
   };
 
-  const closeProductDropdown = () => {
+  const toggleCourseDropdown = () => {
+    setCourseDropdownOpen(!isCourseDropdownOpen);
     setProductDropdownOpen(false);
+  };
+
+  const closeDropdowns = () => {
+    setProductDropdownOpen(false);
+    setCourseDropdownOpen(false);
   };
 
   return (
@@ -70,13 +82,17 @@ const Sidebar = () => {
               {item.dropdown ? (
                 <div className="relative group">
                   <button
-                    onClick={toggleProductDropdown}
+                    onClick={
+                      item.key === "product"
+                        ? toggleProductDropdown
+                        : toggleCourseDropdown
+                    }
                     className="flex items-center space-x-6 text-white hover:text-gray-300"
                   >
                     {React.cloneElement(item.icon, { size: 32 })}
                     <span>{item.label}</span>
                   </button>
-                  {isProductDropdownOpen && (
+                  {item.key === "product" && isProductDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                       <div
                         className="py-1"
@@ -88,7 +104,29 @@ const Sidebar = () => {
                           <Link
                             key={subItem.key}
                             to={subItem.path}
-                            onClick={closeProductDropdown}
+                            onClick={closeDropdowns}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            role="menuitem"
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {item.key === "Course" && isCourseDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                      <div
+                        className="py-1"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        {item.items.map((subItem) => (
+                          <Link
+                            key={subItem.key}
+                            to={subItem.path}
+                            onClick={closeDropdowns}
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             role="menuitem"
                           >
@@ -102,6 +140,7 @@ const Sidebar = () => {
               ) : (
                 <Link
                   to={item.path}
+                  onClick={closeDropdowns}
                   className="flex items-center space-x-6 text-white hover:text-gray-300"
                 >
                   {React.cloneElement(item.icon, { size: 32 })}
