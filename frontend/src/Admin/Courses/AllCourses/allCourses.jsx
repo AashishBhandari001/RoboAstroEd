@@ -56,13 +56,6 @@ function AllCourses() {
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
       <Box p={["0", "2"]} overflow="auto">
-        <Heading
-          textTransform={"uppercase"}
-          children="All Courses"
-          my="16"
-          textAlign={["center", "left"]}
-        />
-
         <TableContainer w={["100vm", "full"]}>
           <Table variant="simple" size="lg">
             <TableCaption> All available courses in the database</TableCaption>

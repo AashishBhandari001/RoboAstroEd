@@ -1,20 +1,21 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 import {
   Container,
   Heading,
   Input,
   HStack,
+  Box,
+  VStack,
   Button,
   Text,
-  Stack,
-  VStack,
+  Grid,
   Image,
 } from "@chakra-ui/react";
-
-const addToPlaylistHandler = () => {};
+import { getAllCourses } from "../Actions/courseAction";
 
 const categories = [
   "Sajilobot",
@@ -38,75 +39,95 @@ const Course = ({
   lectureCount,
 }) => {
   return (
-    <VStack
+    <Grid
+      templateColumns={["1fr", "1fr", "1fr", "1fr", "1fr", "1fr"]}
+      gap={4}
       className="mb-2 hover:translate-y-2 p-2"
-      alignItems={["center", "flex-start"]}
     >
-      <Image src={imageSrc} objectFit={"contain"} />
-      <Heading
-        textAlign={["center", "left"]}
-        maxW="200px"
-        size={"sm"}
-        fontFamily={"sans-serifs"}
-        noOfLines={3}
-        children={title}
-      />
-      <Text noOfLines={2} children={description} />
+      <Box>
+        <Image
+          src={imageSrc}
+          objectFit={"contain"}
+          boxSize={["400px", "450px", "400px"]}
+        />
+      </Box>
+      <VStack align="start" spacing={2} pl={4} flex="1">
+        <Heading
+          textAlign={["center", "left"]}
+          maxW="200px"
+          size={"sm"}
+          fontFamily={"sans-serifs"}
+          noOfLines={3}
+          children={title}
+        />
+        <Text noOfLines={2} children={description} />
 
-      <HStack>
-        <Text
-          fontWeight={"bold"}
+        <HStack>
+          <Text
+            fontWeight={"bold"}
+            textTransform="uppercase"
+            children={"Creator"}
+          />
+          <Text
+            fontFamily={"body"}
+            textTransform="uppercase"
+            children={creator}
+          />
+        </HStack>
+
+        <Heading
+          textAlign={"center"}
+          size="xs"
+          children={`Lectures - ${lectureCount}`}
           textTransform="uppercase"
-          children={"Creator"}
         />
 
-        <Text
-          fontFamily={"body"}
+        <Heading
+          size="xs"
+          children={`Views - ${views}`}
           textTransform="uppercase"
-          children={creator}
         />
-      </HStack>
 
-      <Heading
-        textAlign={"center"}
-        size="xs"
-        children={`Lectures - ${lectureCount}`}
-        textTransform="uppercase"
-      />
+        <HStack spacing={4} justifyContent="center">
+          <Link to={`/lessons/${id}`}>
+            <Button colorScheme={"orange"}> Watch Now</Button>
+          </Link>
 
-      <Heading
-        size="xs"
-        children={`Views - ${views}`}
-        textTransform="uppercase"
-      />
-
-      <Stack direction={["column", "row"]} alignItems="center">
-        <Link to={`/lessons/${id}`}>
-          <Button colorScheme={"orange"}> Watch Now</Button>
-        </Link>
-
-        <Button
-          variant={"ghost"}
-          colorScheme={"orange"}
-          onClick={() => addToPlaylistHandler(id)}
-        >
-          Add to playlist
-        </Button>
-      </Stack>
-    </VStack>
+          <Button
+            variant={"ghost"}
+            colorScheme={"orange"}
+            onClick={() => addToPlaylistHandler(id)}
+          >
+            Add to playlist
+          </Button>
+        </HStack>
+      </VStack>
+    </Grid>
   );
 };
 
 function Courses() {
+  const alert = useAlert();
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
+  const dispatch = useDispatch();
+
+  const addToPlaylistHandler = (courseId) => {};
+
+  const { courses, error } = useSelector((state) => state.courses);
+
+  useEffect(() => {
+    dispatch(getAllCourses(category, keyword));
+
+    if (error) {
+      console.log("Here is the error");
+      alert.error(error);
+      dispatch({ type: "CLEAR_ERRORS" });
+    }
+  }, [category, keyword, dispatch, alert, error]);
+
   return (
-    <Container
-      className="mt-12"
-      minH={"95vh"}
-      maxW="container.lg"
-      paddingY={"8"}
-    >
+    <Container minH={"95vh"} maxW="container.lg" paddingY={"8"}>
       <Heading children="All Courses" margin={"8"} />
 
       <Input
@@ -124,22 +145,26 @@ function Courses() {
           </Button>
         ))}
       </HStack>
-      <Stack
-        direction={["column", "row"]}
-        flexWrap="wrap"
-        justifyContent={["flex-start", "space-evenly"]}
-        alignItems={["center", "flex-start"]}
+      <Grid
+        templateColumns={["1fr", "1fr", "1fr", "1fr", "repeat(2, 1fr)"]}
+        gap={4}
+        justifyContent="center"
       >
-        <Course
-          title={"Sample1"}
-          description={"Sample1"}
-          views={23}
-          imageSrc={"https://picsum.photos/id/237/200/300"}
-          creator={"Aashish"}
-          lectureCount={2}
-          addToPlaylistHandler={addToPlaylistHandler}
-        />
-      </Stack>
+        {courses &&
+          courses.map((item) => (
+            <Course
+              key={item._id}
+              title={item.title}
+              description={item.description}
+              views={item.views}
+              imageSrc={item.poster.url}
+              id={item._id}
+              creator={item.createdBy}
+              lectureCount={item.numOfVideos}
+              addToPlaylistHandler={addToPlaylistHandler}
+            />
+          ))}
+      </Grid>
     </Container>
   );
 }

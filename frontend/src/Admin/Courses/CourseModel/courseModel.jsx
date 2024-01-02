@@ -93,7 +93,6 @@ function CourseModel({
                 deleteButtonHandler={deleteLectureButtonHandler}
               />
             </Box>
-
             <Box>
               <form
                 onSubmit={(e) =>

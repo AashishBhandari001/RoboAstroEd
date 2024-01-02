@@ -15,10 +15,12 @@ export const getAllCourses =
       let link = `http://localhost:8080/api/course?keyword=${keyword}&category=${category}`;
       const response = await axios.get(link);
 
-      if (response && response.data) {
+      console.log(response);
+
+      if (response.data && response.data.courses) {
         dispatch({
           type: ALL_COURSE_SUCCESS,
-          payload: response.courses,
+          payload: response.data.courses ,
         });
       } else {
         dispatch({

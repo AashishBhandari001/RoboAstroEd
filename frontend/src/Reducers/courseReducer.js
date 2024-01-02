@@ -2,7 +2,7 @@ import {
   ALL_COURSE_REQUEST,
   ALL_COURSE_SUCCESS,
   ALL_COURSE_FAIL,
-    CLEAR_ERRORS,
+  CLEAR_ERRORS,
 } from "../Constants/courseConstants";
 
 export const courseReducer = (state = { courses: [] }, action) => {
@@ -13,7 +13,7 @@ export const courseReducer = (state = { courses: [] }, action) => {
     case ALL_COURSE_SUCCESS:
       return {
         loading: false,
-        courses: action.payload.courses,
+        courses: action.payload,
       };
 
     case ALL_COURSE_FAIL:
