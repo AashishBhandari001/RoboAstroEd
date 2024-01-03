@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Container,
@@ -9,8 +9,16 @@ import {
   Image,
   Button,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { createCourse } from "../../../Actions/courseAction";
+import { useAlert } from "react-alert";
 
 function CreateCourse() {
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const { loading, error, message } = useSelector((state) => state.admin);
+  const { currentUser } = useSelector((state) => state.user);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [createdBy, setCreatedBy] = useState("");
@@ -42,6 +50,31 @@ function CreateCourse() {
     };
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const myForm = new FormData();
+    myForm.append("title", title);
+    myForm.append("description", description);
+    myForm.append("createdBy", createdBy);
+    myForm.append("category", category);
+    myForm.append("file", image);
+
+    const token = currentUser.token;
+
+    console.log(myForm);
+
+    dispatch(createCourse(myForm, { token }));
+  };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+    }
+    if (message) {
+      alert.success(message);
+    }
+  }, [dispatch, error, message, alert]);
+
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
       <Container>
@@ -51,7 +84,7 @@ function CreateCourse() {
           my="16"
           textAlign={["center", "left"]}
         />
-        <form>
+        <form onSubmit={submitHandler}>
           <VStack m="auto" spacing={"8"}>
             <Input
               value={title}
@@ -105,7 +138,12 @@ function CreateCourse() {
               <Image src={imagePrev} boxSize="64" objectFit={"contain"} />
             )}
 
-            <Button w="full" colorScheme={"blue"} type="submit">
+            <Button
+              isLoading={loading}
+              w="full"
+              colorScheme={"blue"}
+              type="submit"
+            >
               Create
             </Button>
           </VStack>

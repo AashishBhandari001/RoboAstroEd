@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const { singleUpload } = require("../middleware/multer.js");
+const { singleUpload, arrayUpload } = require("../middleware/multer.js");
 
 const {
   product,
@@ -15,6 +15,7 @@ const {
   // deleteReview,
   getAdminProducts,
 } = require("../controllers/product.controller.js");
+
 const {
   isAuthenticatedUser,
   authorizeRoles,
@@ -31,7 +32,7 @@ router
   .post(
     isAuthenticatedUser,
     authorizeRoles("admin"),
-    singleUpload,
+    arrayUpload,
     createProduct
   );
 

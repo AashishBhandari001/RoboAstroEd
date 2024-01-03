@@ -33,7 +33,7 @@ const Course = ({
   title,
   imageSrc,
   id,
-  addToPlaylistHandler,
+  // addToPlaylistHandler,
   creator,
   description,
   lectureCount,
@@ -93,13 +93,13 @@ const Course = ({
             <Button colorScheme={"orange"}> Watch Now</Button>
           </Link>
 
-          <Button
+          {/* <Button
             variant={"ghost"}
             colorScheme={"orange"}
             onClick={() => addToPlaylistHandler(id)}
           >
             Add to playlist
-          </Button>
+          </Button> */}
         </HStack>
       </VStack>
     </Grid>
@@ -112,7 +112,7 @@ function Courses() {
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
 
-  const addToPlaylistHandler = (courseId) => {};
+  // const addToPlaylistHandler = (courseId) => {};
 
   const { courses, error } = useSelector((state) => state.courses);
 
@@ -127,7 +127,12 @@ function Courses() {
   }, [category, keyword, dispatch, alert, error]);
 
   return (
-    <Container minH={"95vh"} maxW="container.lg" paddingY={"8"}>
+    <Container
+      className="mt-16"
+      minH={"95vh"}
+      maxW="container.lg"
+      paddingY={"8"}
+    >
       <Heading children="All Courses" margin={"8"} />
 
       <Input
@@ -161,7 +166,7 @@ function Courses() {
               id={item._id}
               creator={item.createdBy}
               lectureCount={item.numOfVideos}
-              addToPlaylistHandler={addToPlaylistHandler}
+              // addToPlaylistHandler={addToPlaylistHandler}
             />
           ))}
       </Grid>

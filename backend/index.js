@@ -35,6 +35,7 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
+app.use(express.static("uploads"));
 
 // Define your routes before starting the server
 app.use("/api/user", userRouter);

@@ -102,8 +102,10 @@ export const getAdminProduct =
 
 // create new product for admin
 export const createProduct =
-  ({ token, productData }) =>
+  ({ token }, productData) =>
   async (dispatch) => {
+    console.log("redux");
+    productData.forEach((v) => console.log(v));
     try {
       dispatch({ type: NEW_PRODUCTS_REQUEST });
 
@@ -225,40 +227,30 @@ export const deleteProduct = (id, token) => async (dispatch) => {
   }
 };
 
-export const getProductDetails =
-  ({ id, token }) =>
-  async (dispatch) => {
-    try {
-      console.log("id", id);
-      dispatch({ type: PRODUCT_DETAILS_REQUEST });
-      const response = await axios.get(
-        `http://localhost:8080/api/product/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DETAILS_REQUEST });
+    const response = await axios.get(`http://localhost:8080/api/product/${id}`);
 
-      if (response && response.data) {
-        dispatch({
-          type: PRODUCT_DETAILS_SUCCESS,
-          payload: response.data.product,
-        });
-      } else {
-        dispatch({
-          type: PRODUCT_DETAILS_FAIL,
-          payload:
-            "Failed to fetch product details. Check your network connection.",
-        });
-      }
-    } catch (error) {
+    if (response && response.data) {
+      dispatch({
+        type: PRODUCT_DETAILS_SUCCESS,
+        payload: response.data.product,
+      });
+    } else {
       dispatch({
         type: PRODUCT_DETAILS_FAIL,
-        payload: error.response.data.message,
+        payload:
+          "Failed to fetch product details. Check your network connection.",
       });
     }
-  };
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // clearing errors
 export const clearErrors = () => async (dispatch) => {

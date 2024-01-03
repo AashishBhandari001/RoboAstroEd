@@ -58,7 +58,7 @@ function NewProduct() {
         token: currentUser.token,
       });
       dispatch({ type: NEW_PRODUCTS_RESET });
-      navigate("/admin");
+      // navigate("/admin");
     }
   }, [dispatch, currentUser.token, alert, error, success, navigate]);
 
@@ -72,13 +72,13 @@ function NewProduct() {
     myForm.set("category", category);
     myForm.set("stock", stock);
 
-    console.log(images);
-
     images.forEach((image) => {
       myForm.append("images", image);
     });
 
-    dispatch(createProduct({ token: currentUser.token, productData: myForm }));
+    const token = currentUser.token;
+    const productData = myForm;
+    dispatch(createProduct({ token }, productData));
   };
 
   const createProductImageChangeHandler = (e) => {
@@ -178,9 +178,8 @@ function NewProduct() {
         {/* File input for images */}
         <div className="mb-4">
           <input
-            type="file"
-            name="avatar"
-            accept="images/*"
+            accept="image/*"
+            type={"file"}
             multiple
             onChange={createProductImageChangeHandler}
             className="border rounded py-2 px-3"
