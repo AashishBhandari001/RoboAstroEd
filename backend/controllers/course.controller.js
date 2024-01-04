@@ -68,7 +68,7 @@ const addLecture = catchAsyncErrors(async (req, res, next) => {
   }
 
   const file = req.file;
-  const fileUri = getDataUri(file); 
+  const fileUri = getDataUri(file);
 
   const mycloud = await cloudinary.uploader.upload(fileUri.content, {
     resource_type: "video",

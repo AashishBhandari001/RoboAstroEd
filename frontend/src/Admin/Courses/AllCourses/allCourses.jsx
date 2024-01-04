@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import CourseModel from "../CourseModel";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCourses } from "../../../Actions/courseAction";
 
 import {
   Grid,
@@ -21,19 +23,8 @@ import {
 } from "@chakra-ui/react";
 
 function AllCourses() {
-  const courses = [
-    {
-      _id: "afafafafafafafaf",
-      title: "LED Course",
-      category: "LED",
-      poster: {
-        url: "https://picsum.photos/id/237/200/300",
-      },
-      createdBy: "Aashish",
-      views: 100,
-      numofVideos: 10,
-    },
-  ];
+  const { courses } = useSelector((state) => state.courses);
+  const dispatch = useDispatch();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -52,6 +43,10 @@ function AllCourses() {
   const addLectureHandler = (e, courseId, title, description, video) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    dispatch(getAllCourses());
+  }, [dispatch]);
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
