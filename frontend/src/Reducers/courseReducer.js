@@ -5,12 +5,19 @@ import {
   ADMIN_COURSE_REQUEST,
   ADMIN_COURSE_SUCCESS,
   ADMIN_COURSE_FAIL,
+  DELETE_COURSE_REQUEST,
+  DELETE_COURSE_SUCCESS,
+  DELETE_COURSE_FAIL,
+  GET_COURSE_LECTURE_REQUEST,
+  GET_COURSE_LECTURE_SUCCESS,
+  GET_COURSE_LECTURE_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/courseConstants";
 
 export const courseReducer = (state = { courses: [] }, action) => {
   switch (action.type) {
     case ALL_COURSE_REQUEST:
+    case DELETE_COURSE_REQUEST:
       return { loading: true, courses: [] };
 
     case ALL_COURSE_SUCCESS:
@@ -19,7 +26,37 @@ export const courseReducer = (state = { courses: [] }, action) => {
         courses: action.payload,
       };
 
+    case DELETE_COURSE_SUCCESS:
+      return {
+        loading: false,
+        isDeleted: action.payload,
+      };
+
     case ALL_COURSE_FAIL:
+    case DELETE_COURSE_FAIL:
+      return { loading: false, error: action.payload };
+
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
+
+    default:
+      return state;
+  }
+};
+
+//get course lectures reducer in admin page
+export const courseLectureReducer = (state = { lectures: [] }, action) => {
+  switch (action.type) {
+    case GET_COURSE_LECTURE_REQUEST:
+      return { loading: true, lectures: [] };
+
+    case GET_COURSE_LECTURE_SUCCESS:
+      return {
+        loading: false,
+        lectures: action.payload,
+      };
+
+    case GET_COURSE_LECTURE_FAIL:
       return { loading: false, error: action.payload };
 
     case CLEAR_ERRORS:

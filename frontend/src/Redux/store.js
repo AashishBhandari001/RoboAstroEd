@@ -11,7 +11,11 @@ import {
   productReduser,
   productDetailsReducers,
 } from "../Reducers/productReducer";
-import { adminReducer, courseReducer } from "../Reducers/courseReducer";
+import {
+  adminReducer,
+  courseReducer,
+  courseLectureReducer,
+} from "../Reducers/courseReducer";
 import userReducer from "./user/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -25,6 +29,7 @@ const rootReducer = combineReducers({
   newProduct: newProductReducer,
   product: productReduser,
   courses: courseReducer,
+  lectures: courseLectureReducer,
   admin: adminReducer,
 });
 

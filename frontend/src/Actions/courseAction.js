@@ -7,6 +7,12 @@ import {
   ADMIN_COURSE_REQUEST,
   ADMIN_COURSE_SUCCESS,
   ADMIN_COURSE_FAIL,
+  DELETE_COURSE_REQUEST,
+  DELETE_COURSE_SUCCESS,
+  DELETE_COURSE_FAIL,
+  GET_COURSE_LECTURE_REQUEST,
+  GET_COURSE_LECTURE_SUCCESS,
+  GET_COURSE_LECTURE_FAIL,
 } from "../Constants/courseConstants";
 
 export const getAllCourses =
@@ -18,19 +24,10 @@ export const getAllCourses =
       let link = `http://localhost:8080/api/course?keyword=${keyword}&category=${category}`;
       const response = await axios.get(link);
 
-      console.log(response);
-
-      if (response.data && response.data.courses) {
-        dispatch({
-          type: ALL_COURSE_SUCCESS,
-          payload: response.data.courses,
-        });
-      } else {
-        dispatch({
-          type: ALL_COURSE_FAIL,
-          payload: "Failed to fetch courses. Check your network connection.",
-        });
-      }
+      dispatch({
+        type: ALL_COURSE_SUCCESS,
+        payload: response.data.courses,
+      });
     } catch (error) {
       dispatch({
         type: ALL_COURSE_FAIL,
@@ -68,6 +65,66 @@ export const createCourse =
         payload: error.response
           ? error.response.data.message
           : "An unexpected error occurred",
+      });
+    }
+  };
+
+export const getCourseLectures =
+  (id, { token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GET_COURSE_LECTURE_REQUEST });
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `http://localhost:8080/api/course/${id}`,
+        config
+      );
+
+      dispatch({
+        type: GET_COURSE_LECTURE_SUCCESS,
+        payload: data.lectures,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_COURSE_LECTURE_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+export const deleteCourse =
+  (id, { token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_COURSE_REQUEST });
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/course/${id}`,
+        config
+      );
+
+      dispatch({
+        type: DELETE_COURSE_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_COURSE_FAIL,
+        payload: error.response.data.message,
       });
     }
   };

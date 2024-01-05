@@ -36,7 +36,7 @@ function CourseModel({
   deleteLectureButtonHandler,
   addLeactureHandler,
   courseTitle,
-  lectures = [],
+  lectures,
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -84,14 +84,17 @@ function CourseModel({
               </Box>
               <Heading children={"Lectures"} size="lg" />
 
-              <VideoCard
-                title="React Intro"
-                description="This is the intro to react"
-                num={1}
-                lectureId="afafafafafafafaf"
-                courseId={id}
-                deleteButtonHandler={deleteLectureButtonHandler}
-              />
+              {lectures.map((item, index) => (
+                <VideoCard
+                  key={item._id}
+                  courseId={id}
+                  num={index + 1}
+                  title={item.title}
+                  description={item.description}
+                  lectureId={item._id}
+                  deleteButtonHandler={deleteLectureButtonHandler}
+                />
+              ))}
             </Box>
             <Box>
               <form

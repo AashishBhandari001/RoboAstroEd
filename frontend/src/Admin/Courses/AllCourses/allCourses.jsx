@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import CourseModel from "../CourseModel";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCourses } from "../../../Actions/courseAction";
+import {
+  deleteCourse,
+  getAllCourses,
+  getCourseLectures,
+} from "../../../Actions/courseAction";
 
 import {
   Grid,
@@ -24,16 +28,25 @@ import {
 
 function AllCourses() {
   const { courses } = useSelector((state) => state.courses);
+
+  const { currentUser } = useSelector((state) => state.user);
+  const { lectures } = useSelector((state) => state.lectures);
+
+  const token = currentUser.token;
+
   const dispatch = useDispatch();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const courseDetailsHandler = (userId) => {
+  const courseDetailsHandler = (courseId) => {
+    dispatch(getCourseLectures(courseId, { token }));
     onOpen();
   };
 
-  const deleteButtonHandler = (userId) => {
-    console.log(userId);
+  const deleteButtonHandler = (courseId) => {
+    dispatch(deleteCourse(courseId, { token }))
+      .then(() => console.log("Course deleted successfully"))
+      .catch((error) => console.error("Error deleting course:", error));
   };
 
   const deleteLectureButtonHandler = (lectureId, courseId) => {
@@ -68,14 +81,15 @@ function AllCourses() {
             </Thead>
 
             <Tbody>
-              {courses.map((item) => (
-                <Row
-                  courseDetailsHandler={courseDetailsHandler}
-                  deleteButtonHandler={deleteButtonHandler}
-                  key={item._id}
-                  item={item}
-                />
-              ))}
+              {courses &&
+                courses.map((item) => (
+                  <Row
+                    courseDetailsHandler={courseDetailsHandler}
+                    deleteButtonHandler={deleteButtonHandler}
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
             </Tbody>
           </Table>
         </TableContainer>
@@ -86,6 +100,7 @@ function AllCourses() {
           courseTitle="React COurse"
           deleteLectureButtonHandler={deleteLectureButtonHandler}
           addLectureHandler={addLectureHandler}
+          lectures={lectures}
         />
       </Box>
     </Grid>
@@ -103,7 +118,7 @@ function Row({ item, courseDetailsHandler, deleteButtonHandler }) {
       <Td textTransform={"uppercase"}> {item.category}</Td>
       <Td>{item.createdBy}</Td>
       <Td isNumeric>{item.views}</Td>
-      <Td isNumeric>{item.numofVideos}</Td>
+      <Td isNumeric>{item.numOfVideos}</Td>
 
       <Td isNumeric>
         <HStack justifyContent={"flex-end"}>
