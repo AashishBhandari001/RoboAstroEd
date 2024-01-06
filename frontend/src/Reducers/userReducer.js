@@ -82,7 +82,8 @@ export const userUpdateDeleteReducer = (state = {}, action) => {
       return {
         ...state,
         loading: false,
-        isDeleted: action.payload,
+        isDeleted: action.payload.success,
+        message: action.payload.message,
       };
 
     case UPDATE_USER_RESET:

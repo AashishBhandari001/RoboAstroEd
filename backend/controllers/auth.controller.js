@@ -65,7 +65,7 @@ const google = async (req, res, next) => {
       res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json(rest); 
+        .json(rest);
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
@@ -135,7 +135,6 @@ const passwordreset = async (req, res, next) => {
       };
 
       const response = await transporter.sendMail(mailOptions);
-      // console.log("Password reset email sent: ", response);
       res.status(200).json("Recovery email sent");
     }
   } catch (error) {
@@ -165,7 +164,6 @@ const forgetpassword = async (req, res, next) => {
           { new: true }
         );
         if (setpassword) {
-          console.log("Password updated");
           return next(ErrorHandler(200, "Password updated"));
         } else {
           console.log("Password not updated");

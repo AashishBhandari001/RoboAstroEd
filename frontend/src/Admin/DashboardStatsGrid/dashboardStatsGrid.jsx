@@ -4,10 +4,15 @@ import { TbShoppingCartCopy } from "react-icons/tb";
 import { MdOutlineBorderColor } from "react-icons/md";
 import { RiUserSearchLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../../Actions/userAction";
 
 function DashboardStatsGrid() {
+  const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
+  const { users } = useSelector((state) => state.allUser);
+
   const { currentUser } = useSelector((state) => state.user);
+  const token = currentUser.token;
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
@@ -18,7 +23,9 @@ function DashboardStatsGrid() {
       );
       setTotalAmount(amount);
     }
-  }, [products]);
+
+    dispatch(getAllUsers({ token }));
+  }, [products, dispatch, token]);
 
   return (
     <div className="flex gap-4 w-full">
@@ -65,7 +72,9 @@ function DashboardStatsGrid() {
         <div className="pl-4 flex flex-col">
           <span className="text-sm font-light text-gray-600">User</span>
 
-          <strong className="text-xl text-gray-700 font-semibold">60</strong>
+          <strong className="text-xl text-gray-700 font-semibold">
+            {users && users.length}
+          </strong>
         </div>
       </BoxWrapper>
     </div>
