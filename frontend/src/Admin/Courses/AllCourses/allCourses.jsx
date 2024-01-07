@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import CourseModel from "../CourseModel";
 import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
 import {
   deleteCourse,
   getAllCourses,
   getCourseLectures,
+  clearErrors,
+  addLecture,
+  deleteLecture,
 } from "../../../Actions/courseAction";
 
 import {
@@ -27,10 +31,13 @@ import {
 } from "@chakra-ui/react";
 
 function AllCourses() {
+  const alert = useAlert();
+  const [courseId, setCourseId] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
   const { courses } = useSelector((state) => state.courses);
 
   const { currentUser } = useSelector((state) => state.user);
-  const { lectures } = useSelector((state) => state.lectures);
+  const { lectures, error } = useSelector((state) => state.lectures);
 
   const token = currentUser.token;
 
@@ -38,28 +45,46 @@ function AllCourses() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const courseDetailsHandler = (courseId) => {
+  const courseDetailsHandler = (courseId, title) => {
     dispatch(getCourseLectures(courseId, { token }));
     onOpen();
+    setCourseId(courseId);
+    setCourseTitle(title);
   };
 
   const deleteButtonHandler = (courseId) => {
-    dispatch(deleteCourse(courseId, { token }))
-      .then(() => console.log("Course deleted successfully"))
-      .catch((error) => console.error("Error deleting course:", error));
+    dispatch(deleteCourse(courseId, { token }));
+    alert.success("Course Deleted Successfully");
+    dispatch(getAllCourses());
+  
   };
 
-  const deleteLectureButtonHandler = (lectureId, courseId) => {
+  const deleteLectureButtonHandler = async (lectureId, courseId) => {
     console.log(lectureId, courseId);
+
+    await dispatch(deleteLecture(lectureId, courseId, { token }));
+    dispatch(getCourseLectures(courseId, { token }));
   };
 
-  const addLectureHandler = (e, courseId, title, description, video) => {
+  const addLectureHandler = async (e, courseId, title, description, video) => {
     e.preventDefault();
+
+    const myForm = new FormData();
+    myForm.append("title", title);
+    myForm.append("description", description);
+    myForm.append("file", video);
+
+    await dispatch(addLecture(courseId, myForm, { token }));
+    dispatch(getCourseLectures(courseId, { token }));
   };
 
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
     dispatch(getAllCourses());
-  }, [dispatch]);
+  }, [dispatch, error, alert]);
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
@@ -96,8 +121,8 @@ function AllCourses() {
         <CourseModel
           isOpen={isOpen}
           onClose={onClose}
-          id={"afafaf"}
-          courseTitle="React COurse"
+          id={courseId}
+          courseTitle={courseTitle}
           deleteLectureButtonHandler={deleteLectureButtonHandler}
           addLectureHandler={addLectureHandler}
           lectures={lectures}
@@ -123,7 +148,7 @@ function Row({ item, courseDetailsHandler, deleteButtonHandler }) {
       <Td isNumeric>
         <HStack justifyContent={"flex-end"}>
           <Button
-            onClick={() => courseDetailsHandler(item._id)}
+            onClick={() => courseDetailsHandler(item._id, item.title)}
             varient={"outline"}
             color="cyan.600"
           >

@@ -34,7 +34,7 @@ function CourseModel({
   onClose,
   id,
   deleteLectureButtonHandler,
-  addLeactureHandler,
+  addLectureHandler,
   courseTitle,
   lectures,
 }) {
@@ -84,22 +84,23 @@ function CourseModel({
               </Box>
               <Heading children={"Lectures"} size="lg" />
 
-              {lectures.map((item, index) => (
-                <VideoCard
-                  key={item._id}
-                  courseId={id}
-                  num={index + 1}
-                  title={item.title}
-                  description={item.description}
-                  lectureId={item._id}
-                  deleteButtonHandler={deleteLectureButtonHandler}
-                />
-              ))}
+              {lectures &&
+                lectures.map((item, index) => (
+                  <VideoCard
+                    key={item._id}
+                    courseId={id}
+                    num={index + 1}
+                    title={item.title}
+                    description={item.description}
+                    lectureId={item._id}
+                    deleteButtonHandler={deleteLectureButtonHandler}
+                  />
+                ))}
             </Box>
             <Box>
               <form
                 onSubmit={(e) =>
-                  addLeactureHandler(e, id, title, description, video)
+                  addLectureHandler(e, id, title, description, video)
                 }
               >
                 <VStack spacing={"4"}>

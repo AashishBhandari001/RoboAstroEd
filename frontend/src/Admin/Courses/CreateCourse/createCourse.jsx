@@ -139,7 +139,6 @@ function CreateCourse() {
             )}
 
             <Button
-              isLoading={loading}
               w="full"
               colorScheme={"blue"}
               type="submit"

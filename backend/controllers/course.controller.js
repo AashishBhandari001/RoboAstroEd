@@ -2,7 +2,7 @@ const Course = require("../models/course.model");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 const errorHandler = require("../utils/error.js");
 const getDataUri = require("../utils/dataUri.js");
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("../utils/cloudinary.js");
 
 const getAllCourses = catchAsyncErrors(async (req, res, next) => {
   const courses = await Course.find().select("-lectures");
@@ -13,34 +13,43 @@ const getAllCourses = catchAsyncErrors(async (req, res, next) => {
 });
 
 const createCourse = catchAsyncErrors(async (req, res, next) => {
-  const { title, description, category, createdBy } = req.body;
+  try {
+    const { title, description, category, createdBy } = req.body;
 
-  if (!title || !description || !category || !createdBy)
-    return next(errorHandler("Please add all fields", 400));
+    if (!title || !description || !category || !createdBy)
+      return next(errorHandler("Please add all fields", 400));
 
-  const file = req.file;
-  const fileUri = getDataUri(file);
+    const file = req.file;
+    const fileUri = getDataUri(file);
 
-  const mycloud = await cloudinary.uploader.upload(fileUri.content);
+    const mycloud = await cloudinary.uploader.upload(fileUri.content);
 
-  await Course.create({
-    title,
-    description,
-    category,
-    createdBy,
-    poster: {
-      public_id: mycloud.public_id,
-      url: mycloud.secure_url,
-    },
-  });
-  res.status(200).json({
-    success: true,
-    message: "Course Created Successfully",
-  });
+    await Course.create({
+      title,
+      views: 0,
+      description,
+      category,
+      createdBy,
+      poster: {
+        public_id: mycloud.public_id,
+        url: mycloud.secure_url,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Course Created Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    next(errorHandler(500, error));
+  }
 });
 
 const getCoursesLectures = catchAsyncErrors(async (req, res, next) => {
   const course = await Course.findById(req.params.id);
+
+  console.log(course);
 
   if (!course) {
     next(errorHandler("Courses not found", 404));
@@ -124,7 +133,7 @@ const deleteCourse = catchAsyncErrors(async (req, res, next) => {
 
 //delete course
 const deleteLecture = catchAsyncErrors(async (req, res, next) => {
-  const { courseId, lectureID } = req.params;
+  const { courseId, lectureId } = req.params;
 
   const course = await Course.findById(courseId);
 
@@ -133,7 +142,7 @@ const deleteLecture = catchAsyncErrors(async (req, res, next) => {
   }
 
   const lecture = course.lectures.find(
-    (item) => item._id.toString() === lectureID.toString()
+    (item) => item._id.toString() === lectureId.toString()
   );
 
   await cloudinary.uploader.destroy(lecture.video.public_id, {
@@ -145,7 +154,7 @@ const deleteLecture = catchAsyncErrors(async (req, res, next) => {
   await course.save();
 
   course.lectures = course.lectures.filter((item) => {
-    if (item._id.toString() !== lectureID.toString()) {
+    if (item._id.toString() !== lectureId.toString()) {
       return item;
     }
   });
