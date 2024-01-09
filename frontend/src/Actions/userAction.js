@@ -65,9 +65,11 @@ export const getUserDetails =
         config
       );
 
+      console.log(data);
+
       dispatch({
         type: USER_DETAILS_SUCCESS,
-        payload: data.user,
+        payload: data.users,
       });
     } catch (error) {
       dispatch({

@@ -9,7 +9,7 @@ const {
   logout,
   getuserDetails,
   getSingleUser,
-  updateuserRole,
+  updateUser,
   deleteUser,
   addToPlaylist,
   removeFromPlaylist,
@@ -38,7 +38,7 @@ router
 router
   .route("/admin/users/:id")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleUser)
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateuserRole)
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateUser)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteUser);
 
 //get tutor by id
@@ -48,9 +48,5 @@ router
 
 router
   .route("/removefromplaylist")
-  .delete(
-    isAuthenticatedUser,
-    authorizeRoles("admin"),
-    removeFromPlaylist
-  );
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), removeFromPlaylist);
 module.exports = router;

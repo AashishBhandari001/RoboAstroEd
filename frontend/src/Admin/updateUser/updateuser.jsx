@@ -51,9 +51,10 @@ function UpdateUser() {
       dispatch(clearErrors());
     }
 
-    if (isUpdated) {
+    if (isUpdated && user._id === id) {
       alert.success("User updated successfully");
       navigate("/admin/user");
+      dispatch({ type: "UPDATE_USER_RESET" });
     }
   }, [
     dispatch,
@@ -67,15 +68,15 @@ function UpdateUser() {
   ]);
 
   const updateUserSubmitHandler = (e) => {
-    console.log("createProductSubmitHandler called");
     e.preventDefault();
 
-    const myForm = new FormData();
-    myForm.set("name", username);
-    myForm.set("email", email);
-    myForm.set("role", role);
+    const userData = {
+      username: username,
+      email: email,
+      role: role,
+    };
 
-    dispatch(updateUser(id, myForm, { token: currentUser.token }));
+    dispatch(updateUser(id, userData, { token: currentUser.token }));
   };
 
   return (

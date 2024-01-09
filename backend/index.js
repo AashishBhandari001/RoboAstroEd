@@ -1,8 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
-const cloudinary = require("./utils/cloudinary.js");
+const morgan = require("morgan");
 
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
@@ -35,6 +34,7 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
+app.use(morgan("dev"));
 app.use(express.static("uploads"));
 
 // Define your routes before starting the server
@@ -72,12 +72,3 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
-
-// //cloudinary connection
-// cloudinary.api.ping(function (error, response) {
-//   if (error) {
-//     console.error("Cloudinary is not connected:", error.message);
-//   } else {
-//     console.log("Cloudinary is connected", response);
-//   }
-// });

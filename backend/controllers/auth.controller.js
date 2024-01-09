@@ -225,7 +225,7 @@ const getSingleUser = async (req, res, next) => {
 };
 
 //update user role -- admin
-const updateuserRole = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   try {
     const newUserData = {
       username: req.body.username,
@@ -233,11 +233,21 @@ const updateuserRole = async (req, res, next) => {
       role: req.body.role,
     };
 
+    console.log("new user data", newUserData);
+
     const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
       new: true,
       runValidators: true,
       useFindAndModify: false,
     });
+
+    if (!user) {
+      // If user is null, there was no user with the specified ID
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -331,7 +341,7 @@ module.exports = {
   logout,
   getuserDetails,
   getSingleUser,
-  updateuserRole,
+  updateUser,
   deleteUser,
   addToPlaylist,
   removeFromPlaylist,

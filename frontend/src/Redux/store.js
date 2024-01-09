@@ -36,7 +36,7 @@ const rootReducer = combineReducers({
   userUpdateDelete: userUpdateDeleteReducer, //update and delete user reducer for admin
   cart: cartReducer,
   newProduct: newProductReducer,
-  product: productReduser,
+  product: productReduser, //delete and update product for admin
   courses: courseReducer,
   lectures: courseLectureReducer,
   admin: adminReducer,
