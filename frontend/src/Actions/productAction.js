@@ -104,7 +104,6 @@ export const getAdminProduct =
 export const createProduct =
   ({ token }, productData) =>
   async (dispatch) => {
-    console.log("redux");
     productData.forEach((v) => console.log(v));
     try {
       dispatch({ type: NEW_PRODUCTS_REQUEST });
@@ -150,20 +149,22 @@ export const createProduct =
 
 // update product for admin
 export const updateProduct =
-  ({ token, productData, id }) =>
+  ({ token }, productData, id) =>
   async (dispatch) => {
     try {
       dispatch({ type: UPDATE_PRODUCTS_REQUEST });
 
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       const response = await axios.put(
         `http://localhost:8080/api/product/admin/product/${id}`,
         productData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
+        config
       );
 
       if (response && response.data) {
@@ -241,7 +242,7 @@ export const getProductDetails = (id) => async (dispatch) => {
       dispatch({
         type: PRODUCT_DETAILS_FAIL,
         payload:
-          "Failed to fetch product details. Check your network connection.",
+          "Failed to fetch product details. Check your network connection",
       });
     }
   } catch (error) {

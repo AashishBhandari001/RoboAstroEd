@@ -29,6 +29,8 @@ import NewProduct from "./Admin/NewProduct";
 import UpdateProduct from "./Admin/UpdateProduct";
 import CreateCourses from "./Router/CoursePage/createCourse";
 import AllCourse from "./Router/CoursePage/allCourse";
+import UserList from "./Admin/UserList";
+import UpdateUser from "./Admin/updateUser";
 
 function NotFound() {
   return <Error />;
@@ -72,6 +74,8 @@ function App() {
               <Route path="/admin/product/:id" element={<UpdateProduct />} />
               <Route path="/admin/courses" element={<AllCourse />} />
               <Route path="/admin/createcourse" element={<CreateCourses />} />
+              <Route path="/admin/user" element={<UserList />} />
+              <Route path="/admin/user/:id" element={<UpdateUser />} />
             </Route>
           )}
         </Routes>

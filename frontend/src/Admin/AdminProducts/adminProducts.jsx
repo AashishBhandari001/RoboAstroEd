@@ -11,9 +11,11 @@ import { MdEditCalendar, MdOutlineDeleteOutline } from "react-icons/md";
 import { Button } from "@mui/material";
 import { DELETE_PRODUCTS_RESET } from "../../Constants/productConstants";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 function AdminProducts() {
   const dispatch = useDispatch();
+  const alert = useAlert();
   const navigate = useNavigate();
   const { products, error } = useSelector((state) => state.products);
   const { currentUser } = useSelector((state) => state.user);
@@ -37,9 +39,7 @@ function AdminProducts() {
     }
 
     if (isDeleted) {
-      // alert.success("Product Deleted Successfully");
-      navigate("/admin");
-
+      alert.success("Product Deleted Successfully");
       dispatch({ type: DELETE_PRODUCTS_RESET });
     }
 
@@ -51,8 +51,8 @@ function AdminProducts() {
   }, [dispatch, currentUser.token, error, deleteError, isDeleted, navigate]);
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 200, flex: 0.5 },
-    { field: "name", headerName: "Name", minWidth: 350, flex: 1 },
+    { field: "id", headerName: "Product Id", minWidth: 250, flex: 0.5 },
+    { field: "name", headerName: "Name", minWidth: 200, flex: 1 },
     {
       field: "stock",
       headerName: "Stock",
@@ -64,7 +64,7 @@ function AdminProducts() {
       field: "price",
       headerName: "Price",
       type: "number",
-      minWidth: 270,
+      minWidth: 300,
       flex: 0.5,
     },
     {
@@ -75,13 +75,13 @@ function AdminProducts() {
       flex: 0.3,
       sortable: false,
       renderCell: (params) => (
-        <div>
+        <div className="flex flex-row">
           <Link to={`/admin/product/${params.row.id}`}>
-            <MdEditCalendar />
+            <MdEditCalendar size={18} />
           </Link>
 
           <Button onClick={() => deleteProductHandler(params.row.id)}>
-            <MdOutlineDeleteOutline />
+            <MdOutlineDeleteOutline size={18} />
           </Button>
         </div>
       ),

@@ -16,7 +16,6 @@ import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 
 function NewProduct() {
-  console.log("NewProduct called");
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
@@ -58,9 +57,10 @@ function NewProduct() {
         token: currentUser.token,
       });
       dispatch({ type: NEW_PRODUCTS_RESET });
-      // navigate("/admin");
+      alert.success("Product created successfully");
+      navigate("/admin");
     }
-  }, [dispatch, currentUser.token, alert, error, success, navigate]);
+  }, [{ dispatch, token: currentUser.token, alert, error, success, navigate }]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -79,6 +79,8 @@ function NewProduct() {
     const token = currentUser.token;
     const productData = myForm;
     dispatch(createProduct({ token }, productData));
+    alert.success("Product created successfully");
+    navigate("/admin");
   };
 
   const createProductImageChangeHandler = (e) => {

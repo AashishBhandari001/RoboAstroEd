@@ -2,8 +2,6 @@ const express = require("express");
 const Product = require("../models/product.model");
 const errorHandler = require("../utils/error.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
-const cloudinary = require("cloudinary").v2;
-const getDataUri = require("../utils/dataUri.js");
 
 const dotenv = require("dotenv");
 const ApiFeatures = require("../utils/apifeatures");
@@ -11,15 +9,12 @@ dotenv.config();
 
 //create new product --Admin
 const createProduct = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.files);
   // images.push(req.body.images);
 
   // if (typeof req.body.images === "string") {
   // } else {
   //   images = req.body.images;
   // }
-
-  const imagesLinks = [];
 
   // for (let i = 0; i < images.length; i++) {
   //   const result = await cloudinary.uploader.upload(images[i], {
@@ -38,7 +33,6 @@ const createProduct = catchAsyncErrors(async (req, res, next) => {
     return { url: "http://localhost:8080/" + file.filename };
   });
 
-  console.log(req.body);
   const product = await Product.create(req.body);
 
   res.status(201).json({
@@ -89,23 +83,30 @@ const getProductDetails = catchAsyncErrors(async (req, res, next) => {
 
 //update product --Admin
 const updateProduct = catchAsyncErrors(async (req, res, next) => {
-  let product = await Product.findById(req.params.id);
-  console.log(req.body);
+  try {
+    let product = await Product.findById(req.params.id);
+    
+    if (!product) {
+      return next(errorHandler(404, "Product not found"));
+    }
 
-  if (!product) {
-    return next(errorHandler(404, "Product not found"));
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error updating the product",
+      error: error.message,
+    });
   }
-
-  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
-  });
-
-  res.status(200).json({
-    success: true,
-    product,
-  });
 });
 
 //delete product --Admin
@@ -118,10 +119,10 @@ const deleteProduct = async (req, res, next) => {
       return next(errorHandler(404, "Product not found"));
     }
 
-    // Delete images associated with the product
-    for (let i = 0; i < product.images.length; i++) {
-      await cloudinary.uploader.destroy(product.images[i].public_id);
-    }
+    // Delete images associated with the product from cloudinary
+    // for (let i = 0; i < product.images.length; i++) {
+    //   await cloudinary.uploader.destroy(product.images[i].public_id);
+    // }
 
     res.status(200).json({
       success: true,

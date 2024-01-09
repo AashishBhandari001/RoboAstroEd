@@ -29,7 +29,7 @@ import {
 
 const rootReducer = combineReducers({
   products: ProductReducers,
-  productDetails: productDetailsReducers,
+  productDetails: productDetailsReducers, //product details reducer for admin
   user: userReducer,
   allUser: allUsersReducer, //all user reducer for admin
   userDetails: userDetailsReducer, //user details reducer for admin

@@ -13,6 +13,13 @@ import {
   GET_COURSE_LECTURE_REQUEST,
   GET_COURSE_LECTURE_SUCCESS,
   GET_COURSE_LECTURE_FAIL,
+  ADD_LECTURE_REQUEST,
+  ADD_LECTURE_SUCCESS,
+  ADD_LECTURE_FAIL,
+  DELETE_LECTURE_REQUEST,
+  DELETE_LECTURE_SUCCESS,
+  DELETE_LECTURE_FAIL,
+  CLEAR_ERRORS,
 } from "../Constants/courseConstants";
 
 export const getAllCourses =
@@ -124,6 +131,74 @@ export const deleteCourse =
     } catch (error) {
       dispatch({
         type: DELETE_COURSE_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
+};
+
+export const addLecture =
+  (id, formdata, { token }) =>
+  async (dispatch) => {
+    console.log("formdata", formdata);
+    try {
+      dispatch({ type: ADD_LECTURE_REQUEST });
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:8080/api/course/${id}`,
+        formdata,
+        config
+      );
+
+      dispatch({
+        type: ADD_LECTURE_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: ADD_LECTURE_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+export const deleteLecture =
+  (courseId, lectureId, { token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_LECTURE_REQUEST });
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/lecture?courseId=${courseId}&lectureId=${lectureId}`,
+        config
+      );
+
+      dispatch({
+        type: DELETE_LECTURE_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_LECTURE_FAIL,
         payload: error.response.data.message,
       });
     }
