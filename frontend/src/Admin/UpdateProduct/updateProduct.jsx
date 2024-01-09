@@ -7,6 +7,7 @@ import {
   updateProduct,
   getProductDetails,
 } from "../../Actions/productAction";
+import { UPDATE_PRODUCTS_RESET } from "../../Constants/productConstants";
 import { IoCreateOutline } from "react-icons/io5";
 import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import { IoReaderOutline } from "react-icons/io5";
@@ -28,8 +29,8 @@ function UpdateProduct() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState("");
-  const [images, setImages] = useState([]);
-  const [imagePreview, setImagePreview] = useState([]);
+  // const [images, setImages] = useState([]);
+  // const [imagePreview, setImagePreview] = useState([]);
 
   const categories = [
     "Electronics",
@@ -55,45 +56,53 @@ function UpdateProduct() {
       setDescription(product.description);
       setCategory(product.category);
       setStock(product.stock);
-      setImagePreview(product.images);
+      // setImagePreview(product.images);
     }
   }, [dispatch, id, product]);
 
-  const createProductSubmitHandler = (e) => {
+  const createProductSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const myForm = new FormData();
-    myForm.set("name", name);
-    myForm.set("price", price);
-    myForm.set("description", description);
-    myForm.set("category", category);
-    myForm.set("stock", stock);
+    const productData = {
+      name,
+      price,
+      description,
+      category,
+      stock,
+      // images,
+    };
 
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
-
-    dispatch(updateProduct({ token: currentUser.token }, myForm, id));
+    try {
+      await dispatch(
+        updateProduct({ token: currentUser.token }, productData, id)
+      );
+      alert.success("Product updated successfully!"); // Show success alert
+      navigate("/admin/products");
+      dispatch({ type: UPDATE_PRODUCTS_RESET });
+    } catch (error) {
+      // Handle error, show an error alert if needed
+      alert.error("Failed to update product. Check your network connection.");
+    }
   };
 
-  const createProductImageChangeHandler = (e) => {
-    const files = Array.from(e.target.files);
-    setImages([]);
-    setImagePreview([]);
+  // const createProductImageChangeHandler = (e) => {
+  //   const files = Array.from(e.target.files);
+  //   setImages([]);
+  //   setImagePreview([]);
 
-    files.forEach((file) => {
-      const reader = new FileReader();
+  //   files.forEach((file) => {
+  //     const reader = new FileReader();
 
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImages((old) => [...old, file]);
-          setImagePreview((old) => [...old, reader.result]);
-        }
-      };
+  //     reader.onload = () => {
+  //       if (reader.readyState === 2) {
+  //         setImages((old) => [...old, reader.result]);
+  //         setImagePreview((old) => [...old, reader.result]);
+  //       }
+  //     };
 
-      reader.readAsDataURL(file);
-    });
-  };
+  //     reader.readAsDataURL(file);
+  //   });
+  // };
 
   return (
     <div className="dashboard ">
@@ -173,28 +182,28 @@ function UpdateProduct() {
         </div>
 
         {/* File input for images */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <input
             type="file"
             name="avatar"
-            accept="images/*"
+            accept="image/*"
             multiple
             onChange={createProductImageChangeHandler}
             className="border rounded py-2 px-3"
           />
-        </div>
+        </div> */}
 
         {/* Image preview */}
-        <div className="mb-4 flex space-x-2">
+        {/* <div className="mb-4 flex space-x-2">
           {imagePreview.map((image, index) => (
             <img
               key={index}
-              src={image.url}
+              src={image}
               alt="Avatar Preview"
               className="h-16 object-cover w-full overflow-auto"
             />
           ))}
-        </div>
+        </div> */}
 
         {/* Submit button */}
         <button

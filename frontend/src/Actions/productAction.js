@@ -151,12 +151,13 @@ export const createProduct =
 export const updateProduct =
   ({ token }, productData, id) =>
   async (dispatch) => {
+    console.log(productData);
     try {
       dispatch({ type: UPDATE_PRODUCTS_REQUEST });
 
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
