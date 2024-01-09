@@ -84,13 +84,13 @@ function UserList() {
       flex: 0.3,
       sortable: false,
       renderCell: (params) => (
-        <div>
+        <div className="flex flex-row">
           <Link to={`/admin/user/${params.row.id}`}>
-            <MdEditCalendar />
+            <MdEditCalendar size={18} />
           </Link>
 
           <Button onClick={() => deleteUserHandler(params.row.id)}>
-            <MdOutlineDeleteOutline />
+            <MdOutlineDeleteOutline size={18} />
           </Button>
         </div>
       ),
