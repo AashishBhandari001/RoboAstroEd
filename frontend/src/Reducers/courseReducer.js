@@ -104,9 +104,15 @@ export const addLectureReducer = (state = { lectures: [] }, action) => {
       return { loading: true };
 
     case ADD_LECTURE_SUCCESS:
+      return {
+        loading: false,
+        message: action.payload,
+      };
+
     case DELETE_LECTURE_SUCCESS:
       return {
         loading: false,
+        isDeleted: action.payload,
         message: action.payload,
       };
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { Spinner } from "@material-tailwind/react";
 
 function Loading() {
   return (

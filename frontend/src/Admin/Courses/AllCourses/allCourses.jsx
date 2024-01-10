@@ -14,7 +14,6 @@ import {
 
 import {
   Grid,
-  Heading,
   Button,
   Box,
   TableContainer,
@@ -56,12 +55,10 @@ function AllCourses() {
     dispatch(deleteCourse(courseId, { token }));
     alert.success("Course Deleted Successfully");
     dispatch(getAllCourses());
-  
   };
 
   const deleteLectureButtonHandler = async (lectureId, courseId) => {
     console.log(lectureId, courseId);
-
     await dispatch(deleteLecture(lectureId, courseId, { token }));
     dispatch(getCourseLectures(courseId, { token }));
   };

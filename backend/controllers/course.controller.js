@@ -135,9 +135,12 @@ const deleteCourse = catchAsyncErrors(async (req, res, next) => {
 const deleteLecture = catchAsyncErrors(async (req, res, next) => {
   const { courseId, lectureId } = req.params;
 
+  console.log("courseId", courseId);
+
   const course = await Course.findById(courseId);
 
   if (!course) {
+    console.log("course not found");
     next(errorHandler("Courses not found", 404));
   }
 

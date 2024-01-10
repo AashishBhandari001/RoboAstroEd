@@ -12,9 +12,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { createCourse } from "../../../Actions/courseAction";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 
 function CreateCourse() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const alert = useAlert();
   const { loading, error, message } = useSelector((state) => state.admin);
   const { currentUser } = useSelector((state) => state.user);
@@ -73,7 +75,10 @@ function CreateCourse() {
     if (message) {
       alert.success(message);
     }
-  }, [dispatch, error, message, alert]);
+    if (message === "Course Created Successfully") {
+      navigate("/admin/courses");
+    }
+  }, [dispatch, error, message, alert, navigate]);
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
@@ -138,11 +143,7 @@ function CreateCourse() {
               <Image src={imagePrev} boxSize="64" objectFit={"contain"} />
             )}
 
-            <Button
-              w="full"
-              colorScheme={"blue"}
-              type="submit"
-            >
+            <Button w="full" colorScheme={"blue"} type="submit">
               Create
             </Button>
           </VStack>

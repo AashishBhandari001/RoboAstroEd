@@ -84,7 +84,6 @@ export const getCourseLectures =
 
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
@@ -177,12 +176,13 @@ export const addLecture =
 export const deleteLecture =
   (courseId, lectureId, { token }) =>
   async (dispatch) => {
+    console.log("courseId", courseId);
+    console.log("lectureId", lectureId);
     try {
       dispatch({ type: DELETE_LECTURE_REQUEST });
 
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };

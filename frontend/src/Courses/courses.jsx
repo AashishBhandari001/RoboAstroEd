@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 
 import {
   Container,
@@ -15,7 +16,7 @@ import {
   Grid,
   Image,
 } from "@chakra-ui/react";
-import { getAllCourses } from "../Actions/courseAction";
+import { getAllCourses, getCourseLectures } from "../Actions/courseAction";
 
 const categories = [
   "Sajilobot",
@@ -33,10 +34,10 @@ const Course = ({
   title,
   imageSrc,
   id,
-  // addToPlaylistHandler,
   creator,
   description,
   lectureCount,
+  courseDetailsHandler,
 }) => {
   return (
     <Grid
@@ -89,17 +90,15 @@ const Course = ({
         />
 
         <HStack spacing={4} justifyContent="center">
-          <Link to={`/lessons/${id}`}>
-            <Button colorScheme={"orange"}> Watch Now</Button>
+          <Link to={lectureCount > 0 ? `/lessons/${id}` : "#"}>
+            <Button
+              onClick={() => courseDetailsHandler(id, title)}
+              colorScheme={"orange"}
+            >
+              {" "}
+              Watch Now
+            </Button>
           </Link>
-
-          {/* <Button
-            variant={"ghost"}
-            colorScheme={"orange"}
-            onClick={() => addToPlaylistHandler(id)}
-          >
-            Add to playlist
-          </Button> */}
         </HStack>
       </VStack>
     </Grid>
@@ -108,19 +107,32 @@ const Course = ({
 
 function Courses() {
   const alert = useAlert();
+  const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
+  const [courseId, setCourseId] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
+
   const dispatch = useDispatch();
 
-  // const addToPlaylistHandler = (courseId) => {};
-
   const { courses, error } = useSelector((state) => state.courses);
+  const { currentUser } = useSelector((state) => state.user);
+  const token = currentUser.token;
+
+  const courseDetailsHandler = (courseId, title, lectureCount) => {
+    if (lectureCount === 0) {
+      alert.error("No lectures in this course");
+    } else {
+      dispatch(getCourseLectures(courseId, { token }));
+      setCourseId(courseId);
+      setCourseTitle(title);
+    }
+  };
 
   useEffect(() => {
     dispatch(getAllCourses(category, keyword));
 
     if (error) {
-      console.log("Here is the error");
       alert.error(error);
       dispatch({ type: "CLEAR_ERRORS" });
     }
@@ -166,7 +178,9 @@ function Courses() {
               id={item._id}
               creator={item.createdBy}
               lectureCount={item.numOfVideos}
-              // addToPlaylistHandler={addToPlaylistHandler}
+              courseDetailsHandler={() => {
+                courseDetailsHandler(item._id, item.title, item.numOfVideos);
+              }}
             />
           ))}
       </Grid>
