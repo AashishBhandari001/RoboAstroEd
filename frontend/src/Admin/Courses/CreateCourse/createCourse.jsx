@@ -18,7 +18,7 @@ function CreateCourse() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
-  const { loading, error, message } = useSelector((state) => state.admin);
+  const { loading, error, success } = useSelector((state) => state.admin);
   const { currentUser } = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");
@@ -63,8 +63,6 @@ function CreateCourse() {
 
     const token = currentUser.token;
 
-    console.log(myForm);
-
     dispatch(createCourse(myForm, { token }));
   };
 
@@ -72,13 +70,13 @@ function CreateCourse() {
     if (error) {
       alert.error(error);
     }
-    if (message) {
-      alert.success(message);
-    }
-    if (message === "Course Created Successfully") {
+
+    if (success) {
+      dispatch({ type: "CREATE_COURSE_RESET" });
+      alert.success("Course created successfully");
       navigate("/admin/courses");
     }
-  }, [dispatch, error, message, alert, navigate]);
+  }, [dispatch, alert, error, success]);
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>

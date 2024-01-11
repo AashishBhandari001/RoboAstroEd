@@ -129,7 +129,7 @@ export const createProduct =
       } else {
         dispatch({
           type: NEW_PRODUCTS_FAIL,
-          payload: "Failed to create product. Check your network connection.",
+          payload: "Failed to create product. Check your network connection",
         });
       }
     } catch (error) {

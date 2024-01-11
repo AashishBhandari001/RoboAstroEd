@@ -64,6 +64,7 @@ export const createCourse =
       dispatch({
         type: ADMIN_COURSE_SUCCESS,
         payload: data.message,
+        success: data.success,
       });
     } catch (error) {
       console.error("Error creating course:", error);
@@ -188,7 +189,7 @@ export const deleteLecture =
       };
 
       const { data } = await axios.delete(
-        `http://localhost:8080/api/lecture?courseId=${courseId}&lectureId=${lectureId}`,
+        `http://localhost:8080/api/course/${courseId}/lecture/${lectureId}`,
         config
       );
 

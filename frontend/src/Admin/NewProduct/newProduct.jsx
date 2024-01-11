@@ -52,10 +52,16 @@ function NewProduct() {
       dispatch(clearErrors());
     }
 
-    if (currentUser && success) {
-      getAdminProduct({
-        token: currentUser.token,
-      });
+    // if (currentUser && success) {
+    //   getAdminProduct({
+    //     token: currentUser.token,
+    //   });
+    //   dispatch({ type: NEW_PRODUCTS_RESET });
+    //   alert.success("Product created successfully");
+    //   navigate("/admin");
+    // }
+
+    if (success) {
       dispatch({ type: NEW_PRODUCTS_RESET });
       alert.success("Product created successfully");
       navigate("/admin");

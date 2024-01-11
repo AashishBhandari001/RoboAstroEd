@@ -82,6 +82,7 @@ export const adminReducer = (state = { courses: [] }, action) => {
 
     case ADMIN_COURSE_SUCCESS:
       return {
+        success: action.payload.success,
         loading: false,
         message: action.payload,
       };
