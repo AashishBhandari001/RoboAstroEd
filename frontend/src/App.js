@@ -9,6 +9,7 @@ import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
+
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
 import PaymentMethod from "./Router/PaymentMethod";
@@ -48,6 +49,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
+
             {/* this is tutor route */}
             <Route path="/lessons" element={<Course />} />
             <Route path="/lessons/:id" element={<DetailCourse />} />

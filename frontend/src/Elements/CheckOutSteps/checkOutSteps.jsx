@@ -35,7 +35,7 @@ function CheckOutSteps({ activeStep }) {
   });
 
   return (
-    <animated.div style={fadeProps}>
+    <animated.div style={{ ...fadeProps, maxWidth: 1300, margin: "0 auto" }}>
       <Stepper alternativeLabel activeStep={activeStep} style={stepStyles}>
         {steps.map((item, index) => (
           <Step

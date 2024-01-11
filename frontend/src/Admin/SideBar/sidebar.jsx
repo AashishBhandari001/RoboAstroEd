@@ -68,7 +68,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="h-screen p-6 pt-10 bg-cyan-700 text-white gap-2">
+    <div className="sticky top-0 h-screen p-6 pt-10 bg-cyan-700 text-white gap-2">
       <div className="flex flex-col justify-start">
         <div className="flex flex-row justify-between items-center mb-20 space-x-2">
           <img src={Logo} alt="company logo" className="w-14" />

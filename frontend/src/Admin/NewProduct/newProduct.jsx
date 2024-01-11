@@ -32,18 +32,17 @@ function NewProduct() {
   const [imagePreview, setImagePreview] = useState([]);
 
   const categories = [
-    "Electronics",
-    "Cameras",
-    "Laptop",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
+    "SajiloBot",
+    "LED",
+    "Resistor",
+    "Battery",
+    "Satellite",
+    "Transistor",
+    "Capacitor",
+    "Wires",
+    "Motors",
+    "Sensors",
+    "3D Printer",
   ];
 
   useEffect(() => {
@@ -52,16 +51,7 @@ function NewProduct() {
       dispatch(clearErrors());
     }
 
-    // if (currentUser && success) {
-    //   getAdminProduct({
-    //     token: currentUser.token,
-    //   });
-    //   dispatch({ type: NEW_PRODUCTS_RESET });
-    //   alert.success("Product created successfully");
-    //   navigate("/admin");
-    // }
-
-    if (success) {
+    if (success === true) {
       dispatch({ type: NEW_PRODUCTS_RESET });
       alert.success("Product created successfully");
       navigate("/admin");
@@ -149,6 +139,7 @@ function NewProduct() {
             type="text"
             placeholder="Description"
             value={description}
+            required
             onChange={(e) => setDescription(e.target.value)}
             className="border rounded w-full py-2 px-3"
           ></textarea>
@@ -189,6 +180,7 @@ function NewProduct() {
             accept="image/*"
             type={"file"}
             multiple
+            required
             onChange={createProductImageChangeHandler}
             className="border rounded py-2 px-3"
           />

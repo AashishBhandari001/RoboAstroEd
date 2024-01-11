@@ -52,6 +52,8 @@ function ConfirmOrder() {
 
   return (
     <div className="py-14 mt-16 md:mt-20 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+      <MetaData title={"Confirm Order"} />
+
       <CheckOutSteps activeStep={1} />
       <div className="flex mt-4 justify-start item-start space-y-2 flex-col ">
         <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">
@@ -145,7 +147,7 @@ function ConfirmOrder() {
               </div>
 
               <div className="w-full flex justify-center items-center">
-                <Link to="/products" className="w-full">
+                <Link to="/payment/method" className="w-full">
                   <button className="mt-6 md:mt-0 py-5 bg-cyan-700 hover:bg-cyan-800 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 w-full 2xl:w-full leading-4 font-medium">
                     Proceed to Payment
                   </button>

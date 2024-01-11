@@ -5,6 +5,7 @@ import Testimonials from "../../Components/Testimonials";
 import LogoCarousel from "../../Components/LogoCarausel";
 import Branding from "../../Components/Branding/branding";
 import Card from "../../Components/Card/card";
+import WhatsappWidget from "../../Elements/WhatsappWidget";
 
 import MetaData from "../../Router/Metadata/metaData"; // Importing MetaData
 
@@ -15,7 +16,8 @@ function Home() {
       <Hero />
       <Branding />
       <Card />
-      <Testimonials />
+      <WhatsappWidget />
+      <Testimonials />  
       <LogoCarousel />
     </>
   );

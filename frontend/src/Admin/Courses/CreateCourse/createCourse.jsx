@@ -71,7 +71,7 @@ function CreateCourse() {
       alert.error(error);
     }
 
-    if (success) {
+    if (success === true) {
       dispatch({ type: "CREATE_COURSE_RESET" });
       alert.success("Course created successfully");
       navigate("/admin/courses");
