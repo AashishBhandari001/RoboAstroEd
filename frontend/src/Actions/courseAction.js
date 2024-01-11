@@ -177,6 +177,7 @@ export const addLecture =
 export const deleteLecture =
   (courseId, lectureId, { token }) =>
   async (dispatch) => {
+    console.log("in action");
     console.log("courseId", courseId);
     console.log("lectureId", lectureId);
     try {

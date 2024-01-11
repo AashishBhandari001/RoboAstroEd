@@ -131,41 +131,49 @@ const deleteCourse = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-//delete course
 const deleteLecture = catchAsyncErrors(async (req, res, next) => {
   const { courseId, lectureId } = req.params;
 
-  console.log("id", courseId);
-  console.log("lectureId", lectureId);
+  try {
+    console.log("courseId", courseId);
+    console.log("lectureId", lectureId);
 
-  const course = await Course.findById(id);
+    const course = await Course.findById(courseId);
 
-  if (!course) {
-    next(errorHandler("Courses not found", 404));
-  }
-
-  const lecture = course.lectures.find(
-    (item) => item._id.toString() === lectureId.toString()
-  );
-
-  await cloudinary.uploader.destroy(lecture.video.public_id, {
-    resource_type: "video",
-  });
-
-  course.numOfVideos = course.lectures.length;
-
-  await course.save();
-
-  course.lectures = course.lectures.filter((item) => {
-    if (item._id.toString() !== lectureId.toString()) {
-      return item;
+    if (!course) {
+      return next(errorHandler("Course not found", 404));
     }
-  });
 
-  res.status(200).json({
-    success: true,
-    message: "Lecture deleted successfully",
-  });
+    const lecture = course.lectures.find(
+      (item) => item._id.toString() === lectureId.toString()
+    );
+
+    if (!lecture) {
+      return next(errorHandler("Lecture not found", 404));
+    }
+
+    await cloudinary.uploader.destroy(lecture.video.public_id, {
+      resource_type: "video",
+    });
+
+    // Update the lectures array by filtering out the deleted lecture
+    course.lectures = course.lectures.filter(
+      (item) => item._id.toString() !== lectureId.toString()
+    );
+
+    // Update the numOfVideos after filtering
+    course.numOfVideos = course.lectures.length;
+
+    await course.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Lecture deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    next(errorHandler(500, error));
+  }
 });
 
 module.exports = {

@@ -58,7 +58,6 @@ function AllCourses() {
   };
 
   const deleteLectureButtonHandler = async (lectureId, courseId) => {
-    console.log(lectureId, courseId);
     await dispatch(deleteLecture(lectureId, courseId, { token }));
     dispatch(getCourseLectures(courseId, { token }));
   };

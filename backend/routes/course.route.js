@@ -38,7 +38,7 @@ router
 //delete lecture
 
 router
-  .route("/course/:id/lecture/:lectureId")
+  .route("/course/:courseId/lecture/:lectureId")
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteLecture);
 
 module.exports = router;

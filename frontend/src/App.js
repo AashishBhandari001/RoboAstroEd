@@ -11,6 +11,7 @@ import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
+import PaymentMethod from "./Router/PaymentMethod";
 
 import { useSelector } from "react-redux";
 import Cart from "./Router/Cart";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/payment/method" element={<PaymentMethod />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:keyword" element={<Products />} />
             <Route
