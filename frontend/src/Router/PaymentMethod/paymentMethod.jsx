@@ -4,13 +4,45 @@ import MetaData from "../Metadata/metaData";
 import cash_In_Delevery from "../.././Assets/cashdelevery.png";
 import Khalti from "../.././Assets/khalti.png";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { newOrderAction } from "../../Actions/orderAction";
+import { useAlert } from "react-alert";
 
 function PaymentMethod() {
   const navigate = useNavigate();
-  const subtotal = 100;
-  const vatRate = 0.1;
-  const vatAmount = subtotal * vatRate;
-  const grandTotal = subtotal + vatAmount;
+  const dispatch = useDispatch();
+  const alert = useAlert();
+
+  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+  const { currentUser } = useSelector((state) => state.user);
+  const { error, success, loading } = useSelector((state) => state.newOrder);
+
+  const subTotal = () => {
+    let total = 0;
+
+    cartItems.forEach((item) => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+    });
+
+    return total;
+  };
+
+  const shippingCharges = subTotal() < 1000 ? 0 : 100;
+
+  const vatAmmount = () => {
+    const vat = 0.13;
+    const total = subTotal();
+    const vatAmount = total * vat;
+    return vatAmount;
+  };
+
+  const grandTotal = () => {
+    const total = subTotal();
+    const vat = vatAmmount();
+    const grandTotal = total + vat + shippingCharges;
+    return grandTotal;
+  };
 
   const [selectedPayment, setSelectedPayment] = useState(null);
 
@@ -18,11 +50,54 @@ function PaymentMethod() {
     setSelectedPayment(paymentMethod);
   };
 
+  //post data
+  const orderItemsData = cartItems.map((item) => ({
+    name: item.name,
+    price: item.price,
+    image: item.image,
+    quantity: item.quantity,
+    product: item.product,
+  }));
+
+  const shippingInfoData = {
+    address: shippingInfo.address,
+    city: shippingInfo.city,
+    phoneNo: shippingInfo.phoneNo,
+    pinCode: shippingInfo.pinCode,
+    country: shippingInfo.country,
+    state: shippingInfo.state,
+  };
+
   const handlePlaceOrder = () => {
     if (selectedPayment === "Khalti") {
-      navigate("/home");
+      alert.success("Payment method is Khalti"); //TODO: implement Khalti payment method
     } else if (selectedPayment === "CashOnDelivery") {
-      navigate("/products");
+      const codPaymentId = "COD-" + Math.floor(Math.random() * 100000);
+
+      const orderData = {
+        shippingInfo: shippingInfoData,
+        orderItems: orderItemsData,
+        user: currentUser.id,
+        paymentType: "COD",
+        paymentInfo: {
+          id: codPaymentId,
+          status: "COD",
+        },
+
+        paidAt: new Date(),
+        itemsPrice: subTotal(),
+        taxPrice: vatAmmount(),
+        shippingPrice: shippingCharges,
+        totalPrice: grandTotal(),
+      };
+
+      dispatch(newOrderAction(orderData, { token: currentUser.token }));
+
+      if (error) {
+        alert.error("Cannot place order, PLease try again later");
+      } else {
+        alert.success("order placed successfully");
+      }
     }
   };
 
@@ -79,25 +154,41 @@ function PaymentMethod() {
               </div>
             </label>
 
-            {/* Total amount section */}
             <div className="flex flex-col sm:col-span-3 mt-8 bg-white p-6 rounded-md shadow-md max-w-lg justify-center">
-              <h2 className="text-xl font-semibold mb-4">Total Amount</h2>
-              <div className="flex flex-col space-y-2">
-                <p>Subtotal: ${subtotal.toFixed(2)}</p>
-                <p>
-                  VAT ({(vatRate * 100).toFixed(0)}%): ${vatAmount.toFixed(2)}
-                </p>
-                <p className="font-semibold text-lg">
-                  Grand Total: ${grandTotal.toFixed(2)}
-                </p>
+              {/* Total amount section */}
+              <div>
+                <h2 className="text-xl font-normal mb-4">Total Amount</h2>
+                <div className="flex flex-col space-y-2">
+                  <p>
+                    <span className="font-semibold">Subtotal:</span> NPR{" "}
+                    {subTotal().toFixed(2)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">VAT (13%):</span> NPR{" "}
+                    {vatAmmount().toFixed(2)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Shipping:</span> NPR{" "}
+                    {shippingCharges.toFixed(2)}
+                  </p>
+                  <p className="text-lg">
+                    <span className="font-semibold">Grand Total:</span>{" "}
+                    <span className="font-bold">
+                      NPR {grandTotal().toFixed(2)}
+                    </span>
+                  </p>
+                </div>
               </div>
 
               {/* Place order button */}
               <button
                 onClick={handlePlaceOrder}
-                className="max-w-lg bg-cyan-600 text-white font-semibold py-2 px-4 rounded-md mt-5 hover:bg-cyan-700"
+                className={`max-w-lg bg-cyan-600 text-white font-semibold py-2 px-4 rounded-md mt-5 hover:bg-cyan-700 ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
               >
-                Place Order
+                {loading ? "Placing Order..." : "Place Order"}
               </button>
             </div>
           </div>

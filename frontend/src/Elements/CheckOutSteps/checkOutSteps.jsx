@@ -1,9 +1,15 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import { Truck, CalendarCheck2, WalletCards, Banknote } from "lucide-react";
+import {
+  Truck,
+  CalendarCheck2,
+  WalletCards,
+  Banknote,
+  CheckCircle,
+} from "lucide-react";
 import Stepper from "@mui/material/Stepper";
 import { Step, StepLabel } from "@mui/material";
-import { RiSecurePaymentLine } from "react-icons/ri";
+import { RiSecurePaymentLine } from "react-icons/ri"; 
 
 function CheckOutSteps({ activeStep }) {
   const steps = [
@@ -20,8 +26,8 @@ function CheckOutSteps({ activeStep }) {
       icon: <Banknote />,
     },
     {
-      label: <div>Payment</div>,
-      icon: <WalletCards />,
+      label: <div>Status</div>,
+      icon: <CheckCircle />,
     },
   ];
 

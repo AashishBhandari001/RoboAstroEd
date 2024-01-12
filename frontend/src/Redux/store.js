@@ -26,6 +26,7 @@ import {
   userDetailsReducer,
   userUpdateDeleteReducer,
 } from "../Reducers/userReducer";
+import { newOrderReducer } from "../Reducers/orderReducer";
 
 const rootReducer = combineReducers({
   products: ProductReducers,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   lectures: courseLectureReducer,
   admin: adminReducer,
   addlecture: addLectureReducer,
+  newOrder: newOrderReducer, //order reducer  
 });
 
 const persistConfig = {

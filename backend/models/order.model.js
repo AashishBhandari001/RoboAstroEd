@@ -62,6 +62,12 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
 
+  paymentType: {
+    type: String,
+    enum: ["eSewa", "COD"],
+    required: true,
+  },
+
   paymentInfo: {
     id: {
       type: String,
