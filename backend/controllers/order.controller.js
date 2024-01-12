@@ -12,6 +12,7 @@ const newOrder = catchAsyncErrors(async (req, res, next) => {
     shippingPrice,
     totalPrice,
     paymentInfo,
+    paymentType,
   } = req.body;
 
   const order = await Order.create({
@@ -22,6 +23,7 @@ const newOrder = catchAsyncErrors(async (req, res, next) => {
     shippingPrice,
     totalPrice,
     paymentInfo,
+    paymentType,
     paidAt: Date.now(),
     user: req.user.id,
   });
@@ -108,7 +110,7 @@ const updateOrder = catchAsyncErrors(async (req, res, next) => {
 async function updateStock(id, quantity) {
   const product = await Product.findById(id);
 
-  product.stock -= quantity;
+  product.stock -= quantity;  
 
   await product.save({ validateBeforeSave: false });
 }
