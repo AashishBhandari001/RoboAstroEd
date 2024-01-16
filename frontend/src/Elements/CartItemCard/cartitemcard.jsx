@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,25 +6,15 @@ import { addToCart, removeItemsFromCart } from "../../Actions/cartAction";
 
 function CartItemCard({ item }) {
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState(1);
   const { product } = useSelector((state) => state.productDetails);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const calculateSubtotal = () => {
     return item.price * item.quantity;
   };
 
-  const increaseQuantity = (id, quantity, stock) => {
-    const newQty = quantity + 1;
-    if (stock <= quantity) {
-      return;
-    }
-
-    dispatch(addToCart(id, newQty));
-  };
-
-  const decreaseQuantity = (id, quantity) => {
-    const newQty = quantity - 1;
-    if (1 >= quantity) {
+  const updateQuantity = (id, newQty) => {
+    if (newQty < 1 || newQty > product?.stock) {
       return;
     }
 
@@ -55,30 +45,22 @@ function CartItemCard({ item }) {
             <div className="flex flex-row items-center ">
               <button
                 className="bg-gray-200 py-2 px-4 rounded-lg text-cyan-700 text-3xl"
-                onClick={() => {
-                  if (amount > 1) {
-                    setAmount((prev) => prev - 1);
-                  }
-                  decreaseQuantity(item.product, item.quantity);
-                }}
+                onClick={() => updateQuantity(item.product, item.quantity - 1)}
               >
                 {" "}
                 -{" "}
               </button>
-              <span
-                className=" py-4 px-6 rounded-lg read-only "
-                contentEditable={false}
-              >
-                {amount}{" "}
-              </span>
+              <input
+                type="number"
+                className="py-2 px-4 rounded-lg read-only text-center w-16"
+                value={item.quantity}
+                onChange={(e) =>
+                  updateQuantity(item.product, parseInt(e.target.value, 10))
+                }
+              />
               <button
                 className="bg-gray-200 py-2 px-4 rounded-lg text-cyan-700 text-3xl"
-                onClick={() => {
-                  if (amount < product?.stock) {
-                    setAmount((prev) => prev + 1);
-                  }
-                  increaseQuantity(item.product, item.quantity, item.stock);
-                }}
+                onClick={() => updateQuantity(item.product, item.quantity + 1)}
               >
                 {" "}
                 +

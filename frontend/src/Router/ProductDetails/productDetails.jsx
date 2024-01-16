@@ -34,7 +34,6 @@ function ProductDetails({ match }) {
         <Loading />
       ) : (
         <div className="flex flex-col justify-between mt-16 lg:flex-row p-12 max-w-7xl gap-10 mx-auto lg:items-center ">
-          {/* <MetaData title={`${product.name}`} /> */}
           <div className="flex flex-col gap-6 lg:w-2/4">
             <Carousel>
               {product?.images &&
@@ -48,7 +47,6 @@ function ProductDetails({ match }) {
                 ))}
             </Carousel>
           </div>
-          {/* About */}
           <div className="flex flex-col gap-4 lg:w-2/4">
             <div>
               <span className="text-cyan-600 font-bold ">{product?.name}</span>
@@ -84,12 +82,21 @@ function ProductDetails({ match }) {
                   {" "}
                   -{" "}
                 </button>
-                <span
-                  className=" py-4 px-6 rounded-lg read-only "
-                  contentEditable={false}
-                >
-                  {amount}{" "}
-                </span>
+                <input
+                  type="number"
+                  className="py-2 px-4 rounded-lg read-only text-center w-16"
+                  value={amount}
+                  onChange={(e) => {
+                    const inputAmount = parseInt(e.target.value, 10);
+                    if (
+                      !isNaN(inputAmount) &&
+                      inputAmount >= 1 &&
+                      inputAmount <= product?.stock
+                    ) {
+                      setAmount(inputAmount);
+                    }
+                  }}
+                />
                 <button
                   className="bg-gray-200 py-2 px-4 rounded-lg text-cyan-700 text-3xl "
                   onClick={() => {
