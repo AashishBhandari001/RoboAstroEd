@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 import Cart from "./Router/Cart";
 import ShippingInfo from "./Router/ShippingInfo";
 import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
+import PaymentSuccess from "./Components/Payment/PaymentSuccess";
+import PaymentFailed from "./Components/Payment/PaymentFail";
 
 //course routes
 import Course from "./Router/CoursePage/course";
@@ -33,6 +35,7 @@ import CreateCourses from "./Router/CoursePage/createCourse";
 import AllCourse from "./Router/CoursePage/allCourse";
 import UserList from "./Admin/UserList";
 import UpdateUser from "./Admin/updateUser";
+import OrderList from "./Admin/OrderList";
 
 function NotFound() {
   return <Error />;
@@ -67,6 +70,8 @@ function App() {
             />
             <Route path="/shipping" element={<ShippingInfo />} />
             <Route path="/order/confirm" element={<ConfirmOrder />} />
+            <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route path="/payment/fail" element={<PaymentFailed />} />
           </Route>
           <Route path="*" element={<NotFound />} />
 
@@ -80,6 +85,7 @@ function App() {
               <Route path="/admin/createcourse" element={<CreateCourses />} />
               <Route path="/admin/user" element={<UserList />} />
               <Route path="/admin/user/:id" element={<UpdateUser />} />
+              <Route path="/admin/order" element={<OrderList />} />
             </Route>
           )}
         </Routes>

@@ -26,23 +26,35 @@ import {
   userDetailsReducer,
   userUpdateDeleteReducer,
 } from "../Reducers/userReducer";
-import { newOrderReducer } from "../Reducers/orderReducer";
+import {
+  khaltiReducer,
+  newOrderReducer,
+  allOrdersReducer,
+  orderReducer,
+} from "../Reducers/orderReducer";
 
 const rootReducer = combineReducers({
   products: ProductReducers,
   productDetails: productDetailsReducers, //product details reducer for admin
+
   user: userReducer,
   allUser: allUsersReducer, //all user reducer for admin
   userDetails: userDetailsReducer, //user details reducer for admin
   userUpdateDelete: userUpdateDeleteReducer, //update and delete user reducer for admin
+
   cart: cartReducer,
   newProduct: newProductReducer,
   product: productReduser, //delete and update product for admin
+
   courses: courseReducer,
   lectures: courseLectureReducer,
+
   admin: adminReducer,
   addlecture: addLectureReducer,
-  newOrder: newOrderReducer, //order reducer  
+  newOrder: newOrderReducer,
+  allOrders: allOrdersReducer, //all order reducer for admin
+  order: orderReducer, //order details reducer for admin
+  khalti: khaltiReducer,
 });
 
 const persistConfig = {
