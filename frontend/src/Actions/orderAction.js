@@ -81,27 +81,36 @@ export const newOrderAction =
   };
 
 //get all orders admin
-export const getAllOrders = () => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_ORDERS_REQUEST });
+export const getAllOrders =
+  ({ token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ALL_ORDERS_REQUEST });
 
-    const { data } = await axios.get(
-      `http://localhost:8080/api/order/admin/orders`
-    );
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-    dispatch({
-      type: ALL_ORDERS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_ORDERS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      const { data } = await axios.get(
+        `http://localhost:8080/api/order/admin/orders`,
+        config
+      );
 
-//update order
+      dispatch({
+        type: ALL_ORDERS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_ORDERS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//update order admin
 export const updateOrder = (id, orderData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ORDER_REQUEST });
@@ -130,7 +139,7 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
   }
 };
 
-//delete order
+//delete order admin
 export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ORDER_REQUEST });

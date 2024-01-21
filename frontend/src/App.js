@@ -36,6 +36,7 @@ import AllCourse from "./Router/CoursePage/allCourse";
 import UserList from "./Admin/UserList";
 import UpdateUser from "./Admin/updateUser";
 import OrderList from "./Admin/OrderList";
+import OrderDetail from "./Admin/OrderDetails";
 
 function NotFound() {
   return <Error />;
@@ -86,6 +87,7 @@ function App() {
               <Route path="/admin/user" element={<UserList />} />
               <Route path="/admin/user/:id" element={<UpdateUser />} />
               <Route path="/admin/order" element={<OrderList />} />
+              <Route path="/admin/order/:id" element={<OrderDetail />} />
             </Route>
           )}
         </Routes>
