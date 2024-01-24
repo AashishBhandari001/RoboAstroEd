@@ -8,6 +8,9 @@ import {
   ALL_ORDERS_REQUEST,
   ALL_ORDERS_SUCCESS,
   ALL_ORDERS_FAIL,
+  GET_ORDER_DETAILS_REQUEST,
+  GET_ORDER_DETAILS_SUCCESS,
+  GET_ORDER_DETAILS_FAIL,
   UPDATE_ORDER_REQUEST,
   UPDATE_ORDER_SUCCESS,
   UPDATE_ORDER_RESET,
@@ -44,7 +47,6 @@ export const khaltiReducer = (state = { order: [] }, action) => {
       return state;
   }
 };
-
 
 export const newOrderReducer = (state = { order: [] }, action) => {
   switch (action.type) {
@@ -89,6 +91,38 @@ export const allOrdersReducer = (state = { orders: [] }, action) => {
     case ALL_ORDERS_FAIL:
       return {
         loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// Order details
+export const orderDetailsReducer = (state = { order: {} }, action) => {
+  switch (action.type) {
+    case GET_ORDER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_ORDER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        order: action.payload,
+      };
+
+    case GET_ORDER_DETAILS_FAIL:
+      return {
+        ...state,
         error: action.payload,
       };
 

@@ -11,7 +11,6 @@ const newOrder = catchAsyncErrors(async (req, res, next) => {
     taxPrice,
     shippingPrice,
     totalPrice,
-    paymentInfo,
     paymentType,
   } = req.body;
 
@@ -22,7 +21,6 @@ const newOrder = catchAsyncErrors(async (req, res, next) => {
     taxPrice,
     shippingPrice,
     totalPrice,
-    paymentInfo,
     paymentType,
     paidAt: Date.now(),
     user: req.user.id,

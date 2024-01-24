@@ -3,9 +3,14 @@ import CheckOutSteps from "../../Elements/CheckOutSteps";
 import MetaData from "../Metadata/metaData";
 import cash_In_Delevery from "../.././Assets/cashdelevery.png";
 import Khalti from "../.././Assets/khalti.png";
+import ESEWA from "../.././Assets/eSewa.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { newOrderAction } from "../../Actions/orderAction";
+import {
+  esewaPaymentAction,
+  newOrderAction,
+  khaltiPaymentAction,
+} from "../../Actions/orderAction";
 import { useAlert } from "react-alert";
 
 function PaymentMethod() {
@@ -44,6 +49,17 @@ function PaymentMethod() {
     return grandTotal;
   };
 
+  const grandTotalInPaisa = () => {
+    const total = subTotal();
+    const vat = vatAmmount();
+    const grandTotalRupees = total + vat + shippingCharges;
+
+    // Convert rupees to paisa by multiplying by 100
+    const grandTotalPaisa = grandTotalRupees * 100;
+
+    return grandTotalPaisa;
+  };
+
   const [selectedPayment, setSelectedPayment] = useState(null);
 
   const handlePaymentSelection = (paymentMethod) => {
@@ -70,7 +86,19 @@ function PaymentMethod() {
 
   const handlePlaceOrder = () => {
     if (selectedPayment === "Khalti") {
-      alert.success("Payment method is Khalti"); //TODO: implement Khalti payment method
+      const paymentData = {
+        return_url: "http://localhost:3000/payment/success",
+        website_url: "http://localhost:3000",
+        amount: grandTotalInPaisa(),
+        purchase_order_id: "PO-" + Math.floor(Math.random() * 100000),
+        purchase_order_name: "Purchase Order",
+        customer_info: {
+          name: currentUser.username,
+          email: currentUser.email,
+          phone: shippingInfo.phoneNo,
+        },
+      };
+      dispatch(khaltiPaymentAction(paymentData));
     } else if (selectedPayment === "CashOnDelivery") {
       const codPaymentId = "COD-" + Math.floor(Math.random() * 100000);
 
@@ -79,11 +107,6 @@ function PaymentMethod() {
         orderItems: orderItemsData,
         user: currentUser.id,
         paymentType: "COD",
-        paymentInfo: {
-          id: codPaymentId,
-          status: "COD",
-        },
-
         paidAt: new Date(),
         itemsPrice: subTotal(),
         taxPrice: vatAmmount(),
@@ -97,6 +120,7 @@ function PaymentMethod() {
         alert.error("Cannot place order, PLease try again later");
       } else {
         alert.success("order placed successfully");
+        navigate("/success");
       }
     }
   };

@@ -31,6 +31,7 @@ import {
   newOrderReducer,
   allOrdersReducer,
   orderReducer,
+  orderDetailsReducer,
 } from "../Reducers/orderReducer";
 
 const rootReducer = combineReducers({
@@ -51,9 +52,11 @@ const rootReducer = combineReducers({
 
   admin: adminReducer,
   addlecture: addLectureReducer,
+
   newOrder: newOrderReducer,
   allOrders: allOrdersReducer, //all order reducer for admin
-  order: orderReducer, //order details reducer for admin
+  order: orderReducer, //order update delete reducer for admin
+  orderDetails: orderDetailsReducer, //order details reducer for admin
   khalti: khaltiReducer,
 });
 
