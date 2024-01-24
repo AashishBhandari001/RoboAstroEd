@@ -70,6 +70,14 @@ const OrderDetail = () => {
     fetchOrderDetails();
   }, [dispatch, alert, id, token]);
 
+  useEffect(() => {
+    if (isUpdated) {
+      alert.success("Order updated successfully");
+      navigate("/admin/order");
+      dispatch({ type: UPDATE_ORDER_RESET }); // Reset the isUpdated state
+    }
+  }, [dispatch, isUpdated, navigate]);
+
   return (
     <div className="container mx-auto ml-10">
       <div className="flex flex-row gap-10">
@@ -130,6 +138,14 @@ const OrderDetail = () => {
 
               <h2 className="font-medium text-6xl pb-4 pt-6 ">Order Status</h2>
               <span>Status: {order.orderStatus}</span>
+
+              {order.orderStatus === "Delivered" ? (
+                <span className="text-green-600 mt-4">
+                  Delivered on {order.deliveredAt}
+                </span>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <button
@@ -140,7 +156,12 @@ const OrderDetail = () => {
           </button>
         </div>
 
-        <div className="bg-white p-10 rounded-lg shadow-md justify-items-center">
+        <div
+          style={{
+            display: order.orderStatus === "Delivered" ? "none" : "block",
+          }}
+          className="bg-white p-10 rounded-lg shadow-md justify-items-center"
+        >
           <form onSubmit={updateOrderSubmitHandler}>
             <h1 className="font-medium text-6xl pb-4 pt-6">Process Order</h1>
 
@@ -157,9 +178,16 @@ const OrderDetail = () => {
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <option value="">Choose Status</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
+                  {order.orderStatus === "Processing" ? (
+                    <option value="Shipped">Shipped</option>
+                  ) : (
+                    ""
+                  )}
+                  {order.orderStatus === "Shipped" ? (
+                    <option value="Delivered">Delivered</option>
+                  ) : (
+                    ""
+                  )}
                 </select>
               </div>
             </div>

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors } from "../../Actions/productAction";
+
 import { Link } from "react-router-dom";
-import { MdEditCalendar, MdOutlineDeleteOutline } from "react-icons/md";
+import { MdOutlineEdit, MdOutlineDeleteOutline } from "react-icons/md";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { getAllOrders } from "../../Actions/orderAction";
+import {
+  deleteOrder,
+  getAllOrders,
+  clearErrors,
+} from "../../Actions/orderAction";
+import { DELETE_ORDER_RESET } from "../../Constants/orderConstants";
 
 function OrderList() {
   const dispatch = useDispatch();
@@ -18,48 +23,47 @@ function OrderList() {
   const { currentUser } = useSelector((state) => state.user);
   const token = currentUser.token;
 
-  const { error: deleteError, isDeleted } = useSelector(
-    (state) => state.product
-  );
+  const { error: deleteError, isDeleted } = useSelector((state) => state.order);
 
-  const deleteProductHandler = (id) => {
-    // dispatch(deleteProduct(id, currentUser.token));
+  const deleteOrderHandler = (id) => {
+    dispatch(deleteOrder(id, { token }));
   };
 
   useEffect(() => {
-    // if (error) {
-    //   dispatch(clearErrors());
-    // }
+    if (error) {
+      dispatch(clearErrors());
+    }
 
-    // if (deleteError) {
-    //   alert.error(deleteError);
-    //   dispatch(clearErrors());
-    // }
+    if (deleteError) {
+      alert.error(deleteError);
+      dispatch(clearErrors());
+    }
 
-    // if (isDeleted) {
-    //   alert.success("Product Deleted Successfully");
-    //   dispatch({ type: DELETE_PRODUCTS_RESET });
-    // }
+    if (isDeleted) {
+      alert.success("Order Deleted Successfully");
+      navigate("/admin/order");
+      dispatch({ type: DELETE_ORDER_RESET });
+    }
 
     dispatch(
       getAllOrders({
         token,
       })
     );
-  }, [dispatch, token]);
+  }, [dispatch, token, error, deleteError, isDeleted, navigate]);
 
   const columns = [
     {
       field: "id",
       headerName: "Order Id",
       minWidth: 250,
-      flex: 0.5,
+      flex: 0.3,
     },
     {
       field: "status",
       headerName: "Status",
-      minWidth: 300,
-      flex: 0.5,
+      minWidth: 200,
+      flex: 0.3,
       cellClassName: (params) => {
         return params.value === "Delivered" ? "greenColor" : "redColor";
       },
@@ -68,36 +72,36 @@ function OrderList() {
       field: "paymentType",
       headerName: "Payment Type",
       minWidth: 200,
-      flex: 0.5,
+      flex: 0.3,
     },
     {
       field: "itemsQty",
       headerName: "items Qty",
       type: "number",
-      minWidth: 200,
-      flex: 0.5,
+      minWidth: 150,
+      flex: 0.2,
     },
     {
       field: "amount",
       headerName: "Amount",
       type: "number",
-      minWidth: 300,
-      flex: 0.5,
+      minWidth: 250,
+      flex: 0.2,
     },
     {
       field: "actions",
       headerName: "Actions",
       type: "number",
-      minWidth: 270,
-      flex: 0.3,
+      minWidth: 150,
+      flex: 0.2,
       sortable: false,
       renderCell: (params) => (
         <div className="flex flex-row">
           <Link to={`/admin/order/${params.row.id}`}>
-            <MdEditCalendar size={18} />
+            <MdOutlineEdit size={18} />
           </Link>
 
-          <Button onClick={() => deleteProductHandler(params.row.id)}>
+          <Button onClick={() => deleteOrderHandler(params.row.id)}>
             <MdOutlineDeleteOutline size={18} />
           </Button>
         </div>
