@@ -7,7 +7,6 @@ import { addToCart, removeItemsFromCart } from "../../Actions/cartAction";
 function CartItemCard({ item }) {
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.productDetails);
-  const { cartItems } = useSelector((state) => state.cart);
 
   const calculateSubtotal = () => {
     return item.price * item.quantity;

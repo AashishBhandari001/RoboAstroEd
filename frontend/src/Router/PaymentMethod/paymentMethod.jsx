@@ -87,7 +87,7 @@ function PaymentMethod() {
   const handlePlaceOrder = () => {
     if (selectedPayment === "Khalti") {
       const paymentData = {
-        return_url: "http://localhost:3000/payment/success",
+        return_url: "http://localhost:8080/api/khalti/initiate",
         website_url: "http://localhost:3000",
         amount: grandTotalInPaisa(),
         purchase_order_id: "PO-" + Math.floor(Math.random() * 100000),
@@ -98,6 +98,7 @@ function PaymentMethod() {
           phone: shippingInfo.phoneNo,
         },
       };
+      
       dispatch(khaltiPaymentAction(paymentData));
     } else if (selectedPayment === "CashOnDelivery") {
       const codPaymentId = "COD-" + Math.floor(Math.random() * 100000);

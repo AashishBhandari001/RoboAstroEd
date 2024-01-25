@@ -33,8 +33,6 @@ export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
       paymentData
     );
 
-    console.log(data);
-
     dispatch({
       type: KHALTI_PAYMENT_SUCCESS,
       payload: data,

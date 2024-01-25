@@ -64,19 +64,32 @@ const orderSchema = new mongoose.Schema({
 
   paymentType: {
     type: String,
-    enum: ["eSewa", "COD"],
+    enum: ["khalti", "COD"],
     required: true,
   },
 
-  paymentInfo: {
-    id: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
+  // paymentInfo: {
+  //   id: {
+  //     type: String,
+  //     required: true,
+  //   },
+
+  //   status: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
+
+  pidx: {
+    type: String,
+  },
+
+  paymenturl: {
+    type: String,
+  },
+
+  expiresAt: {
+    type: Date,
   },
 
   paidAt: {
