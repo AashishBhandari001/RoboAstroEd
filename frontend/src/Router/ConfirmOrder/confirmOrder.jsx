@@ -1,13 +1,22 @@
 import React from "react";
 import CheckOutSteps from "../../Elements/CheckOutSteps";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../Metadata/metaData";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { newOrderAction } from "../../Actions/orderAction";
+import { useAlert } from "react-alert";
 
 function ConfirmOrder() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const alert = useAlert();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { currentUser } = useSelector((state) => state.user);
+  const { error, success, loading } = useSelector((state) => state.newOrder);
+  const { order } = useSelector((state) => state.newOrder);
 
   const subTotal = () => {
     let total = 0;
@@ -49,6 +58,52 @@ function ConfirmOrder() {
     // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
+
+  //from another page
+  const orderItemsData = cartItems.map((item) => ({
+    name: item.name,
+    price: item.price,
+    image: item.image,
+    quantity: item.quantity,
+    product: item.product,
+  }));
+
+  const shippingInfoData = {
+    address: shippingInfo.address,
+    city: shippingInfo.city,
+    phoneNo: shippingInfo.phoneNo,
+    pinCode: shippingInfo.pinCode,
+    country: shippingInfo.country,
+    state: shippingInfo.state,
+  };
+
+  const proceedToPaymentSubmitHandler = () => {
+    const orderData = {
+      shippingInfo: shippingInfoData,
+      orderItems: orderItemsData,
+      user: currentUser.id,
+      paidAt: new Date(),
+      itemsPrice: subTotal(),
+      taxPrice: vatAmmount(),
+      shippingPrice: shippingCharges,
+      totalPrice: grandTotal(),
+    };
+    try {
+      dispatch(newOrderAction(orderData, { token: currentUser.token }));
+
+      if (error) {
+        alert.error(error);
+      }
+
+      if (success === true) {
+        console.log("here");
+        const orderId = success.order._id;
+        navigate(`/order/${orderId}`);
+      }
+    } catch (error) {
+      console.error("Error during order creation:", error);
+    }
+  };
 
   return (
     <div className="py-14 mt-16 md:mt-20 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
@@ -147,11 +202,14 @@ function ConfirmOrder() {
               </div>
 
               <div className="w-full flex justify-center items-center">
-                <Link to="/payment/method" className="w-full">
-                  <button className="mt-6 md:mt-0 py-5 bg-cyan-700 hover:bg-cyan-800 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 w-full 2xl:w-full leading-4 font-medium">
-                    Proceed to Payment
-                  </button>
-                </Link>
+                {/* <Link to="payment/method" className="w-full"> */}
+                <button
+                  onClick={proceedToPaymentSubmitHandler}
+                  className="mt-6 md:mt-0 py-5 bg-cyan-700 hover:bg-cyan-800 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 w-full 2xl:w-full leading-4 font-medium"
+                >
+                  Proceed to Payment
+                </button>
+                {/* </Link> */}
               </div>
             </div>
           </div>

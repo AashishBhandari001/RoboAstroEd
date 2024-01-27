@@ -34,12 +34,11 @@ function Card() {
   };
 
   return (
-    <div className="bg-white font-open-sans ml-6 mr-6 mb-10">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 mt-4">
       <div>
-        <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2">
+        <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-cyan-600 my-1 mx-2">
           Transforming young minds into innovators
         </h1>
-        <Dash />
       </div>
 
       <div>

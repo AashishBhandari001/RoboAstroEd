@@ -24,6 +24,7 @@ import {
   CLEAR_ERRORS,
 } from "../Constants/orderConstants";
 
+// Inside khaltiPaymentAction
 export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
   try {
     dispatch({ type: KHALTI_PAYMENT_REQUEST });
@@ -37,6 +38,9 @@ export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
       type: KHALTI_PAYMENT_SUCCESS,
       payload: data,
     });
+
+    // Redirect user to Khalti payment URL
+    window.location.href = data.payment_url;
   } catch (error) {
     console.error(error);
     dispatch({
@@ -48,36 +52,35 @@ export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
   }
 };
 
-export const newOrderAction =
-  (orderData, { token }) =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: CREATE_ORDER_REQUEST });
+export const newOrderAction = (orderData, { token }) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_ORDER_REQUEST });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-      const { data } = await axios.post(
-        `http://localhost:8080/api/order/new`,
-        orderData,
-        config
-      );
+    const { data } = await axios.post(
+      `http://localhost:8080/api/order/new`,
+      orderData,
+      config
+    );
 
-      dispatch({
-        type: CREATE_ORDER_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: CREATE_ORDER_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+    dispatch({
+      type: CREATE_ORDER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 
 //get all orders admin
 export const getAllOrders =

@@ -17,8 +17,8 @@ function Home() {
         <Hero />
         <Branding />
         <Card />
-        <WhatsappWidget />
-        <Testimonials />
+        {/* <WhatsappWidget /> */}
+        {/* <Testimonials /> */}
         <LogoCarousel />
       </div>
     </>

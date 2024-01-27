@@ -62,7 +62,6 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
             <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/payment/method" element={<PaymentMethod />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:keyword" element={<Products />} />
             <Route
@@ -70,7 +69,9 @@ function App() {
               element={<ForgetPassword />}
             />
             <Route path="/shipping" element={<ShippingInfo />} />
-            <Route path="/order/confirm" element={<ConfirmOrder />} />
+            <Route path="/order" element={<ConfirmOrder />} />
+            <Route path="/order/:id" element={<PaymentMethod />} />
+
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/fail" element={<PaymentFailed />} />
           </Route>

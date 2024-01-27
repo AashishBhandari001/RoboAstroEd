@@ -78,20 +78,14 @@ export const createCourse =
   };
 
 export const getCourseLectures =
-  (id, { token }) =>
+  (id) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_COURSE_LECTURE_REQUEST });
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
 
       const { data } = await axios.get(
         `http://localhost:8080/api/course/${id}`,
-        config
       );
 
       dispatch({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CheckOutSteps from "../../Elements/CheckOutSteps";
 import MetaData from "../Metadata/metaData";
 import cash_In_Delevery from "../.././Assets/cashdelevery.png";
@@ -16,6 +16,7 @@ import { useAlert } from "react-alert";
 function PaymentMethod() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const alert = useAlert();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
@@ -87,7 +88,7 @@ function PaymentMethod() {
   const handlePlaceOrder = () => {
     if (selectedPayment === "Khalti") {
       const paymentData = {
-        return_url: "http://localhost:8080/api/khalti/initiate",
+        return_url: "http://localhost:8080/api/khalti/callback",
         website_url: "http://localhost:3000",
         amount: grandTotalInPaisa(),
         purchase_order_id: "PO-" + Math.floor(Math.random() * 100000),
@@ -98,31 +99,9 @@ function PaymentMethod() {
           phone: shippingInfo.phoneNo,
         },
       };
-      
+
       dispatch(khaltiPaymentAction(paymentData));
     } else if (selectedPayment === "CashOnDelivery") {
-      const codPaymentId = "COD-" + Math.floor(Math.random() * 100000);
-
-      const orderData = {
-        shippingInfo: shippingInfoData,
-        orderItems: orderItemsData,
-        user: currentUser.id,
-        paymentType: "COD",
-        paidAt: new Date(),
-        itemsPrice: subTotal(),
-        taxPrice: vatAmmount(),
-        shippingPrice: shippingCharges,
-        totalPrice: grandTotal(),
-      };
-
-      dispatch(newOrderAction(orderData, { token: currentUser.token }));
-
-      if (error) {
-        alert.error("Cannot place order, PLease try again later");
-      } else {
-        alert.success("order placed successfully");
-        navigate("/success");
-      }
     }
   };
 

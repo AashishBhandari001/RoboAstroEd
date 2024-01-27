@@ -20,7 +20,6 @@ const OrderDetail = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const { id } = useParams();
-  console.log(id);
   const { currentUser } = useSelector((state) => state.user);
   const token = currentUser.token;
   const { order, loading, error } = useSelector((state) => state.orderDetails);

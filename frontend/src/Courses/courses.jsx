@@ -116,14 +116,14 @@ function Courses() {
   const dispatch = useDispatch();
 
   const { courses, error } = useSelector((state) => state.courses);
-  const { currentUser } = useSelector((state) => state.user);
-  const token = currentUser.token;
+  // const { currentUser } = useSelector((state) => state.user);
+  // const token = currentUser.token;
 
   const courseDetailsHandler = (courseId, title, lectureCount) => {
     if (lectureCount === 0) {
       alert.error("No lectures in this course");
     } else {
-      dispatch(getCourseLectures(courseId, { token }));
+      dispatch(getCourseLectures(courseId));
       setCourseId(courseId);
       setCourseTitle(title);
     }

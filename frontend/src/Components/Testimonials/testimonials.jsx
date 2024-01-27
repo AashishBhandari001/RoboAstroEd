@@ -42,7 +42,6 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <Rating />
               </div>
               <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
@@ -68,7 +67,6 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <Rating />
               </div>
             </div>
             <div className="px-3 md:w-1/3">
@@ -95,7 +93,6 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <Rating />
               </div>
               <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
@@ -122,7 +119,6 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <Rating />
               </div>
             </div>
             <div className="px-3 md:w-1/3 ">
@@ -152,7 +148,6 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <Rating />
               </div>
               <div className="hidden md:flex flex-col w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
@@ -177,7 +172,6 @@ function testimonials() {
                     </span>
                   </p>
                 </div>
-                <Rating />
               </div>
             </div>
           </div>
