@@ -77,6 +77,14 @@ function ConfirmOrder() {
     state: shippingInfo.state,
   };
 
+  const orderData = {
+    id: order._id,
+    status: order.orderStatus,
+    createdAt: order.createdAt,
+  };
+
+  console.log("orderData", orderData);
+
   const proceedToPaymentSubmitHandler = () => {
     const orderData = {
       shippingInfo: shippingInfoData,
@@ -95,10 +103,8 @@ function ConfirmOrder() {
         alert.error(error);
       }
 
-      if (success === true) {
-        console.log("here");
-        const orderId = success.order._id;
-        navigate(`/order/${orderId}`);
+      if (success) {
+        navigate(`/order/${order.order._id}`);
       }
     } catch (error) {
       console.error("Error during order creation:", error);

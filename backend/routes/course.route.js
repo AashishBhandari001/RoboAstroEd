@@ -31,7 +31,7 @@ router
 //add lecture , delete cou rse,
 router
   .route("/course/:id")
-  .get(isAuthenticatedUser, getCoursesLectures)
+  .get(getCoursesLectures)
   .post(isAuthenticatedUser, authorizeRoles("admin"), singleUpload, addLecture)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteCourse);
 

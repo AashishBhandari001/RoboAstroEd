@@ -134,6 +134,18 @@ const OrderDetail = () => {
               <br />
               <span>Total Price: Rs. {order.totalPrice}</span>
               <br />
+              <span>
+                Payment Status:{" "}
+                <span
+                  style={{
+                    color:
+                      order.paymentStatus === "Completed" ? "green" : "red",
+                  }}
+                >
+                  {order.paymentStatus}
+                </span>{" "}
+              </span>
+              <br />
 
               <h2 className="font-medium text-6xl pb-4 pt-6 ">Order Status</h2>
               <span>Status: {order.orderStatus}</span>

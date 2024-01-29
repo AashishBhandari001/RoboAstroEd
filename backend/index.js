@@ -10,8 +10,6 @@ const product = require("./routes/product.route.js");
 const order = require("./routes/order.route.js");
 const courses = require("./routes/course.route.js");
 
-const khaltiRouter = require("./routes/khalti.route.js");
-
 const errorMiddleware = require("./middleware/error.js");
 const cors = require("cors");
 const errorHandler = require("./utils/error.js");
@@ -47,7 +45,6 @@ app.use("/api/contact", contactRouter);
 app.use("/api/product", product);
 app.use("/api/order", order);
 app.use("/api", courses);
-app.use("/api/khalti", khaltiRouter);
 
 //mongodb error handling
 app.use((err, req, res, next) => {

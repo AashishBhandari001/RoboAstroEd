@@ -2,6 +2,9 @@ import {
   KHALTI_PAYMENT_REQUEST,
   KHALTI_PAYMENT_SUCCESS,
   KHALTI_PAYMENT_FAIL,
+  KHALTI_PAYMENT_CALLBACK_REQUEST,
+  KHALTI_PAYMENT_CALLBACK_SUCCESS,
+  KHALTI_PAYMENT_CALLBACK_FAIL,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAIL,
@@ -183,6 +186,32 @@ export const orderReducer = (state = {}, action) => {
       return {
         ...state,
         error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const khaltiCallbackReducer = (state = {}, action) => {
+  switch (action.type) {
+    case KHALTI_PAYMENT_CALLBACK_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case KHALTI_PAYMENT_CALLBACK_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        order: action.payload,
+      };
+
+    case KHALTI_PAYMENT_CALLBACK_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     default:

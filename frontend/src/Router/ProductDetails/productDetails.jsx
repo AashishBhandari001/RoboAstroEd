@@ -40,6 +40,7 @@ function ProductDetails({ match }) {
                 product?.images.map((item, i) => (
                   <img
                     className="object-cover"
+                    style={{ height: "300px" }}
                     key={item.url}
                     src={item.url}
                     alt={`${i} Slide`}

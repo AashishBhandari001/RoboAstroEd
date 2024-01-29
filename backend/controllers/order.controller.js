@@ -12,6 +12,7 @@ const newOrder = catchAsyncErrors(async (req, res, next) => {
     shippingPrice,
     totalPrice,
     paymentType,
+    user,
   } = req.body;
 
   const order = await Order.create({
@@ -97,7 +98,8 @@ const updateOrder = catchAsyncErrors(async (req, res, next) => {
   orders.orderStatus = req.body.status;
 
   if (req.body.status === "Delivered") {
-    orders.deliveredAt = Date.now();  
+    orders.deliveredAt = Date.now();
+    orders.paymentStatus = "Completed";
   }
 
   await orders.save({ validateBeforeSave: false });

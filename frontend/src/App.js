@@ -54,7 +54,6 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
 
-            {/* this is tutor route */}
             <Route path="/lessons" element={<Course />} />
             <Route path="/lessons/:id" element={<DetailCourse />} />
             <Route path="/account" element={<Login />} />
@@ -72,7 +71,10 @@ function App() {
             <Route path="/order" element={<ConfirmOrder />} />
             <Route path="/order/:id" element={<PaymentMethod />} />
 
-            <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route
+              path="/order/:id/payment-success"
+              element={<PaymentSuccess />}
+            />
             <Route path="/payment/fail" element={<PaymentFailed />} />
           </Route>
           <Route path="*" element={<NotFound />} />

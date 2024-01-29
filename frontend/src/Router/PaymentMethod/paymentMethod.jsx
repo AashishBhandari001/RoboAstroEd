@@ -21,7 +21,9 @@ function PaymentMethod() {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { currentUser } = useSelector((state) => state.user);
-  const { error, success, loading } = useSelector((state) => state.newOrder);
+  const { error, success, loading, order } = useSelector(
+    (state) => state.newOrder
+  );
 
   const subTotal = () => {
     let total = 0;
@@ -88,7 +90,7 @@ function PaymentMethod() {
   const handlePlaceOrder = () => {
     if (selectedPayment === "Khalti") {
       const paymentData = {
-        return_url: "http://localhost:8080/api/khalti/callback",
+        return_url: `${window.location.protocol}//${window.location.host}/order/${order.order._id}/payment-success`,
         website_url: "http://localhost:3000",
         amount: grandTotalInPaisa(),
         purchase_order_id: "PO-" + Math.floor(Math.random() * 100000),
@@ -98,10 +100,13 @@ function PaymentMethod() {
           email: currentUser.email,
           phone: shippingInfo.phoneNo,
         },
+        orderId: order.order._id,
       };
 
       dispatch(khaltiPaymentAction(paymentData));
     } else if (selectedPayment === "CashOnDelivery") {
+      alert.success("Order Placed Successfully");
+      navigate("/success");
     }
   };
 

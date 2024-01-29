@@ -23,7 +23,6 @@ const orderSchema = new mongoose.Schema({
       type: Number,
       required: [true, "please Enter pinCode"],
     },
-
     phoneNo: {
       type: Number,
       required: [true, "please Enter phoneNumber"],
@@ -61,24 +60,17 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-
   paymentType: {
     type: String,
-    enum: ["khalti", "COD"],
-    required: true,
+    enum: ["Khalti", "COD"],
+    default: "COD",
   },
 
-  // paymentInfo: {
-  //   id: {
-  //     type: String,
-  //     required: true,
-  //   },
-
-  //   status: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
+  paymentStatus: {
+    type: String,
+    enum: ["Pending", "Completed", "Failed"],
+    default: "Pending",
+  },
 
   pidx: {
     type: String,
@@ -87,16 +79,13 @@ const orderSchema = new mongoose.Schema({
   paymenturl: {
     type: String,
   },
-
   expiresAt: {
     type: Date,
   },
-
   paidAt: {
     type: Date,
     required: true,
   },
-
   itemsPrice: {
     type: Number,
     required: true,
@@ -109,25 +98,21 @@ const orderSchema = new mongoose.Schema({
 
     default: 0.0,
   },
-
   shippingPrice: {
     type: Number,
     required: true,
     default: 0.0,
   },
-
   totalPrice: {
     type: Number,
     required: true,
     default: 0.0,
   },
-
   orderStatus: {
     type: String,
     required: true,
     default: "Processing",
   },
-
   deliveredAt: {
     type: Date,
   },

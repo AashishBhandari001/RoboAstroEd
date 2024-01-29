@@ -140,11 +140,13 @@ function Footer() {
               @gmail.com
             </div>
           </div>
-        </div>
-        <div>
-          <div className="flex flex-col md:flex-row justify-center md:justify-between lg:justify-between  items-center md:pl-28 text-gray-600 pb-4 md:mr-40">
-            <div className="flex ">© Copyright 2023. All Rights Reserved.</div>
-            <Socials />
+          <div>
+            <div className="flex flex-col md:flex-row justify-center md:justify-between lg:justify-between  items-center md:pl-28 text-gray-600 pb-4 md:mr-40">
+              © Copyright 2023. All Rights Reserved.
+              <div className="flex flex-row justify-center items-center gap-2">
+                <Socials />
+              </div>
+            </div>
           </div>
         </div>
       </div>

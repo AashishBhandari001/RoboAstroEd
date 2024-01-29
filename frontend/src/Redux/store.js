@@ -32,6 +32,7 @@ import {
   allOrdersReducer,
   orderReducer,
   orderDetailsReducer,
+  khaltiCallbackReducer,
 } from "../Reducers/orderReducer";
 
 const rootReducer = combineReducers({
@@ -58,6 +59,8 @@ const rootReducer = combineReducers({
   order: orderReducer, //order update delete reducer for admin
   orderDetails: orderDetailsReducer, //order details reducer for admin
   khalti: khaltiReducer,
+  khaltiCallback: khaltiCallbackReducer,
+
 });
 
 const persistConfig = {

@@ -13,12 +13,20 @@ const {
   deleteOrder,
 } = require("../controllers/order.controller.js");
 
+const {
+  handleKhaltiCallback,
+  callKhalti,
+} = require("../controllers/khalti.controller");
+
 const router = express.Router();
 
 router.route("/new").post(isAuthenticatedUser, newOrder);
 router.route("/me").get(isAuthenticatedUser, myOrders);
 
 router.route("/:id").get(isAuthenticatedUser, getSingleOrder);
+
+router.route("/:id/initiate-payment").post(callKhalti);
+router.route("/:id/verify-payment").post(handleKhaltiCallback);
 
 router
   .route("/admin/orders")

@@ -6,7 +6,17 @@ dotenv.config();
 
 const callKhalti = async (req, res) => {
   try {
-    const payload = req.body;
+    const khaltiData = ({
+      return_url,
+      website_url,
+      amount,
+      purchase_order_id,
+      purchase_order_name,
+      customer_info,
+    } = req.body);
+
+    const { id } = req.params;
+
     const headers = {
       Authorization: `Key ${process.env.KHALTI_SECRET_KEY}`,
       "Content-Type": "application/json",
@@ -14,22 +24,26 @@ const callKhalti = async (req, res) => {
 
     const response = await axios.post(
       "https://a.khalti.com/api/v2/epayment/initiate/",
-      payload,
+      khaltiData,
       { headers }
     );
 
-    // Extract relevant data from Khalti response
     const { pidx, payment_url, expires_at } = response.data;
 
-    // Create a new order with Khalti payment details
-    const newOrder = new Order({
-      pidx,
-      paymenturl: payment_url,
-      expiresAt: new Date(expires_at),
-    });
+    const orders = await Order.findById(id);
 
-    // Save the order to the database
-    await newOrder.save();
+    //update order with pidx, payment_url and expires_at  from khalti
+
+    if (!orders) {
+      return next(new errorHandler(404, "Order not found"));
+    }
+
+    orders.pidx = pidx;
+    orders.paymentType = "Khalti";
+    orders.paymenturl = payment_url;
+    orders.expires_at = expires_at;
+
+    await orders.save();
 
     res.status(200).json(response.data);
   } catch (error) {
@@ -40,8 +54,8 @@ const callKhalti = async (req, res) => {
 
 const handleKhaltiCallback = async (req, res, next) => {
   try {
-    const {} =
-      req.query;
+    const { pidx } = req.body;
+    const { id } = req.params;
 
     const headers = {
       Authorization: `Key ${process.env.KHALTI_SECRET_KEY}`,
@@ -53,15 +67,16 @@ const handleKhaltiCallback = async (req, res, next) => {
       { headers }
     );
 
-    console.log(response.data);
-    if (response.data.status !== "Completed") {
-      return res.status(400).json({ error: "Payment not completed" });
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
     }
 
-    console.log(purchase_order_id, pidx);
-    req.transaction_uuid = purchase_order_id;
-    req.transaction_code = pidx;
-    next();
+    order.paymentStatus = "Completed";
+    await order.save();
+
+    res.status(200).json(order);
   } catch (err) {
     console.log(err);
     return res

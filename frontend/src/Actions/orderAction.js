@@ -4,6 +4,9 @@ import {
   KHALTI_PAYMENT_REQUEST,
   KHALTI_PAYMENT_SUCCESS,
   KHALTI_PAYMENT_FAIL,
+  KHALTI_PAYMENT_CALLBACK_REQUEST,
+  KHALTI_PAYMENT_CALLBACK_SUCCESS,
+  KHALTI_PAYMENT_CALLBACK_FAIL,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAIL,
@@ -30,7 +33,7 @@ export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
     dispatch({ type: KHALTI_PAYMENT_REQUEST });
 
     const { data } = await axios.post(
-      `http://localhost:8080/api/khalti/initiate`,
+      `http://localhost:8080/api/order/${paymentData.orderId}/initiate-payment`,
       paymentData
     );
 
@@ -52,35 +55,36 @@ export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
   }
 };
 
-export const newOrderAction = (orderData, { token }) => async (dispatch) => {
-  try {
-    dispatch({ type: CREATE_ORDER_REQUEST });
+export const newOrderAction =
+  (orderData, { token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: CREATE_ORDER_REQUEST });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-    const { data } = await axios.post(
-      `http://localhost:8080/api/order/new`,
-      orderData,
-      config
-    );
+      const { data } = await axios.post(
+        `http://localhost:8080/api/order/new`,
+        orderData,
+        config
+      );
 
-    dispatch({
-      type: CREATE_ORDER_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CREATE_ORDER_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
-
+      dispatch({
+        type: CREATE_ORDER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CREATE_ORDER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 //get all orders admin
 export const getAllOrders =
@@ -210,3 +214,28 @@ export const clearErrors = () => async (dispatch) => {
     type: CLEAR_ERRORS,
   });
 };
+
+export const khaltiPaymentCallbackAction =
+  (paymentData) => async (dispatch) => {
+    try {
+      dispatch({ type: KHALTI_PAYMENT_CALLBACK_REQUEST });
+
+      const { data } = await axios.post(
+        `http://localhost:8080/api/order/${paymentData.orderId}/verify-payment`,
+        paymentData
+      );
+
+      dispatch({
+        type: KHALTI_PAYMENT_CALLBACK_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: KHALTI_PAYMENT_CALLBACK_FAIL,
+        payload: error.response
+          ? error.response.data.message
+          : "An error occurred",
+      });
+    }
+  };

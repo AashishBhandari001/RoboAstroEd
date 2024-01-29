@@ -10,6 +10,7 @@ function DashboardStatsGrid() {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   const { users } = useSelector((state) => state.allUser);
+  const { orders } = useSelector((state) => state.allOrders);
 
   const { currentUser } = useSelector((state) => state.user);
   const token = currentUser.token;
@@ -25,7 +26,7 @@ function DashboardStatsGrid() {
     }
 
     dispatch(getAllUsers({ token }));
-  }, [products, dispatch, token]);
+  }, [products, dispatch, token, orders]);
 
   return (
     <div className="flex gap-4 w-full">
@@ -62,7 +63,9 @@ function DashboardStatsGrid() {
         <div className="pl-4 flex flex-col">
           <span className="text-sm font-light text-gray-600">Total Order</span>
 
-          <strong className="text-xl text-gray-700 font-semibold">1000</strong>
+          <strong className="text-xl text-gray-700 font-semibold">
+            {orders && orders.orders.length}
+          </strong>
         </div>
       </BoxWrapper>
       <BoxWrapper>
