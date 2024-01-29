@@ -7,6 +7,9 @@ import {
   KHALTI_PAYMENT_CALLBACK_REQUEST,
   KHALTI_PAYMENT_CALLBACK_SUCCESS,
   KHALTI_PAYMENT_CALLBACK_FAIL,
+  MY_ORDERS_REQUEST,
+  MY_ORDERS_SUCCESS,
+  MY_ORDERS_FAIL,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAIL,
@@ -81,6 +84,36 @@ export const newOrderAction =
     } catch (error) {
       dispatch({
         type: CREATE_ORDER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//get my orders user
+export const myOrders =
+  ({ token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: MY_ORDERS_REQUEST });
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        "http://localhost:8080/api/order/me",
+        config
+      );
+
+      dispatch({
+        type: MY_ORDERS_SUCCESS,
+        payload: data.orders,
+      });
+    } catch (error) {
+      dispatch({
+        type: MY_ORDERS_FAIL,
         payload: error.response.data.message,
       });
     }

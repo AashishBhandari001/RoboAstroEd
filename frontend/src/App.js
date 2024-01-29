@@ -20,6 +20,7 @@ import ShippingInfo from "./Router/ShippingInfo";
 import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
 import PaymentSuccess from "./Components/Payment/PaymentSuccess";
 import PaymentFailed from "./Components/Payment/PaymentFail";
+import MyOrders from "./Router/MyOrders";
 
 //course routes
 import Course from "./Router/CoursePage/course";
@@ -67,15 +68,22 @@ function App() {
               path="/forgetpassword/:id/:token"
               element={<ForgetPassword />}
             />
-            <Route path="/shipping" element={<ShippingInfo />} />
-            <Route path="/order" element={<ConfirmOrder />} />
-            <Route path="/order/:id" element={<PaymentMethod />} />
 
-            <Route
-              path="/order/:id/payment-success"
-              element={<PaymentSuccess />}
-            />
-            <Route path="/payment/fail" element={<PaymentFailed />} />
+            {isAuthenticated &&
+              currentUser &&
+              (currentUser.role === "user" || currentUser.role === "admin") && (
+                <>
+                  <Route path="/my-orders" element={<MyOrders />} />
+                  <Route path="/shipping" element={<ShippingInfo />} />
+                  <Route path="/order" element={<ConfirmOrder />} />
+                  <Route path="/order/:id" element={<PaymentMethod />} />
+                  <Route
+                    path="/order/:id/payment-success"
+                    element={<PaymentSuccess />}
+                  />
+                  <Route path="/payment/fail" element={<PaymentFailed />} />
+                </>
+              )}
           </Route>
           <Route path="*" element={<NotFound />} />
 

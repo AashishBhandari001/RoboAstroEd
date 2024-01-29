@@ -14,6 +14,9 @@ import {
   GET_ORDER_DETAILS_REQUEST,
   GET_ORDER_DETAILS_SUCCESS,
   GET_ORDER_DETAILS_FAIL,
+  MY_ORDERS_REQUEST,
+  MY_ORDERS_SUCCESS,
+  MY_ORDERS_FAIL,
   UPDATE_ORDER_REQUEST,
   UPDATE_ORDER_SUCCESS,
   UPDATE_ORDER_RESET,
@@ -44,6 +47,37 @@ export const khaltiReducer = (state = { order: [] }, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+//MY ooders for user
+export const myOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case MY_ORDERS_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case MY_ORDERS_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+
+    case MY_ORDERS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
 
     default:

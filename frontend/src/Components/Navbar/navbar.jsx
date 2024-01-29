@@ -1,16 +1,25 @@
 import React, { useState } from "react";
+import { Fragment } from "react";
 import logo from "../../Assets/logo.png";
 import { NavLink } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   logoutFailure,
   logoutStart,
   logoutSuccess,
 } from "../../Redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 function Navbar() {
   const { cartItems } = useSelector((state) => state.cart);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -36,6 +45,7 @@ function Navbar() {
       }
       dispatch(logoutSuccess());
       localStorage.removeItem("access_token");
+      navigate("/home");
     } catch (error) {
       dispatch(logoutFailure(error));
     }
@@ -65,7 +75,6 @@ function Navbar() {
             aria-controls="navbar-default"
             aria-expanded={isNavOpen ? "true" : "false"}
           >
-            <span className="sr-only">Open main menu</span>
             <svg
               className="w-5 h-5"
               aria-hidden="true"
@@ -154,15 +163,58 @@ function Navbar() {
                 </NavLink>
               </li>
 
-              <li>
-                {isAuthenticated ? (
-                  <button
-                    onClick={handleLogout}
-                    className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
-                  >
-                    Logout
-                  </button>
-                ) : (
+              {isAuthenticated && currentUser ? (
+                <li className="relative group">
+                  <Menu as="div" className="inline-block">
+                    <div>
+                      <Menu.Button className="block py-2 pl-3 pr-4 text-black md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline focus:outline-none">
+                        Account
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                          <NavLink
+                            to="/change-password"
+                            className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
+                            onClick={closeNav}
+                          >
+                            Change Password
+                          </NavLink>
+                          <NavLink
+                            to="/my-orders"
+                            onClick={closeNav}
+                            className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
+                          >
+                            My Orders
+                          </NavLink>
+
+                          <li>
+                            <button
+                              onClick={() => {
+                                handleLogout();
+                                closeNav();
+                              }}
+                              className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
+                            >
+                              Logout
+                            </button>
+                          </li>
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </li>
+              ) : (
+                <li>
                   <NavLink
                     to="/account"
                     className="block py-2 pl-3 pr-4 text-black hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#FF4F1D] md:p-0 no-underline"
@@ -170,8 +222,8 @@ function Navbar() {
                   >
                     Login
                   </NavLink>
-                )}
-              </li>
+                </li>
+              )}
             </ul>
           </div>
         </div>
