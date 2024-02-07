@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import CheckOutSteps from "../../../Elements/CheckOutSteps";
 
+import { removeItemsFromCart } from "../../../Actions/cartAction";
+
+import { useSelector } from "react-redux";
+
 import { useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 import { khaltiPaymentCallbackAction } from "../../../Actions/orderAction";
 import checkBox from "../../../Assets/checkbox.png";
 
 function PaymentSuccess() {
+  const { cartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -28,6 +33,10 @@ function PaymentSuccess() {
       );
       setIsConfirmed(true);
       alert.success("Order confirmed successfully!");
+
+      cartItems.forEach((item) => {
+        dispatch(removeItemsFromCart(item.product));
+      });
     } catch (error) {
       alert.error("Failed to confirm order. Please try again.");
     }

@@ -6,6 +6,9 @@ import Khalti from "../.././Assets/khalti.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { khaltiPaymentAction, confirmOrder } from "../../Actions/orderAction";
+
+import { removeItemsFromCart } from "../../Actions/cartAction";
+
 import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 
@@ -107,6 +110,10 @@ function PaymentMethod() {
       dispatch(confirmOrder(orderId, { token }));
       alert.success("Order placed successfully");
       navigate(`/order/${order.order._id}/order-success`);
+
+      cartItems.forEach((item) => {
+        dispatch(removeItemsFromCart(item.product)); 
+      });
     }
   };
 

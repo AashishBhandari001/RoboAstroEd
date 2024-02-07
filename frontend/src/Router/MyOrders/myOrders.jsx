@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
+import { TbListDetails } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
 import { clearErrors, myOrders } from "../../Actions/orderAction";
 import Loading from "../../Elements/Loading";
@@ -65,7 +66,8 @@ function MyOrders() {
             to={`/my-orders/${params.row.id}`}
             className="flex items-center justify-center hover:text-[#FF4F1D] "
           >
-            <Typography variant="body2">View</Typography>
+            <TbListDetails size={20} className="text-cyan-600" /> &nbsp;
+            <Typography variant="body4">View</Typography>
           </NavLink>
         );
       },
