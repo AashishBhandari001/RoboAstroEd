@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Fragment } from "react";
-import logo from "../../Assets/logo.png";
+import RoboAstroEd from "../../Assets/RoboAstroEd.png";
 import { NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 
@@ -62,11 +62,11 @@ function Navbar() {
               onClick={closeNav}
             >
               <img
-                src={logo}
-                className="h-12 mr-3 md:h-14"
+                src={RoboAstroEd}
+                className="h-14 mr-3"
                 alt="Beyond Apogee Logo"
               />
-              <div className="text-black text-sm md:text-xl">Beyond Apogee</div>
+              <div className="text-black text-sm md:text-xl">RoboAstroEd</div>
             </NavLink>
           </div>
           <button

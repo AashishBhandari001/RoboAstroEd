@@ -2,27 +2,37 @@ import React from "react";
 import Dash from "../../Elements/Dash/dash";
 
 import logo1 from "../../Logos/Logo1.png";
-import logo2 from "../../Logos/Logo2.png";
-import logo3 from "../../Logos/Logo3.png";
-import logo4 from "../../Logos/Logo4.png";
-import logo5 from "../../Logos/Logo5.png";
-import logo6 from "../../Logos/Logo6.png";
-import logo7 from "../../Logos/Logo7.png";
-import logo8 from "../../Logos/Logo8.png";
-import logo9 from "../../Logos/Logo9.png";
-import logo10 from "../../Logos/Logo10.png";
+
 
 const logos = [
   logo1,
-  logo2,
-  logo3,
-  logo4,
-  logo5,
-  logo6,
-  logo7,
-  logo8,
-  logo9,
-  logo10,
+
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+  logo1,
+
 ];
 
 const LogoCarousel = () => {
