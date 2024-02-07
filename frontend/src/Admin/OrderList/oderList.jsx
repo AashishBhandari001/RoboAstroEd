@@ -62,10 +62,24 @@ function OrderList() {
     {
       field: "status",
       headerName: "Status",
-      minWidth: 200,
-      flex: 0.3,
-      cellClassName: (params) => {
-        return params.value === "Delivered" ? "greenColor" : "redColor";
+      minWidth: 1,
+      flex: 0.5,
+      renderCell: (params) => {
+        return (
+          <div
+            className={`${
+              params.row.status === "Processing"
+                ? " text-black"
+                : params.row.status === "Shipped"
+                ? " text-blue-600"
+                : params.row.status === "Delivered"
+                ? " text-green-600"
+                : " text-red-600"
+            } px-2 py-1 rounded-md`}
+          >
+            {params.row.status}
+          </div>
+        );
       },
     },
     {
@@ -73,7 +87,21 @@ function OrderList() {
       headerName: "Payment Type",
       minWidth: 200,
       flex: 0.3,
+      renderCell: (params) => {
+        return (
+          <div
+            className={`${
+              params.row.paymentType === "Khalti"
+                ? "text-green-600"
+                : "text-black"
+            } px-2 py-1 rounded-md`}
+          >
+            {params.row.paymentType}
+          </div>
+        );
+      },
     },
+
     {
       field: "itemsQty",
       headerName: "items Qty",
@@ -124,7 +152,7 @@ function OrderList() {
     <div>
       <div className="productcontainer">
         <DataGrid
-          rows={rows}
+          rows={rows.reverse()}
           columns={columns}
           pageSize={10}
           disableRowSelectionOnClick

@@ -101,7 +101,7 @@ function AdminProducts() {
     <div>
       <div className="productcontainer">
         <DataGrid
-          rows={rows}
+          rows={rows.reverse()}
           columns={columns}
           pageSize={10}
           disableRowSelectionOnClick

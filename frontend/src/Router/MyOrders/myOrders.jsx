@@ -108,7 +108,7 @@ function MyOrders() {
             </Typography>
           </div>
           <DataGrid
-            rows={rows}
+            rows={rows.reverse()}
             columns={columns}
             pageSize={10}
             disableSelectionOnClick
