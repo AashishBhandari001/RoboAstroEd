@@ -112,6 +112,7 @@ function ProductDetails({ match }) {
               </div>
               <button
                 onClick={addToCartHandler}
+                disabled={product?.stock < 1 ? true : false}
                 className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold lg:py-3 lg:px-6  px-4 py-4 rounded-xl"
               >
                 Add to Cart{" "}
