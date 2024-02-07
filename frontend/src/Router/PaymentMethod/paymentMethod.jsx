@@ -3,21 +3,20 @@ import CheckOutSteps from "../../Elements/CheckOutSteps";
 import MetaData from "../Metadata/metaData";
 import cash_In_Delevery from "../.././Assets/cashdelevery.png";
 import Khalti from "../.././Assets/khalti.png";
-import ESEWA from "../.././Assets/eSewa.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  esewaPaymentAction,
-  newOrderAction,
-  khaltiPaymentAction,
-} from "../../Actions/orderAction";
+import { khaltiPaymentAction, confirmOrder } from "../../Actions/orderAction";
 import { useAlert } from "react-alert";
+import { useParams } from "react-router-dom";
 
 function PaymentMethod() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const alert = useAlert();
+  const { id } = useParams();
+
+  console.log(id);
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { currentUser } = useSelector((state) => state.user);
@@ -105,8 +104,11 @@ function PaymentMethod() {
 
       dispatch(khaltiPaymentAction(paymentData));
     } else if (selectedPayment === "CashOnDelivery") {
-      alert.success("Order Placed Successfully");
-      navigate("/success");
+      const orderId = order.order._id;
+      const token = currentUser.token;
+      dispatch(confirmOrder(orderId, { token }));
+      alert.success("Order placed successfully");
+      navigate("/order/success");
     }
   };
 

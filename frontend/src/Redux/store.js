@@ -34,6 +34,7 @@ import {
   orderDetailsReducer,
   khaltiCallbackReducer,
   myOrdersReducer,
+  codConfirmReducer,
 } from "../Reducers/orderReducer";
 
 const rootReducer = combineReducers({
@@ -60,6 +61,7 @@ const rootReducer = combineReducers({
   allOrders: allOrdersReducer, //all order reducer for admin
   order: orderReducer, //order update delete reducer for admin
   orderDetails: orderDetailsReducer, //order details reducer for admin
+  codConfirm: codConfirmReducer,
   khalti: khaltiReducer,
   khaltiCallback: khaltiCallbackReducer,
 });

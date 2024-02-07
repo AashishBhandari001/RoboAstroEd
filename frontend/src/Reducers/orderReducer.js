@@ -17,6 +17,9 @@ import {
   MY_ORDERS_REQUEST,
   MY_ORDERS_SUCCESS,
   MY_ORDERS_FAIL,
+  COD_CONFIRM_FAIL,
+  COD_CONFIRM_REQUEST,
+  COD_CONFIRM_SUCCESS,
   UPDATE_ORDER_REQUEST,
   UPDATE_ORDER_SUCCESS,
   UPDATE_ORDER_RESET,
@@ -220,6 +223,31 @@ export const orderReducer = (state = {}, action) => {
       return {
         ...state,
         error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const codConfirmReducer = (state = {}, action) => {
+  switch (action.type) {
+    case COD_CONFIRM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case COD_CONFIRM_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+
+    case COD_CONFIRM_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     default:

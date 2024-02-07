@@ -33,7 +33,7 @@ const newOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-//get singlie order
+//get single order
 const getSingleOrder = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.findById(req.params.id).populate(
     "user",
@@ -117,6 +117,23 @@ async function updateStock(id, quantity) {
   await product.save({ validateBeforeSave: false });
 }
 
+//confirm order for COD --User
+const confirmOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new errorHandler(404, "Order not found"));
+  }
+
+  order.CODStatus = "Confirmed";
+
+  await order.save({ validateBeforeSave: false });
+
+  return res.status(200).json({
+    success: true,
+  });
+});
+
 //delete order --Admin
 const deleteOrder = catchAsyncErrors(async (req, res, next) => {
   const orders = await Order.findByIdAndRemove(req.params.id);
@@ -134,6 +151,7 @@ module.exports = {
   newOrder,
   getSingleOrder,
   myOrders,
+  confirmOrder,
   getAllOrders,
   updateOrder,
   deleteOrder,

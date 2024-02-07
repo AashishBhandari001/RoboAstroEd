@@ -11,6 +11,7 @@ const {
   getAllOrders,
   updateOrder,
   deleteOrder,
+  confirmOrder,
 } = require("../controllers/order.controller.js");
 
 const {
@@ -27,6 +28,8 @@ router.route("/:id").get(isAuthenticatedUser, getSingleOrder);
 
 router.route("/:id/initiate-payment").post(callKhalti);
 router.route("/:id/verify-payment").post(handleKhaltiCallback);
+
+router.route("/:id/confirm").put(confirmOrder); //confirm order for COD
 
 router
   .route("/admin/orders")

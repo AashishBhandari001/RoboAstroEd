@@ -147,16 +147,40 @@ const OrderDetail = () => {
               </span>
               <br />
 
-              <h2 className="font-medium text-6xl pb-4 pt-6 ">Order Status</h2>
-              <span>Status: {order.orderStatus}</span>
-
-              {order.orderStatus === "Delivered" ? (
-                <span className="text-green-600 mt-4">
-                  Delivered on {order.deliveredAt}
+              <div>
+                <h2 className="font-medium text-6xl pb-4 pt-6 ">
+                  Order Status
+                </h2>
+                <span
+                  className={`${
+                    order.orderStatus === "Confirmed" ? "text-green-600" : ""
+                  }`}
+                >
+                  Status: {order.orderStatus}
                 </span>
-              ) : (
-                ""
-              )}
+                <br />
+                {order.paymentType === "COD" && (
+                  <span className="text-black">
+                    CODStatus:{" "}
+                    <span
+                      className={`${
+                        order.CODStatus === "Confirmed"
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
+                    >
+                      {order.CODStatus}
+                    </span>
+                  </span>
+                )}
+                {order.orderStatus === "Delivered" ? (
+                  <span className="text-green-600 mt-4">
+                    Delivered on {order.deliveredAt}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
           <button

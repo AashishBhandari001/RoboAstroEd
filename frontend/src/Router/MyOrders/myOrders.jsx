@@ -62,7 +62,7 @@ function MyOrders() {
       renderCell: (params) => {
         return (
           <NavLink
-            to={`/myorder/${params.row.id}`}
+            to={`/my-orders/${params.row.id}`}
             className="flex items-center justify-center hover:text-[#FF4F1D] "
           >
             <Typography variant="body2">View</Typography>

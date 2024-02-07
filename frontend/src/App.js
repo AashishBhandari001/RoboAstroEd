@@ -21,6 +21,7 @@ import ConfirmOrder from "./Router/ConfirmOrder/confirmOrder";
 import PaymentSuccess from "./Components/Payment/PaymentSuccess";
 import PaymentFailed from "./Components/Payment/PaymentFail";
 import MyOrders from "./Router/MyOrders";
+import MyOrderDetails from "./Router/MyOrderDetails";
 
 //course routes
 import Course from "./Router/CoursePage/course";
@@ -73,7 +74,8 @@ function App() {
               currentUser &&
               (currentUser.role === "user" || currentUser.role === "admin") && (
                 <>
-                  <Route path="/my-orders" element={<MyOrders />} />
+                  <Route path="/my-orders" element={<MyOrders />} />\
+                  <Route path="/my-orders/:id" element={<MyOrderDetails />} />
                   <Route path="/shipping" element={<ShippingInfo />} />
                   <Route path="/order" element={<ConfirmOrder />} />
                   <Route path="/order/:id" element={<PaymentMethod />} />

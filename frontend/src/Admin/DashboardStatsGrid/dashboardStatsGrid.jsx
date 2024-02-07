@@ -64,7 +64,7 @@ function DashboardStatsGrid() {
           <span className="text-sm font-light text-gray-600">Total Order</span>
 
           <strong className="text-xl text-gray-700 font-semibold">
-            {orders && orders.orders.length}
+            {orders?.orders?.length}
           </strong>
         </div>
       </BoxWrapper>

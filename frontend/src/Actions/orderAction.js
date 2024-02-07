@@ -27,6 +27,9 @@ import {
   DELETE_ORDER_SUCCESS,
   DELETE_ORDER_RESET,
   DELETE_ORDER_FAIL,
+  COD_CONFIRM_REQUEST,
+  COD_CONFIRM_SUCCESS,
+  COD_CONFIRM_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/orderConstants";
 
@@ -218,15 +221,14 @@ export const deleteOrder =
     try {
       dispatch({ type: DELETE_ORDER_REQUEST });
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
       const { data } = await axios.delete(
         `http://localhost:8080/api/order/admin/orders/${id}`,
-        config
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       dispatch({
@@ -236,6 +238,37 @@ export const deleteOrder =
     } catch (error) {
       dispatch({
         type: DELETE_ORDER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//confirm order for COD
+export const confirmOrder =
+  (id, { token }) =>
+  async (dispatch) => {
+    try {
+      console.log("token in action", token);
+      dispatch({ type: COD_CONFIRM_REQUEST });
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `http://localhost:8080/api/order/${id}/confirm`,
+        config
+      );
+
+      dispatch({
+        type: COD_CONFIRM_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: COD_CONFIRM_FAIL,
         payload: error.response.data.message,
       });
     }
