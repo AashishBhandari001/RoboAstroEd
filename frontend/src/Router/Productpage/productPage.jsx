@@ -66,7 +66,7 @@ function ProductPage() {
   });
 
   return (
-    <div className="mx-auto max-w-6xl justify-center ">
+    <div className="mx-auto max-w-6xl justify-center min-h-[75vh] ">
       <div className="flex flex-col md:ml-4 md:mr-4 lg:flex-row">
         <MetaData title={"Products"} />
         <div className="w-full md:mt-40 mt-28 lg:w-1/4">

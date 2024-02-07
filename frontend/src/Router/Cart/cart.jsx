@@ -48,7 +48,7 @@ function Cart() {
   return (
     <div>
       <MetaData title="Cart" />
-      <div className="bg-gray-50 pt-20 mt-8 mb-5">
+      <div className="bg-gray-50 pt-20 mt-8 mb-5 min-h-[75vh] ">
         <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
 
         <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">

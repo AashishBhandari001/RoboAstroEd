@@ -1,30 +1,26 @@
 import React from "react";
-import { BsFacebook } from "react-icons/bs"; //facebook
-import { BiLogoInstagramAlt } from "react-icons/bi"; //instagram
-import { FaLinkedin } from "react-icons/fa"; //linkedin
-import { AiFillYoutube } from "react-icons/ai"; //youtube
+import {
+  FaFacebookSquare,
+  FaDribbble,
+  FaGithub,
+  FaYoutube,
+} from "react-icons/fa"; // Importing icons from react-icons
 
 function Socials() {
   return (
     <div>
       <div className="mt-0 flex pt-4 md:pt-0 items-center">
-        <a href="https://www.facebook.com/beyondapogee/" className="w-8 mx-2">
-          <BsFacebook className="text-blue-600 hover:text-blue-800 " />
+        <a href="https://www.youtube.com/" className="w-8 mx-2">
+          <FaYoutube className="text-lightBlue-400 hover:text-lightBlue-600 " />
         </a>
-        <a href="https://www.facebook.com/beyondapogee/" className="w-6 mx-2">
-          <BiLogoInstagramAlt className="text-pink-600 hover:text-pink-800" />
+        <a href="https://www.facebook.com/" className="w-8 mx-2">
+          <FaFacebookSquare className=" text-lightBlue-600 hover:text-lightBlue-800" />
         </a>
-        <a
-          href="https://np.linkedin.com/company/beyond-apogee"
-          className="w-6 mx-2"
-        >
-          <FaLinkedin className="text-blue-700 hover:text-blue-900" />
+        <a href="https://dribbble.com/" className="w-8 mx-2">
+          <FaDribbble className="text-cyan-800 hover:text-pink-600" />
         </a>
-        <a
-          href="https://www.youtube.com/@beyondapogee7169"
-          className="w-6 mx-2"
-        >
-          <AiFillYoutube className="text-red-600 hover:text-red-800" />
+        <a href="https://github.com/" className="w-8 mx-2">
+          <FaGithub className="text-blueGray-800 hover:text-blueGray-900" />
         </a>
       </div>
     </div>

@@ -33,7 +33,7 @@ function ProductDetails({ match }) {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-col justify-between mt-16 lg:flex-row p-12 max-w-7xl gap-10 mx-auto lg:items-center ">
+        <div className="flex flex-col justify-between mt-16 lg:flex-row p-12 max-w-7xl gap-10 mx-auto lg:items-center min-h-[65vh]  ">
           <div className="flex flex-col gap-6 lg:w-2/4">
             <Carousel>
               {product?.images &&

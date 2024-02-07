@@ -1,152 +1,124 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Socials from "../../Elements/Socials";
-import { IoLocation } from "react-icons/io5";
-import { MdContactPhone } from "react-icons/md";
-import { CgMailOpen } from "react-icons/cg";
+import Socials from "../../Elements/Socials/socials";
 
 function Footer() {
   return (
-    <footer className="flex-shrink-0">
-      <div className=" bg-gray-100 font-open-sans">
-        <div className="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
-          {/* ----------------------------Home page-----------------------------------*/}
-          <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-400 font-medium">
-              Home Page
-            </div>
-            <Link
-              to="/Home"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Home
-            </Link>
-            <Link
-              to="/Products"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Products
-            </Link>
-            <Link
-              to="/Lessons"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Lessons
-            </Link>
-            <Link
-              to="/Blog"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Blog
-            </Link>
+    <footer className="bottom-0 left-0 w-full bg-gray-100 pt-8 pb-6 flex-shrink-0">
+      <div className="container mx-auto px-4 flex justify-center items-center">
+        <div className="w-full lg:w-6/12 px-4">
+          <h4 className="text-3xl font-semibold text-blueGray-700">
+            Let's keep in touch!
+          </h4>
+          <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
+            Find us on any of these platforms, we respond 1-2 business days.
+          </h5>
+          <div className="mt-6 lg:mb-0 mb-6">
+            <Socials />
           </div>
-
-          {/* ----------------------------User-----------------------------------*/}
-          <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-400 font-medium">
-              User
+        </div>
+        <div className="w-full lg:w-6/12 px-4">
+          <div className="flex flex-wrap items-top mb-6">
+            <div className="w-full lg:w-4/12 px-4 ml-auto">
+              <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                Useful Links
+              </span>
+              <ul className="list-unstyled">
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/about"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/blog"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/github"
+                  >
+                    Github
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/free-products"
+                  >
+                    Free Products
+                  </Link>
+                </li>
+              </ul>
             </div>
-            <Link
-              to="/SignIn"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/SignUp"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Sign up
-            </Link>
-            <Link
-              to="/ContactUs"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Contact Us
-            </Link>
-          </div>
-
-          {/* ----------------------------Resources-----------------------------------*/}
-          <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-400 font-medium">
-              Resources
-            </div>
-            <Link
-              to="/Documentation"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Documentation
-            </Link>
-            <Link
-              to="/SajiloBotGuide"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              SajiloBot Guide
-            </Link>
-          </div>
-
-          {/* ----------------------------Product-----------------------------------*/}
-          <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-400 font-medium">
-              Product
-            </div>
-            <Link
-              to="/OurProducts"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Our Products
-            </Link>
-            <Link
-              to="/SajilBot"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              SajilBot
-            </Link>
-            <Link
-              to="/Satellites"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Satellites
-            </Link>
-            <Link
-              to="/ElectricalComponents"
-              className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500"
-            >
-              Electrical Components
-            </Link>
-          </div>
-
-          {/* ----------------------------Contact us-----------------------------------*/}
-          <div className="p-5 w-48 md:w-auto">
-            <div className="text-xs uppercase text-gray-400 font-medium">
-              Contact us
-            </div>
-            <div className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500">
-              <IoLocation className="text-red-500 pr-1" />
-              Budanilkantha-12, golfutar, Kathmandu, Nepal
-            </div>
-            <div className="my-3 block no-underline hover:text-[#FF4F1D] text-gray-500">
-              <MdContactPhone className="text-blue-500 pr-1" />
-              +977-984-1234567
-            </div>
-            <div className="hidden md:flex my-3 no-underline hover:text-[#FF4F1D] text-gray-500">
-              <CgMailOpen className="text-blue-500 pr-1" />
-              sudip.beyondapogee@gmail.com
-            </div>
-            <div className="flex md:hidden lg:hidden ">
-              <CgMailOpen className="text-blue-500 pr-1" />
-              sudip.beyondapogee
-              <br />
-              @gmail.com
+            <div className="w-full lg:w-4/12 px-4">
+              <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                Other Resources
+              </span>
+              <ul className="list-unstyled">
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/license"
+                  >
+                    MIT License
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/terms"
+                  >
+                    Terms &amp; Conditions
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/privacy-policy"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    to="/contact-us"
+                  >
+                    Contact Us
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
-          <div>
-            <div className="flex flex-col md:flex-row justify-center md:justify-between lg:justify-between  items-center md:pl-28 text-gray-600 pb-4 md:mr-40">
-              © Copyright 2023. All Rights Reserved.
-              <div className="flex flex-row justify-center items-center gap-2">
-                <Socials />
-              </div>
-            </div>
+        </div>
+      </div>
+      <hr className="my-6 border-blueGray-300" />
+      <div className="container mx-auto px-4 flex justify-center items-center">
+        <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+          <div className="text-sm text-blueGray-500 font-semibold py-1">
+            Copyright © <span id="get-current-year">2024</span>{" "}
+            <a
+              href="https://www.creative-tim.com/product/notus-js"
+              className="text-blueGray-500 hover:text-gray-800"
+              target="_blank"
+            >
+              Created by
+            </a>{" "}
+            <a
+              href="https://www.creative-tim.com?ref=njs-profile"
+              className="text-blueGray-500 hover:text-blueGray-800"
+            >
+              Beyond Apogee
+            </a>
+            .
           </div>
         </div>
       </div>
