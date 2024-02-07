@@ -22,6 +22,7 @@ import PaymentSuccess from "./Components/Payment/PaymentSuccess";
 import PaymentFailed from "./Components/Payment/PaymentFail";
 import MyOrders from "./Router/MyOrders";
 import MyOrderDetails from "./Router/MyOrderDetails";
+import CODOrderSuccess from "./Router/COD-Order-success/codOrderSuccess";
 
 //course routes
 import Course from "./Router/CoursePage/course";
@@ -82,6 +83,10 @@ function App() {
                   <Route
                     path="/order/:id/payment-success"
                     element={<PaymentSuccess />}
+                  />
+                  <Route
+                    path="/order/:id/order-success"
+                    element={<CODOrderSuccess />}
                   />
                   <Route path="/payment/fail" element={<PaymentFailed />} />
                 </>

@@ -7,6 +7,9 @@ import { getOrderDetails, clearErrors } from "../../Actions/orderAction";
 import MetaData from "../Metadata/metaData";
 import Loading from "../../Elements/Loading";
 
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
+
 const MyOrderDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,14 +37,37 @@ const MyOrderDetails = () => {
     navigate(`/product/${productId}`);
   };
 
+  const handleDownloadPrint = async () => {
+    // Capture the shipping info div as an image
+    const orderDetail = document.getElementById("OrderDiv");
+    const canvas = await html2canvas(orderDetail);
+
+    // Convert the image into a PDF
+    const pdf = new jsPDF();
+    pdf.addImage(
+      canvas.toDataURL("image/png"),
+      "PNG",
+      0,
+      0,
+      pdf.internal.pageSize.width,
+      canvas.height * (pdf.internal.pageSize.width / canvas.width)
+    );
+
+    // Download or open the PDF
+    pdf.save("OrderDetails_bill.pdf");
+  };
+
   return (
     <div className="flex justify-center items-center h-full">
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-4xl mb-10">
           <MetaData title={"Order Details"} />
-          <div className="p-8 bg-white shadow-lg rounded-lg mt-24 mb-10">
+          <div
+            id="OrderDiv"
+            className="p-8 bg-white shadow-lg rounded-lg mt-24"
+          >
             <h1 className="text-3xl font-semibold mb-8">Order # {order._id}</h1>
             <div className="mb-6">
               <h4 className="text-xl font-semibold mb-2">Shipping Info</h4>
@@ -121,6 +147,12 @@ const MyOrderDetails = () => {
               </div>
             </div>
           </div>
+          <button
+            onClick={handleDownloadPrint}
+            className="mt-6 w-full ring-4 font-normal text-white bg-cyan-600 ring-cyan-600 hover:bg-cyan-700  hover:ring-cyan-700 p-1 rounded-sm"
+          >
+            Download
+          </button>
         </div>
       )}
     </div>

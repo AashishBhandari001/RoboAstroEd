@@ -16,8 +16,6 @@ function PaymentMethod() {
   const alert = useAlert();
   const { id } = useParams();
 
-  console.log(id);
-
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { currentUser } = useSelector((state) => state.user);
   const { error, success, loading, order } = useSelector(
@@ -108,7 +106,7 @@ function PaymentMethod() {
       const token = currentUser.token;
       dispatch(confirmOrder(orderId, { token }));
       alert.success("Order placed successfully");
-      navigate("/order/success");
+      navigate(`/order/${order.order._id}/order-success`);
     }
   };
 
