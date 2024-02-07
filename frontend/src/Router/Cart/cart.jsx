@@ -23,7 +23,7 @@ function Cart() {
   const calculateTotal = () => {
     let total = 0;
 
-    cartItems.map((item) => {
+    cartItems.forEach((item) => {
       const subtotal = item.price * item.quantity;
       total += subtotal;
     });
@@ -31,16 +31,16 @@ function Cart() {
     return total;
   };
 
-  const vatAmmount = () => {
-    const vat = 0.13;
+  const vatAmount = () => {
+    const vatRate = 0.13;
     const total = calculateTotal();
-    const vatAmmount = total * vat;
-    return vatAmmount;
+    const vatAmount = total * vatRate;
+    return vatAmount;
   };
 
   const grandTotal = () => {
     const total = calculateTotal();
-    const vat = vatAmmount();
+    const vat = vatAmount();
     const grandTotal = total + vat;
     return grandTotal;
   };
@@ -63,32 +63,34 @@ function Cart() {
             </div>
           )}
 
-          <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3 mb-5">
-            <div className="text-gray-700">
-              <div className="mb-2 flex justify-between">
-                <p> total </p>
-                <p>{`NRP ${calculateTotal()}`}</p>
-              </div>
-              <div className="flex justify-between">
-                <p>Vat (13%)</p>
-                <p>{`NRP ${vatAmmount()}`}</p>
-              </div>
-              <hr className="my-4" />
-              <div className="flex justify-between">
-                <p className="text-lg font-bold"> Grand Total</p>
-                <div className="">
-                  <p className="mb-1 text-lg font-bold">{`NRP ${grandTotal()}`}</p>
-                  <p className="text-sm">including VAT</p>
+          {cartItems.length > 0 && (
+            <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3 mb-5">
+              <div className="text-gray-700">
+                <div className="mb-2 flex justify-between">
+                  <p> total </p>
+                  <p>{`NRP ${calculateTotal()}`}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p>Vat (13%)</p>
+                  <p>{`NRP ${vatAmount()}`}</p>
+                </div>
+                <hr className="my-4" />
+                <div className="flex justify-between">
+                  <p className="text-lg font-bold"> Grand Total</p>
+                  <div className="">
+                    <p className="mb-1 text-lg font-bold">{`NRP ${grandTotal()}`}</p>
+                    <p className="text-sm">including VAT</p>
+                  </div>
                 </div>
               </div>
+              <button
+                onClick={handleCheckout}
+                className="mt-6 w-full rounded-md bg-cyan-600 py-1.5 font-medium text-white hover:bg-cyan-700"
+              >
+                Check out
+              </button>
             </div>
-            <button
-              onClick={handleCheckout}
-              className="mt-6 w-full rounded-md bg-cyan-600 py-1.5 font-medium text-white hover:bg-cyan-700"
-            >
-              Check out
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>
