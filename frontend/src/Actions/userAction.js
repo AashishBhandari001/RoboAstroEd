@@ -13,6 +13,9 @@ import {
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/userConstants";
 
@@ -137,6 +140,40 @@ export const deleteUser =
     } catch (error) {
       dispatch({
         type: DELETE_USER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//change password for user
+export const changePassword =
+  (id, formData, { token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: CHANGE_PASSWORD_REQUEST });
+
+      console.log(formData);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `http://localhost:8080/api/auth/change-password/${id}`,
+        formData,
+        config
+      );
+
+      dispatch({
+        type: CHANGE_PASSWORD_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: CHANGE_PASSWORD_FAIL,
         payload: error.response.data.message,
       });
     }
