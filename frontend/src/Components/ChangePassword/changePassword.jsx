@@ -21,11 +21,10 @@ function ChangePassword() {
 
   const dispatch = useDispatch();
 
-  if (!currentUser.token) {
-    alert.error("Please login to access this page");
-    return navigate("/account");
+  if (!currentUser) {
+    navigate("/account");
+    return null; // Return null to prevent rendering of the component
   }
-
   const id = currentUser._id;
 
   const handleChange = (e) => {
