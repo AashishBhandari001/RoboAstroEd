@@ -176,6 +176,62 @@ const forgetpassword = async (req, res, next) => {
   }
 };
 
+const changepassword = async (req, res, next) => {
+  const { id } = req.params;
+  const { email, oldpassword, newpassword } = req.body;
+
+  try {
+    const validUser = await User.findById(id);
+
+    if (!validUser) {
+      return next(ErrorHandler(404, "User does not exist"));
+    }
+
+    // Check if the provided email matches the user's email
+    if (validUser.email !== email) {
+      return next(ErrorHandler(400, "Email does not match user's email"));
+    }
+
+    const validPassword = bcrypt.compareSync(oldpassword, validUser.password);
+
+    if (!validPassword) {
+      return next(ErrorHandler(401, "Wrong Credentials"));
+    }
+
+    // Check if the new password is different from the old one
+    const isNewPasswordSameAsOld = bcrypt.compareSync(
+      newpassword,
+      validUser.password
+    );
+    if (isNewPasswordSameAsOld) {
+      return next(
+        ErrorHandler(
+          400,
+          "New password must be different from the old password"
+        )
+      );
+    }
+
+    const hashedPassword = bcrypt.hashSync(newpassword, 10);
+    const setpassword = await User.findByIdAndUpdate(
+      id,
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    if (setpassword) {
+      return res
+        .status(200)
+        .json({ success: true, message: "Password updated" });
+    } else {
+      // If setpassword is falsy, it means password was not updated
+      return next(ErrorHandler(400, "Password not updated"));
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 // logout controller
 const logout = async (req, res, next) => {
   try {
@@ -338,6 +394,7 @@ module.exports = {
   google,
   passwordreset,
   forgetpassword,
+  changepassword,
   logout,
   getuserDetails,
   getSingleUser,

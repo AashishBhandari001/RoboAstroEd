@@ -6,6 +6,7 @@ const {
   signin,
   passwordreset,
   forgetpassword,
+  changepassword,
   logout,
   getuserDetails,
   getSingleUser,
@@ -28,6 +29,9 @@ router.post("/google", google);
 router.post("/passwordreset", passwordreset);
 router.post("/forgetpassword/:id/:token", forgetpassword);
 router.get("/logout", logout);
+
+//change password
+router.put("/change-password/:id", isAuthenticatedUser, changepassword);
 
 //get all user details -- admin
 router
