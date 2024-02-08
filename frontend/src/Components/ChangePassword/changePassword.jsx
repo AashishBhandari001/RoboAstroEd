@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MetaData from "../../Router/Metadata/metaData";
 import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../../Actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import { CHANGE_PASSWORD_RESET } from "../../Constants/userConstants";
 
 function ChangePassword() {
   const alert = useAlert();
@@ -15,12 +16,34 @@ function ChangePassword() {
     newPassword: "",
     confirmNewPassword: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const { loading, error, isUpdated } = useSelector((state) => state.changePSW);
   const { currentUser } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (isUpdated) {
+      setMessage("Password updated successfully");
+      // Clear the form fields
+      setFormData({
+        email: "",
+        oldPassword: "",
+        newPassword: "",
+        confirmNewPassword: "",
+      });
+      // Reset the isUpdated state
+      dispatch({ type: CHANGE_PASSWORD_RESET });
+      const timer = setTimeout(() => {
+        setMessage("");
+        navigate("/home");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isUpdated, navigate, dispatch]);
+
+  // Ensure navigate is set before rendering
   if (!currentUser) {
     navigate("/account");
     return null; // Return null to prevent rendering of the component
@@ -33,6 +56,7 @@ function ChangePassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitted(true); // Form has been submitted
     // Check if new password matches the confirm new password
     if (formData.newPassword !== formData.confirmNewPassword) {
       setMessage("Passwords do not match");
@@ -52,10 +76,6 @@ function ChangePassword() {
         { token: currentUser.token }
       )
     );
-
-    if (isUpdated) {
-      navigate("/home");
-    }
   };
 
   return (
@@ -74,7 +94,15 @@ function ChangePassword() {
             onSubmit={handleSubmit}
             className="flex mr-3 flex-col text-sm gap-2"
           >
-            {message && <p className="text-red-500 mt-2">{message}</p>}
+            {(message || error) && (
+              <p
+                className={`${
+                  message ? "text-green-500" : "text-red-500"
+                } mt-2`}
+              >
+                {message || (submitted && error) || ""}
+              </p>
+            )}
 
             <div>
               <span className="mb-2 text-md">Email</span>
@@ -82,6 +110,7 @@ function ChangePassword() {
                 type="email"
                 id="email"
                 onChange={handleChange}
+                value={formData.email}
                 required
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
@@ -93,6 +122,7 @@ function ChangePassword() {
                 type="password"
                 id="oldPassword"
                 onChange={handleChange}
+                value={formData.oldPassword}
                 required
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
@@ -103,6 +133,7 @@ function ChangePassword() {
                 type="password"
                 id="newPassword"
                 onChange={handleChange}
+                value={formData.newPassword}
                 required
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
@@ -113,6 +144,7 @@ function ChangePassword() {
                 type="password"
                 id="confirmNewPassword"
                 onChange={handleChange}
+                value={formData.confirmNewPassword}
                 required
                 className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
@@ -128,10 +160,6 @@ function ChangePassword() {
               </button>
             </div>
           </form>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
-          {isUpdated && (
-            <p className="text-green-500 mt-2">Password updated successfully</p>
-          )}
         </div>
       </div>
     </div>

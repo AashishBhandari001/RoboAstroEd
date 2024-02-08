@@ -16,6 +16,7 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  CHANGE_PASSWORD_RESET,
   CLEAR_ERRORS,
 } from "../Constants/userConstants";
 
@@ -128,6 +129,12 @@ export const changePasswordReducer = (state = {}, action) => {
 
     case CHANGE_PASSWORD_FAIL:
       return { ...state, loading: false, error: action.payload };
+
+    case CHANGE_PASSWORD_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
 
     case CLEAR_ERRORS:
       return { ...state, error: null };

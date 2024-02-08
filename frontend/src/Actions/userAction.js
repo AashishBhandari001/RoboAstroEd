@@ -152,8 +152,6 @@ export const changePassword =
     try {
       dispatch({ type: CHANGE_PASSWORD_REQUEST });
 
-      console.log(formData);
-
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -174,7 +172,8 @@ export const changePassword =
     } catch (error) {
       dispatch({
         type: CHANGE_PASSWORD_FAIL,
-        payload: error.response.data.message,
+
+        payload: error.response.data.error,
       });
     }
   };
