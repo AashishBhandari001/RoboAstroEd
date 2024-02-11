@@ -38,7 +38,7 @@ function Signup() {
       }
       setLoading(false);
       setError(null);
-      navigate("/Account");
+      navigate("/verification");
     } catch (err) {
       setLoading(false);
       setError(err);
@@ -96,11 +96,11 @@ function Signup() {
                 />
               </div>
 
-              <div className="flex flex-col ml-4 space-y-2">
+              <div className="flex flex-col space-y-2">
                 <button
                   disabled={loading}
                   type="submit"
-                  className="bg-[#B0F0F6] hover-bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full"
+                  className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold border-transparent p-2 rounded-lg w-full flex items-center justify-center"
                 >
                   {loading ? "Loading..." : "Sign up"}
                 </button>

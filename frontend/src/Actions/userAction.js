@@ -16,6 +16,9 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  Verify_EMAIL_REQUEST,
+  Verify_EMAIL_SUCCESS,
+  Verify_EMAIL_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/userConstants";
 
@@ -32,6 +35,8 @@ export const getAllUsers =
           Authorization: `Bearer ${token}`,
         },
       };
+
+      console.log("token for admin", token);
 
       const { data } = await axios.get(
         "http://localhost:8080/api/auth/admin/users",
@@ -177,6 +182,34 @@ export const changePassword =
       });
     }
   };
+
+//verify email for user
+export const verifyEmail = (token) => async (dispatch) => {
+  try {
+    dispatch({ type: Verify_EMAIL_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.get(
+      `http://localhost:8080/api/auth/verify-email?token=${token}`,
+      config
+    );
+
+    dispatch({
+      type: Verify_EMAIL_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: Verify_EMAIL_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // clearing errors
 export const clearErrors = () => async (dispatch) => {

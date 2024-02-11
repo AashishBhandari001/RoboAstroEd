@@ -19,14 +19,79 @@ const transporter = nodeMailer.createTransport({
   },
 });
 
-const signup = async (req, res, next) => {
-  const { username, email, password } = req.body; // get the username, email and password from the request body
-  const hashedPassword = bcrypt.hashSync(password, 10); // 10 is the salt (how many times the password is hashed)
-  const newUser = new User({ username, email, password: hashedPassword });
+const verifyEmail = async (req, res, next) => {
+  const { token } = req.query;
+
   try {
-    // save the new user to the database
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOneAndUpdate(
+      { email: decoded.email },
+      { verified: true, verificationToken: null }
+    );
+
+    if (!user) {
+      return next(ErrorHandler(404, "User not found."));
+    }
+
+    res.status(200).json({ message: "Email verified successfully." });
+  } catch (error) {
+    next(ErrorHandler(400, "Invalid or expired token."));
+  }
+};
+
+// Signup Controller
+const signup = async (req, res, next) => {
+  const { username, email, password } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  try {
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return next(ErrorHandler(409, "User already exists"));
+    }
+
+    // Create a new user
+    const newUser = new User({ username, email, password: hashedPassword });
+
+    // Save the new user to the database
     await newUser.save();
-    res.status(201).json({ message: "User created" });
+
+    // Generate verification token
+    const verificationToken = jwt.sign(
+      { email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    // Save verification token to the user document
+    newUser.verificationToken = verificationToken;
+    await newUser.save();
+
+    // Send verification email
+    const verificationLink = `${process.env.BASE_URL}/verify-email?token=${verificationToken}`;
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: newUser.email,
+      subject: "Verify Your Email Address",
+      html: `
+    <div style="background-color: #ebf4ff; padding: 20px;">
+      <h2 style="font-size: 20px; margin: 0;">Email Verification</h2>
+    </div>
+    <div style="background-color: #f9f9f9; padding: 20px;">
+      <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000 ">Thank you for signing up! You're almost there.</p>
+      <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000">
+        Please <a style="text-decoration: none;" href="${verificationLink}">
+          <button style="background-color: #007bff; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Click here</button>
+        </a> to verify your email address and activate your account.
+      </p>
+      <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #888;">If you didn't sign up for this account or believe this is a mistake, please ignore this email.</p>
+    </div>
+  `,
+    };
+    await transporter.sendMail(mailOptions);
+
+    res.status(201).json({ message: "User created. Verification email sent." });
   } catch (error) {
     next(ErrorHandler(500, error.message));
   }
@@ -44,6 +109,11 @@ const signin = async (req, res, next) => {
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
+
+    // Check if the email is verified
+    if (!validUser.verified) {
+      return next(ErrorHandler(403, "Email not verified"));
+    }
     const { password: pass, ...rest } = validUser._doc;
     rest.token = token;
     res
@@ -390,6 +460,7 @@ const removeFromPlaylist = catchAsyncErrors(async (req, res, next) => {
 
 module.exports = {
   signup,
+  verifyEmail,
   signin,
   google,
   passwordreset,

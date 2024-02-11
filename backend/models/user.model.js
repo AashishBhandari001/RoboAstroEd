@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      default: "user",
+      default: "user",  
     },
 
     email: {
@@ -28,17 +28,14 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
 
-    playlist: [
-      {
-        course: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Course",
-        },
-        poster: {
-          type: String,
-        },
-      },
-    ],
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+
+    verificationToken: {
+      type: String,
+    },
   },
 
   { timestamps: true }

@@ -26,6 +26,7 @@ import {
   userDetailsReducer,
   userUpdateDeleteReducer,
   changePasswordReducer,
+  verifyEmailReducer,
 } from "../Reducers/userReducer";
 import {
   khaltiReducer,
@@ -43,10 +44,12 @@ const rootReducer = combineReducers({
   productDetails: productDetailsReducers, //product details reducer for admin
 
   user: userReducer,
+
   allUser: allUsersReducer, //all user reducer for admin
   changePSW: changePasswordReducer, //change password reducer
   userDetails: userDetailsReducer, //user details reducer for admin
   userUpdateDelete: userUpdateDeleteReducer, //update and delete user reducer for admin
+  verifyEmail: verifyEmailReducer, //verify email reducer
 
   cart: cartReducer,
   newProduct: newProductReducer,

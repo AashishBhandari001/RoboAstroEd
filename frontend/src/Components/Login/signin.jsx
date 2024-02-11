@@ -12,7 +12,6 @@ import {
   signInFailure,
 } from "../../Redux/user/userSlice";
 
-import Loading from "../../Elements/Loading";
 
 function Signin() {
   const [message, setMessage] = useState(""); // error message
@@ -104,7 +103,7 @@ function Signin() {
               <button
                 disabled={loading}
                 type="submit"
-                className="bg-[#B0F0F6] hover-bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full"
+                className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-md w-full"
               >
                 {loading ? "Loading..." : "Sign in"}
               </button>

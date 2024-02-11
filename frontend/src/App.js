@@ -10,6 +10,8 @@ import Signup from "./Components/Signup";
 import PasswordReset from "./Components/ForgetPassword/passwordreset";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import ChangePassword from "./Components/ChangePassword";
+import VerifyEmail from "./Components/VerifyEmail/verifyEmail";
+import Verification from "./Elements/Verification";
 
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
@@ -63,6 +65,8 @@ function App() {
             <Route path="/account" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/register" element={<Signup />} />
+            <Route path="/verification" element={<Verification />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/product/:id" element={<ProductDetails />} />

@@ -17,6 +17,9 @@ import {
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
   CHANGE_PASSWORD_RESET,
+  Verify_EMAIL_REQUEST,
+  Verify_EMAIL_SUCCESS,
+  Verify_EMAIL_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/userConstants";
 
@@ -135,6 +138,30 @@ export const changePasswordReducer = (state = {}, action) => {
         ...state,
         isUpdated: false,
       };
+
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
+
+    default:
+      return state;
+  }
+};
+
+//verify email reducer for user
+export const verifyEmailReducer = (state = {}, action) => {
+  switch (action.type) {
+    case Verify_EMAIL_REQUEST:
+      return { ...state, loading: true };
+
+    case Verify_EMAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isVerified: true,
+      };
+
+    case Verify_EMAIL_FAIL:
+      return { ...state, loading: false, error: action.payload };
 
     case CLEAR_ERRORS:
       return { ...state, error: null };
