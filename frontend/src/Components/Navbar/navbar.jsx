@@ -53,7 +53,7 @@ function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
-      <div className="mx-auto max-w-7xl justify-center ">
+      <div className="mx-auto max-w-screen-desktop justify-center ">
         <div className="flex flex-wrap items-center justify-between font-open-sans list-none no-underline md:mx-auto p-4 md:mr-4">
           <div className="md:ml-6">
             <NavLink

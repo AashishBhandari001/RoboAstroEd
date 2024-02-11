@@ -1,6 +1,5 @@
 import React from "react";
-import Rating from "./rating";
-import Dash from "../../Elements/Dash";
+
 
 function testimonials() {
   return (
@@ -12,7 +11,6 @@ function testimonials() {
               <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2">
                 Listen to the voices of our valued students
               </h1>
-              <Dash />
             </div>
           </div>
           <div className="-mx-3 md:flex items-start">

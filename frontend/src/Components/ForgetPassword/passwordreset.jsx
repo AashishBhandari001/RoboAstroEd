@@ -78,12 +78,12 @@ function PasswordReset() {
                   className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
                 />
               </div>
-              <div className="flex flex-col ml-4 items-center space-y-2">
+              <div className="flex flex-col items-center space-y-2">
                 <button
                   disabled={loading}
                   type="submit"
                   onClick={sendLink}
-                  className="bg-[#B0F0F6] hover-bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full"
+                  className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-md w-full"
                 >
                   {loading ? "Loading..." : "Send"}
                 </button>

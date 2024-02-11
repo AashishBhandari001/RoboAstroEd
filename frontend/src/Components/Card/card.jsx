@@ -6,7 +6,7 @@ import Samplecard from "./samplecard";
 import Picture1 from "../../Assets/child-robo.jpeg"; //card1
 import Picture2 from "../../Assets/Student2.png"; //card 2
 import Picture3 from "../../Assets/Student3.png";
-import Dash from "../../Elements/Dash";
+
 
 function Card() {
   const settings = {

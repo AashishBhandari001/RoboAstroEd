@@ -14,6 +14,8 @@ function DashboardStatsGrid() {
 
   const { currentUser } = useSelector((state) => state.user);
   const token = currentUser.token;
+
+  console.log("token in dashboard", token);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {

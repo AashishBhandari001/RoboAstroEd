@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dash from "../../Elements/Dash";
+
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { GrMail } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
@@ -106,7 +106,6 @@ function Contactus() {
         <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2 mt-8">
           React out to Us! It's easy!
         </h1>
-        <Dash />
       </div>
       <div className="flex w-full min-h-screen justify-center item-center">
         <div className="flex flex-col md:flex-row md_space-x-6 md:space-y-0 space-y-6  w-full max-w-4xl p-8 rounded-xl shadow-lg mt-8">
