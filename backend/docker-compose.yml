@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  roboastro-api:
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/roboastro?authSource=admin
+    command: npm run dev
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:
