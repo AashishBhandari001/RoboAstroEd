@@ -103,12 +103,7 @@ function Contactus() {
   };
 
   return (
-    <div className="bg-white font-open-sans">
-      <div>
-        <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-[#00ADEB] my-1 mx-2 mt-8">
-          React out to Us! It's easy!
-        </h1>
-      </div>
+    <div className="bg-white font-open-sans mt-20">
       <div className="flex w-full min-h-screen justify-center item-center">
         <div className="flex flex-col md:flex-row md_space-x-6 md:space-y-0 space-y-6  w-full max-w-4xl p-8 rounded-xl shadow-lg mt-8">
           <div className="flex flex-col space-y-8 justify-between">
