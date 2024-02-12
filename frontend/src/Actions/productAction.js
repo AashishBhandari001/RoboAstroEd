@@ -27,14 +27,16 @@ import {
   logoutSuccess,
 } from "../Redux/user/userSlice";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 export const getProducts =
   (keyword = "", active = 1, category) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_PRODUCTS_REQUEST });
-      let link = `http://localhost:8080/api/product?keyword=${keyword}&page=${active}`;
+      let link = `${backendBaseUrl}/api/product?keyword=${keyword}&page=${active}`;
       if (category) {
-        link = `http://localhost:8080/api/product?keyword=${keyword}&page=${active}&category=${category}`;
+        link = `${backendBaseUrl}/api/product?keyword=${keyword}&page=${active}&category=${category}`;
       }
       const response = await axios.get(link);
 
@@ -65,7 +67,7 @@ export const getAdminProduct =
     try {
       dispatch({ type: ADMIN_PRODUCTS_REQUEST });
       const response = await axios.get(
-        "http://localhost:8080/api/product/admin/products",
+        `${backendBaseUrl}/api/product/admin/products`,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -116,7 +118,7 @@ export const createProduct =
       };
 
       const response = await axios.post(
-        "http://localhost:8080/api/product/admin/product/new",
+        `${backendBaseUrl}/api/product/admin/product/new`,
         productData,
         config
       );
@@ -163,7 +165,7 @@ export const updateProduct =
       };
 
       const response = await axios.put(
-        `http://localhost:8080/api/product/admin/product/${id}`,
+        `${backendBaseUrl}/api/product/admin/product/${id}`,
         productData,
         config
       );
@@ -197,7 +199,7 @@ export const deleteProduct = (id, token) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCTS_REQUEST });
     const response = await axios.delete(
-      `http://localhost:8080/api/product/admin/product/${id}`,
+      `${backendBaseUrl}/api/product/admin/product/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -232,7 +234,7 @@ export const deleteProduct = (id, token) => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const response = await axios.get(`http://localhost:8080/api/product/${id}`);
+    const response = await axios.get(`${backendBaseUrl}/api/product/${id}`);
 
     if (response && response.data) {
       dispatch({

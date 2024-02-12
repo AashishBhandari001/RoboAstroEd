@@ -33,13 +33,15 @@ import {
   CLEAR_ERRORS,
 } from "../Constants/orderConstants";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 // Inside khaltiPaymentAction
 export const khaltiPaymentAction = (paymentData) => async (dispatch) => {
   try {
     dispatch({ type: KHALTI_PAYMENT_REQUEST });
 
     const { data } = await axios.post(
-      `http://localhost:8080/api/order/${paymentData.orderId}/initiate-payment`,
+      `${backendBaseUrl}/api/order/${paymentData.orderId}/initiate-payment`,
       paymentData
     );
 
@@ -75,7 +77,7 @@ export const newOrderAction =
       };
 
       const { data } = await axios.post(
-        `http://localhost:8080/api/order/new`,
+        `${backendBaseUrl}/api/order/new`,
         orderData,
         config
       );
@@ -106,7 +108,7 @@ export const myOrders =
       };
 
       const { data } = await axios.get(
-        "http://localhost:8080/api/order/me",
+        `${backendBaseUrl}/api/order/me`,
         config
       );
 
@@ -136,7 +138,7 @@ export const getAllOrders =
       };
 
       const { data } = await axios.get(
-        `http://localhost:8080/api/order/admin/orders`,
+        `${backendBaseUrl}/api/order/admin/orders`,
         config
       );
 
@@ -166,7 +168,7 @@ export const getOrderDetails =
       };
 
       const { data } = await axios.get(
-        `http://localhost:8080/api/order/${id}`,
+        `${backendBaseUrl}/api/order/${id}`,
         config
       );
 
@@ -197,7 +199,7 @@ export const updateOrder =
       };
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/order/admin/orders/${id}`,
+        `${backendBaseUrl}/api/order/admin/orders/${id}`,
         orderData,
         config
       );
@@ -222,7 +224,7 @@ export const deleteOrder =
       dispatch({ type: DELETE_ORDER_REQUEST });
 
       const { data } = await axios.delete(
-        `http://localhost:8080/api/order/admin/orders/${id}`,
+        `${backendBaseUrl}/api/order/admin/orders/${id}`,
 
         {
           headers: {
@@ -258,7 +260,7 @@ export const confirmOrder =
       };
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/order/${id}/confirm`,
+        `${backendBaseUrl}/api/order/${id}/confirm`,
         config
       );
 
@@ -287,7 +289,7 @@ export const khaltiPaymentCallbackAction =
       dispatch({ type: KHALTI_PAYMENT_CALLBACK_REQUEST });
 
       const { data } = await axios.post(
-        `http://localhost:8080/api/order/${paymentData.orderId}/verify-payment`,
+        `${backendBaseUrl}/api/order/${paymentData.orderId}/verify-payment`,
         paymentData
       );
 

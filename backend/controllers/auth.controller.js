@@ -197,7 +197,7 @@ const passwordreset = async (req, res, next) => {
         <div style="background-color: #f9f9f9; padding: 20px;">
           <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000 ">You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
           <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #000000">
-            Please <a style="color: #007bff; text-decoration: none; font-weight: bold;" href="http://localhost:3000/forgetpassword/${validUser._id}/${setusertoken.resetpasswordToken}"><u> click here </u></a> to reset your password within 3 minutes of receiving this email.
+            Please <a style="color: #007bff; text-decoration: none; font-weight: bold;" href="${process.env.BASE_URL}/forgetpassword/${validUser._id}/${setusertoken.resetpasswordToken}"><u> click here </u></a> to reset your password within 3 minutes of receiving this email.
           </p>
           <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #888;">If you did not request this, please ignore this email, and your password will remain unchanged.</p>
         </div>

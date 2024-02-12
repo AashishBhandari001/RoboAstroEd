@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 function ForgetPassword() {
   const [message, setMessage] = useState(""); // email state
   const [newPassword, setNewPassword] = useState(""); // State for the new password
@@ -13,7 +15,7 @@ function ForgetPassword() {
     try {
       // Send the new password to the server for updating the user's credentials
       const res = await fetch(
-        `http://localhost:8080/api/auth/forgetpassword/${id}/${token}`,
+        `${backendBaseUrl}/api/auth/forgetpassword/${id}/${token}`,
         {
           method: "POST",
           headers: {

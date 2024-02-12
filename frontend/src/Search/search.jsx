@@ -10,11 +10,11 @@ function Search() {
   const searchSubmitHandler = (e) => {
     e.preventDefault();
 
-    if (keyword.trim()) {
-      navigate(`/product/${keyword}`);
-    } else {
-      navigate("/product");
-    }
+    // if (keyword.trim()) {
+    //   navigate(`/product/?search=${keyword}`);
+    // } else {
+    //   navigate("/product");
+    // }
   };
 
   return (

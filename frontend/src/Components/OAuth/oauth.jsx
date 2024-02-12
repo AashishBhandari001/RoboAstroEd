@@ -12,6 +12,8 @@ import {
   signInFailure,
 } from "../../Redux/user/userSlice";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ function OAuth() {
 
       const result = await signInWithPopup(auth, provider);
 
-      const res = await fetch("http://localhost:8080/api/auth/google", {
+      const res = await fetch(`${backendBaseUrl}/api/auth/google`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

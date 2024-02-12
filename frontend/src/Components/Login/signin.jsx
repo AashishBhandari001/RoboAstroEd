@@ -12,6 +12,7 @@ import {
   signInFailure,
 } from "../../Redux/user/userSlice";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function Signin() {
   const [message, setMessage] = useState(""); // error message
@@ -34,7 +35,7 @@ function Signin() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch("http://localhost:8080/api/auth/signin", {
+      const res = await fetch(`${backendBaseUrl}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

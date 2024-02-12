@@ -5,9 +5,11 @@ import {
 } from "../Constants/cartConstants";
 import axios from "axios";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 //Add to cart
 export const addToCart = (id, quantity) => async (dispatch, getState) => {
-  const { data } = await axios.get(`http://localhost:8080/api/product/${id}`);
+  const { data } = await axios.get(`${backendBaseUrl}/api/product/${id}`);
   dispatch({
     type: ADD_TO_CART,
     payload: {

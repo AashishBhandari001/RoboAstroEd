@@ -7,6 +7,8 @@ import Socials from "../../Elements/Socials";
 import Button from "../Button";
 import Robot from "../../Assets/Robot-Hello.png";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 function Contactus() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -62,7 +64,7 @@ function Contactus() {
       // For instance, you might want to make an API call to a backend endpoint to handle the form data.
       try {
         // Send the new password to the server for updating the user's credentials
-        const res = await fetch("http://localhost:8080/api/contact", {
+        const res = await fetch(`${backendBaseUrl}/api/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

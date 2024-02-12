@@ -30,7 +30,7 @@ const createProduct = catchAsyncErrors(async (req, res, next) => {
 
   req.body.user = req.user.id; //user id from auth middleware
   req.body.images = req.files.map((file) => {
-    return { url: "http://localhost:8080/" + file.filename };
+    return { url: "http://:8080/" + file.filename };
   });
 
   const product = await Product.create(req.body);
@@ -85,7 +85,7 @@ const getProductDetails = catchAsyncErrors(async (req, res, next) => {
 const updateProduct = catchAsyncErrors(async (req, res, next) => {
   try {
     let product = await Product.findById(req.params.id);
-    
+
     if (!product) {
       return next(errorHandler(404, "Product not found"));
     }

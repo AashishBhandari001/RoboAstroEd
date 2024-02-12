@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth/oauth";
 import MetaData from "../../Router/Metadata/metaData";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 function Signup() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(); // error handling
@@ -23,7 +25,7 @@ function Signup() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8080/api/auth/signup", {
+      const res = await fetch(`${backendBaseUrl}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

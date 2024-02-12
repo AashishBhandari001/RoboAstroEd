@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorPopup from "../../Elements/ErrorPopup";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 function PasswordReset() {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ function PasswordReset() {
     e.preventDefault();
     try {
       setLoading(false);
-      const res = await fetch("http://localhost:8080/api/auth/passwordreset", {
+      const res = await fetch(`${backendBaseUrl}/api/auth/passwordreset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

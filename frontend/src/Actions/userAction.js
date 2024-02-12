@@ -22,6 +22,8 @@ import {
   CLEAR_ERRORS,
 } from "../Constants/userConstants";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 //get all user for admin
 export const getAllUsers =
   ({ token }) =>
@@ -36,10 +38,8 @@ export const getAllUsers =
         },
       };
 
-      console.log("token for admin", token);
-
       const { data } = await axios.get(
-        "http://localhost:8080/api/auth/admin/users",
+        `${backendBaseUrl}/api/auth/admin/users`,
         config
       );
 
@@ -69,7 +69,7 @@ export const getUserDetails =
       };
 
       const { data } = await axios.get(
-        `http://localhost:8080/api/auth/admin/users/${id}`,
+        `${backendBaseUrl}/api/auth/admin/users/${id}`,
         config
       );
 
@@ -102,7 +102,7 @@ export const updateUser =
       };
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/auth/admin/users/${id}`,
+        `${backendBaseUrl}/api/auth/admin/users/${id}`,
         userData,
         config
       );
@@ -134,7 +134,7 @@ export const deleteUser =
       };
 
       const { data } = await axios.delete(
-        `http://localhost:8080/api/auth/admin/users/${id}`,
+        `${backendBaseUrl}/api/auth/admin/users/${id}`,
         config
       );
 
@@ -165,7 +165,7 @@ export const changePassword =
       };
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/auth/change-password/${id}`,
+        `${backendBaseUrl}/api/auth/change-password/${id}`,
         formData,
         config
       );
@@ -195,7 +195,7 @@ export const verifyEmail = (token) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:8080/api/auth/verify-email?token=${token}`,
+      `${backendBaseUrl}/api/auth/verify-email?token=${token}`,
       config
     );
 

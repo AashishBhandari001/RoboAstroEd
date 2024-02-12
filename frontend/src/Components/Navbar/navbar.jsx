@@ -12,6 +12,8 @@ import {
 } from "../../Redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -35,7 +37,7 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       dispatch(logoutStart());
-      const res = await fetch("http://localhost:8080/api/auth/logout");
+      const res = await fetch(`${backendBaseUrl}/api/auth/logout`);
       const data = await res.json();
 
       if (data.success === false) {

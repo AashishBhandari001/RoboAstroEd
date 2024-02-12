@@ -22,13 +22,15 @@ import {
   CLEAR_ERRORS,
 } from "../Constants/courseConstants";
 
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
+
 export const getAllCourses =
   (category = "", keyword = "") =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_COURSE_REQUEST });
 
-      let link = `http://localhost:8080/api/course?keyword=${keyword}&category=${category}`;
+      let link = `${backendBaseUrl}/api/course?keyword=${keyword}&category=${category}`;
       const response = await axios.get(link);
 
       dispatch({
@@ -56,7 +58,7 @@ export const createCourse =
         },
       };
       const { data } = await axios.post(
-        "http://localhost:8080/api/createcourse",
+        `${backendBaseUrl}/api/createcourse`,
         myForm,
         config
       );
@@ -77,28 +79,23 @@ export const createCourse =
     }
   };
 
-export const getCourseLectures =
-  (id) =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: GET_COURSE_LECTURE_REQUEST });
+export const getCourseLectures = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_COURSE_LECTURE_REQUEST });
 
+    const { data } = await axios.get(`${backendBaseUrl}/api/course/${id}`);
 
-      const { data } = await axios.get(
-        `http://localhost:8080/api/course/${id}`,
-      );
-
-      dispatch({
-        type: GET_COURSE_LECTURE_SUCCESS,
-        payload: data.lectures,
-      });
-    } catch (error) {
-      dispatch({
-        type: GET_COURSE_LECTURE_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+    dispatch({
+      type: GET_COURSE_LECTURE_SUCCESS,
+      payload: data.lectures,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_COURSE_LECTURE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const deleteCourse =
   (id, { token }) =>
@@ -114,7 +111,7 @@ export const deleteCourse =
       };
 
       const { data } = await axios.delete(
-        `http://localhost:8080/api/course/${id}`,
+        `${backendBaseUrl}/api/course/${id}`,
         config
       );
 
@@ -151,7 +148,7 @@ export const addLecture =
       };
 
       const { data } = await axios.post(
-        `http://localhost:8080/api/course/${id}`,
+        `${backendBaseUrl}/api/course/${id}`,
         formdata,
         config
       );
@@ -184,7 +181,7 @@ export const deleteLecture =
       };
 
       const { data } = await axios.delete(
-        `http://localhost:8080/api/course/${courseId}/lecture/${lectureId}`,
+        `${backendBaseUrl}/api/course/${courseId}/lecture/${lectureId}`,
         config
       );
 

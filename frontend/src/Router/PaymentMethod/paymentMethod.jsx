@@ -12,6 +12,8 @@ import { removeItemsFromCart } from "../../Actions/cartAction";
 import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 
+const reactFrontendBaseUrl = process.env.REACT_APP_FRONTEND_BASE_URL;
+
 function PaymentMethod() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -91,7 +93,7 @@ function PaymentMethod() {
     if (selectedPayment === "Khalti") {
       const paymentData = {
         return_url: `${window.location.protocol}//${window.location.host}/order/${order.order._id}/payment-success`,
-        website_url: "http://localhost:3000",
+        website_url: `${reactFrontendBaseUrl}`,
         amount: grandTotalInPaisa(),
         purchase_order_id: "PO-" + Math.floor(Math.random() * 100000),
         purchase_order_name: "Purchase Order",
@@ -112,7 +114,7 @@ function PaymentMethod() {
       navigate(`/order/${order.order._id}/order-success`);
 
       cartItems.forEach((item) => {
-        dispatch(removeItemsFromCart(item.product)); 
+        dispatch(removeItemsFromCart(item.product));
       });
     }
   };
