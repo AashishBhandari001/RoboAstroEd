@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "react-dropdown/style.css";
-import Logo from "../../Assets/logo.png";
+import Logo from "../../Assets/RoboAstroEd.png";
 import { LuLayoutDashboard, LuArrowUpDown } from "react-icons/lu";
 import { VscListOrdered } from "react-icons/vsc";
 import { GoBook } from "react-icons/go";
@@ -73,7 +73,7 @@ const Sidebar = () => {
         <div className="flex flex-row justify-between items-center mb-20 space-x-2">
           <img src={Logo} alt="company logo" className="w-14" />
           <Link to="/home">
-            <span className="text-xl">Beyond Apogee</span>
+            <span className="text-xl">ROBOASTROED</span>
           </Link>
         </div>
         <div className="flex-1 space-y-8 font-medium">

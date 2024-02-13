@@ -50,12 +50,6 @@ function NewProduct() {
       alert.error(error);
       dispatch(clearErrors());
     }
-
-    if (success === true) {
-      dispatch({ type: NEW_PRODUCTS_RESET });
-      alert.success("Product created successfully");
-      navigate("/admin");
-    }
   }, [{ dispatch, token: currentUser.token, alert, error, success, navigate }]);
 
   const createProductSubmitHandler = (e) => {
@@ -77,6 +71,7 @@ function NewProduct() {
     dispatch(createProduct({ token }, productData));
     alert.success("Product created successfully");
     navigate("/admin");
+    dispatch({ type: NEW_PRODUCTS_RESET });
   };
 
   const createProductImageChangeHandler = (e) => {

@@ -129,10 +129,10 @@ function Contactus() {
                 <div className="inline-flex space-x-3 items-center">
                   <GrMail className="text-4xl text-[#00ADEB]" />
                   <span className=" hidden md:flex">
-                    sudip.beyondapogee@gmail.com
+                    bhandariashish395@gmail.com
                   </span>
                   <span className=" flex md:hidden">
-                    sudip.beyondapogee
+                    abhandariashish
                     <br />
                     @gmail.com
                   </span>

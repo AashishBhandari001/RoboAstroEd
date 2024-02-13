@@ -116,7 +116,7 @@ function Footer() {
               href="https://www.creative-tim.com?ref=njs-profile"
               className="text-blueGray-500 hover:text-blueGray-800"
             >
-              Beyond Apogee
+              ROBOASTROED
             </a>
             .
           </div>

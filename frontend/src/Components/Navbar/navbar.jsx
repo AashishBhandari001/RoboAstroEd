@@ -66,7 +66,7 @@ function Navbar() {
               <img
                 src={RoboAstroEd}
                 className="h-14 mr-3"
-                alt="Beyond Apogee Logo"
+                alt="ROBOASTROED Logo"
               />
               <div className="text-black text-sm md:text-xl">RoboAstroEd</div>
             </NavLink>

@@ -96,7 +96,7 @@ function MyOrders() {
   }, [dispatch, alert, error]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 mt-24 mb-10">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 mt-24 mb-10 min-h-screen">
       <MetaData title={"My Orders"} />
       {loading ? (
         <Loading />

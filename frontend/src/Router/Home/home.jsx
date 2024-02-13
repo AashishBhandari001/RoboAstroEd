@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <div className=" relative">
-        <MetaData title={"Beyond Apogee"} />
+        <MetaData title={"ROBOASTROED"} />
         <Hero />
         <Branding />
         <Card />
