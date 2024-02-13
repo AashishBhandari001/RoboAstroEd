@@ -37,24 +37,28 @@ const MyOrderDetails = () => {
     navigate(`/product/${productId}`);
   };
 
-  const handleDownloadPrint = async () => {
-    // Capture the shipping info div as an image
-    const orderDetail = document.getElementById("OrderDiv");
-    const canvas = await html2canvas(orderDetail);
+  // const handleDownloadPrint = async () => {
+  //   // Capture the shipping info div as an image
+  //   const orderDetail = document.getElementById("OrderDiv");
+  //   const canvas = await html2canvas(orderDetail);
 
-    // Convert the image into a PDF
-    const pdf = new jsPDF();
-    pdf.addImage(
-      canvas.toDataURL("image/png"),
-      "PNG",
-      0,
-      0,
-      pdf.internal.pageSize.width,
-      canvas.height * (pdf.internal.pageSize.width / canvas.width)
-    );
+  //   // Convert the image into a PDF
+  //   const pdf = new jsPDF();
+  //   pdf.addImage(
+  //     canvas.toDataURL("image/png"),
+  //     "PNG",
+  //     0,
+  //     0,
+  //     pdf.internal.pageSize.width,
+  //     canvas.height * (pdf.internal.pageSize.width / canvas.width)
+  //   );
 
-    // Download or open the PDF
-    pdf.save("OrderDetails_bill.pdf");
+  //   // Download or open the PDF
+  //   pdf.save("OrderDetails_bill.pdf");
+  // };
+
+  const handleInvoice = () => {
+    navigate(`/order/${id}/invoice`);
   };
 
   return (
@@ -147,11 +151,17 @@ const MyOrderDetails = () => {
               </div>
             </div>
           </div>
-          <button
+          {/* <button
             onClick={handleDownloadPrint}
             className="mt-6 w-full ring-4 font-normal text-white bg-cyan-600 ring-cyan-600 hover:bg-cyan-700  hover:ring-cyan-700 p-1 rounded-sm"
           >
             Download
+          </button> */}
+          <button
+            onClick={handleInvoice}
+            className="mt-6 w-full ring-4 font-normal text-white bg-cyan-600 ring-cyan-600 hover:bg-cyan-700  hover:ring-cyan-700 p-1 rounded-sm"
+          >
+            Invoice
           </button>
         </div>
       )}

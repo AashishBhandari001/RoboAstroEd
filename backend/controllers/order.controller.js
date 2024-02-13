@@ -134,6 +134,20 @@ const confirmOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//generate invoice of the order -- user
+const generateInvoice = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new errorHandler(404, "Order not found"));
+  }
+
+  res.status(200).json({
+    success: true,
+    order,
+  });
+});
+
 //delete order --Admin
 const deleteOrder = catchAsyncErrors(async (req, res, next) => {
   const orders = await Order.findByIdAndRemove(req.params.id);
@@ -151,6 +165,7 @@ module.exports = {
   newOrder,
   getSingleOrder,
   myOrders,
+  generateInvoice,
   confirmOrder,
   getAllOrders,
   updateOrder,

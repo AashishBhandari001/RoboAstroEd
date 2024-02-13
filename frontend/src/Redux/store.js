@@ -37,6 +37,7 @@ import {
   khaltiCallbackReducer,
   myOrdersReducer,
   codConfirmReducer,
+  generateInvoiceReducer,
 } from "../Reducers/orderReducer";
 
 const rootReducer = combineReducers({
@@ -69,6 +70,7 @@ const rootReducer = combineReducers({
   codConfirm: codConfirmReducer,
   khalti: khaltiReducer,
   khaltiCallback: khaltiCallbackReducer,
+  generateInvoice: generateInvoiceReducer,
 });
 
 const persistConfig = {

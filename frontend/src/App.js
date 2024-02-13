@@ -26,6 +26,7 @@ import PaymentFailed from "./Components/Payment/PaymentFail";
 import MyOrders from "./Router/MyOrders";
 import MyOrderDetails from "./Router/MyOrderDetails";
 import CODOrderSuccess from "./Router/COD-Order-success/codOrderSuccess";
+import GenerateInvoice from "./Router/Generate-Invoice";
 
 //course routes
 import Course from "./Router/CoursePage/course";
@@ -86,6 +87,10 @@ function App() {
                   <Route path="/shipping" element={<ShippingInfo />} />
                   <Route path="/order" element={<ConfirmOrder />} />
                   <Route path="/order/:id" element={<PaymentMethod />} />
+                  <Route
+                    path="/order/:id/invoice"
+                    element={<GenerateInvoice />}
+                  />
                   <Route
                     path="/order/:id/payment-success"
                     element={<PaymentSuccess />}

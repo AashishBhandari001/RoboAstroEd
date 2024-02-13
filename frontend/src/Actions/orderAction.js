@@ -21,15 +21,16 @@ import {
   GET_ORDER_DETAILS_FAIL,
   UPDATE_ORDER_REQUEST,
   UPDATE_ORDER_SUCCESS,
-  UPDATE_ORDER_RESET,
   UPDATE_ORDER_FAIL,
   DELETE_ORDER_REQUEST,
   DELETE_ORDER_SUCCESS,
-  DELETE_ORDER_RESET,
   DELETE_ORDER_FAIL,
   COD_CONFIRM_REQUEST,
   COD_CONFIRM_SUCCESS,
   COD_CONFIRM_FAIL,
+  GENERATE_INVOICE_REQUEST,
+  GENERATE_INVOICE_SUCCESS,
+  GENERATE_INVOICE_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/orderConstants";
 
@@ -304,6 +305,36 @@ export const khaltiPaymentCallbackAction =
         payload: error.response
           ? error.response.data.message
           : "An error occurred",
+      });
+    }
+  };
+
+//generate invoice
+export const generateInvoiceAction =
+  (id, { token }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GENERATE_INVOICE_REQUEST });
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `${backendBaseUrl}/api/order/${id}/invoice`,
+        config
+      );
+
+      dispatch({
+        type: GENERATE_INVOICE_SUCCESS,
+        payload: data.order,
+      });
+    } catch (error) {
+      dispatch({
+        type: GENERATE_INVOICE_FAIL,
+        payload: error.response.data.message,
       });
     }
   };

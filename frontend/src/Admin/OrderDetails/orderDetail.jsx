@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { MdOutlineAccountTree } from "react-icons/md";
-
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
-
 import { UPDATE_ORDER_RESET } from "../../Constants/orderConstants";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -26,24 +22,8 @@ const OrderDetail = () => {
   const { error: updateError, isUpdated } = useSelector((state) => state.order);
   const [status, setStatus] = useState("");
 
-  const handleDownloadPrint = async () => {
-    // Capture the shipping info div as an image
-    const orderDetail = document.getElementById("shippingInfoDiv");
-    const canvas = await html2canvas(orderDetail);
-
-    // Convert the image into a PDF
-    const pdf = new jsPDF();
-    pdf.addImage(
-      canvas.toDataURL("image/png"),
-      "PNG",
-      0,
-      0,
-      pdf.internal.pageSize.width,
-      canvas.height * (pdf.internal.pageSize.width / canvas.width)
-    );
-
-    // Download or open the PDF
-    pdf.save("shipping_info.pdf");
+  const handleInvoice = () => {
+    navigate(`/order/${id}/invoice`);
   };
 
   const updateOrderSubmitHandler = (e) => {
@@ -87,8 +67,6 @@ const OrderDetail = () => {
           >
             <div className="flex flex-col">
               <h2 className="font-medium text-6xl pb-4 pt-4 ">Shipping Info</h2>
-              <span>Name: {order.user.username}</span>
-              <br />
               <span>Phone: {order.shippingInfo.phoneNo}</span>
               <br />
               <span>Address: {order.shippingInfo.address}</span>
@@ -184,10 +162,10 @@ const OrderDetail = () => {
             </div>
           </div>
           <button
-            onClick={handleDownloadPrint}
+            onClick={handleInvoice}
             className="mt-4 ring-4 font-normal text-white bg-cyan-600 ring-cyan-600 hover:bg-cyan-700  hover:ring-cyan-700 p-1 rounded-sm"
           >
-            Download
+            Invoice
           </button>
         </div>
 
