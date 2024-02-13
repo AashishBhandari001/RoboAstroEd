@@ -30,7 +30,7 @@ const createProduct = catchAsyncErrors(async (req, res, next) => {
 
   req.body.user = req.user.id; //user id from auth middleware
   req.body.images = req.files.map((file) => {
-    return { url: "http://:8080/" + file.filename };
+    return { url: process.env.IMAGE_URL + file.filename };
   });
 
   const product = await Product.create(req.body);
@@ -112,7 +112,6 @@ const updateProduct = catchAsyncErrors(async (req, res, next) => {
 //delete product --Admin
 
 const deleteProduct = async (req, res, next) => {
-  console.log("Here");
   try {
     const product = await Product.findByIdAndRemove(req.params.id);
     if (!product) {
