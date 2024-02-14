@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { useSelector } from "react-redux";
 
 import {
   Box,
@@ -38,6 +39,7 @@ function CourseModel({
   courseTitle,
   lectures,
 }) {
+  const { loading } = useSelector((state) => state.addlecture);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState("");
@@ -144,7 +146,13 @@ function CourseModel({
                     ></video>
                   )}
 
-                  <Button w="full" colorScheme={"blue"} type="submit">
+                  <Button
+                    w="full"
+                    colorScheme={"blue"}
+                    type="submit"
+                    isLoading={loading}
+                    loadingText="Uploading..."
+                  >
                     {" "}
                     upload
                   </Button>

@@ -18,7 +18,7 @@ function CreateCourse() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
-  const { loading, error, success } = useSelector((state) => state.admin);
+  const { loading, error } = useSelector((state) => state.admin);
   const { currentUser } = useSelector((state) => state.user);
 
   const [title, setTitle] = useState("");
@@ -52,7 +52,7 @@ function CreateCourse() {
     };
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const myForm = new FormData();
     myForm.append("title", title);
@@ -64,19 +64,14 @@ function CreateCourse() {
     const token = currentUser.token;
 
     dispatch(createCourse(myForm, { token }));
+
+    try {
+      await dispatch(createCourse(myForm, { token }));
+      alert.success("Course created successfully!");
+    } catch (error) {
+      alert.error("Failed to create course. Please try again.");
+    }
   };
-
-  useEffect(() => {
-    if (error) {
-      alert.error(error);
-    }
-
-    if (success === true) {
-      dispatch({ type: "CREATE_COURSE_RESET" });
-      alert.success("Course created successfully");
-      navigate("/admin/courses");
-    }
-  }, [dispatch, alert, error, success]);
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
@@ -141,7 +136,14 @@ function CreateCourse() {
               <Image src={imagePrev} boxSize="64" objectFit={"contain"} />
             )}
 
-            <Button w="full" colorScheme={"blue"} type="submit">
+            <Button
+              w="full"
+              colorScheme={"blue"}
+              type="submit"
+              isLoading={loading}
+              loadingText="Creating..."
+            >
+              {" "}
               Create
             </Button>
           </VStack>
