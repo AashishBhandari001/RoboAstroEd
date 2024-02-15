@@ -33,18 +33,17 @@ function UpdateProduct() {
   // const [imagePreview, setImagePreview] = useState([]);
 
   const categories = [
-    "Electronics",
-    "Cameras",
-    "Laptop",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
+    "SajiloBot",
+    "LED",
+    "Resistor",
+    "Battery",
+    "Satellite",
+    "Transistor",
+    "Capacitor",
+    "Wires",
+    "Motors",
+    "Sensors",
+    "3D Printer",
   ];
 
   useEffect(() => {

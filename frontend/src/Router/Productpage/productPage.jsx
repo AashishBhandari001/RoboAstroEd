@@ -138,20 +138,20 @@ function ProductPage() {
             <div className="flex flex-col sm:flex-row justify-center items-center mb-4">
               <Button
                 variant="text"
-                className="flex items-center gap-2 text-gray-600 rounded-full mb-2 sm:mb-0 sm:mr-2"
+                className="flex items-center gap-2 text-white bg-cyan-600 rounded-full mb-2 sm:mb-0 sm:mr-2"
                 onClick={prev}
                 disabled={active === 1}
               >
                 <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
               </Button>
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-2 ">
                 {Array.from({
                   length: Math.ceil(productCount / resultPerPage),
                 }).map((_, index) => (
                   <IconButton
                     key={index}
                     {...getItemProps(index + 1)}
-                    className="text-sm"
+                    className="text-sm text-black bg-white border-0 hover:bg-cyan-600 hover:text-white"
                   >
                     {index + 1}
                   </IconButton>
@@ -159,7 +159,7 @@ function ProductPage() {
               </div>
               <Button
                 variant="text"
-                className="flex items-center gap-2 text-gray-600 rounded-full mt-2 sm:mt-0 sm:ml-2"
+                className="flex items-center gap-2 text-white bg-cyan-600 rounded-full mt-2 sm:mt-0 sm:ml-2"
                 onClick={next}
                 disabled={active === Math.ceil(productCount / resultPerPage)}
               >
