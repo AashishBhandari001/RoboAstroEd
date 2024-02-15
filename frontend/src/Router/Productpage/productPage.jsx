@@ -37,8 +37,6 @@ function ProductPage() {
     (state) => state.products
   );
 
-  console.log(products);
-
   useEffect(() => {
     if (error) {
       alert.error(error);

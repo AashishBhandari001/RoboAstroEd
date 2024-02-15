@@ -89,7 +89,6 @@ function Contactus() {
         console.error("Error:", error);
         // Handle error, show an error message, etc.
       }
-      console.log("Form submitted:", formData);
       // Reset form data and errors
       setFormData({
         fullName: "",

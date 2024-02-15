@@ -83,8 +83,6 @@ function ConfirmOrder() {
     createdAt: order.createdAt,
   };
 
-  console.log("orderData", orderData);
-
   const proceedToPaymentSubmitHandler = () => {
     const orderData = {
       shippingInfo: shippingInfoData,

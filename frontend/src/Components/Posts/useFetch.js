@@ -9,7 +9,6 @@ export default function useFetch(url) {
             axios
             .get(url)
             .then((response) => {
-                // console.log(response.data);
             const posts = response.data;
             setData(posts);
             });
