@@ -74,23 +74,44 @@ function NewProduct() {
     dispatch({ type: NEW_PRODUCTS_RESET });
   };
 
+  // const createProductImageChangeHandler = (e) => {
+  //   const files = Array.from(e.target.files);
+  //   setImages([]);
+  //   setImagePreview([]);
+
+  //   files.forEach((file) => {
+  //     const reader = new FileReader();
+
+  //     reader.onload = () => {
+  //       if (reader.readyState === 2) {
+  //         setImages((old) => [...old, file]);
+  //         setImagePreview((old) => [...old, reader.result]);
+  //       }
+  //     };
+
+  //     reader.readAsDataURL(file);
+  //   });
+  // };
+
+  //for cloudinary
   const createProductImageChangeHandler = (e) => {
     const files = Array.from(e.target.files);
-    setImages([]);
-    setImagePreview([]);
 
-    files.forEach((file) => {
+    const imagePreviews = [];
+
+    for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
 
       reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImages((old) => [...old, file]);
-          setImagePreview((old) => [...old, reader.result]);
-        }
+        imagePreviews.push(reader.result);
+        setImagePreview([...imagePreviews]);
       };
 
-      reader.readAsDataURL(file);
-    });
+      reader.readAsDataURL(files[i]);
+    }
+
+    // Set the selected image files to the images state
+    setImages(files);
   };
 
   return (

@@ -20,8 +20,23 @@ const productSchema = new mongoose.Schema({
   //   default: 0,
   // },
 
+  // for using multer
+  // images: [
+  //   {
+  //     url: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //   },
+  // ],
+
+  //for cloudinary
   images: [
     {
+      public_id: {
+        type: String,
+        required: true,
+      },
       url: {
         type: String,
         required: true,

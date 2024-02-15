@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../models/product.model");
 const errorHandler = require("../utils/error.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
+const cloudinary = require("../utils/cloudinary.js");
 
 const dotenv = require("dotenv");
 const ApiFeatures = require("../utils/apifeatures");
@@ -9,36 +10,36 @@ dotenv.config();
 
 //create new product --Admin
 const createProduct = catchAsyncErrors(async (req, res, next) => {
-  // images.push(req.body.images);
+  const images = req.files;
 
-  // if (typeof req.body.images === "string") {
-  // } else {
-  //   images = req.body.images;
-  // }
+  let imagesLinks = [];
 
-  // for (let i = 0; i < images.length; i++) {
-  //   const result = await cloudinary.uploader.upload(images[i], {
-  //     folder: "products",
-  //   });
+  try {
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.uploader.upload(images[i].path, {
+        folder: "products",
+      });
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
 
-  //   imagesLinks.push({
-  //     public_id: result.public_id,
-  //     url: result.secure_url,
-  //   });
+    req.body.user = req.user.id;
+    req.body.images = imagesLinks;
 
-  // }
+    const product = await Product.create(req.body);
 
-  req.body.user = req.user.id; //user id from auth middleware
-  req.body.images = req.files.map((file) => {
-    return { url: process.env.IMAGE_URL + file.filename };
-  });
-
-  const product = await Product.create(req.body);
-
-  res.status(201).json({
-    success: true,
-    product,
-  });
+    res.status(201).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.error("Error uploading images to Cloudinary:", error);
+    res
+      .status(500)
+      .json({ success: false, error: "Failed to upload images to Cloudinary" });
+  }
 });
 
 //get all products
@@ -119,9 +120,9 @@ const deleteProduct = async (req, res, next) => {
     }
 
     // Delete images associated with the product from cloudinary
-    // for (let i = 0; i < product.images.length; i++) {
-    //   await cloudinary.uploader.destroy(product.images[i].public_id);
-    // }
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.uploader.destroy(product.images[i].public_id);
+    }
 
     res.status(200).json({
       success: true,
