@@ -60,7 +60,7 @@ function PaymentMethod() {
     const grandTotalRupees = total + vat + shippingCharges;
 
     // Convert rupees to paisa by multiplying by 100
-    const grandTotalPaisa = grandTotalRupees * 100;
+    const grandTotalPaisa = Math.round(grandTotalRupees * 100);
 
     return grandTotalPaisa;
   };

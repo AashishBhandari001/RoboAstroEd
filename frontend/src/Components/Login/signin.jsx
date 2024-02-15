@@ -1,9 +1,9 @@
 import React from "react";
-import ErrorPopup from "../../Elements/ErrorPopup";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth";
 import MetaData from "../../Router/Metadata/metaData";
+import { useAlert } from "react-alert";
 
 import { useDispatch } from "react-redux";
 import {
@@ -15,6 +15,7 @@ import {
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function Signin() {
+  const alert = useAlert();
   const [message, setMessage] = useState(""); // error message
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(); // error handling
@@ -23,10 +24,6 @@ function Signin() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleBack = () => {
-    setError(null); // Clear the error state
   };
 
   const dispatch = useDispatch();
@@ -46,13 +43,17 @@ function Signin() {
       if (data.success === false) {
         dispatch(signInFailure(data.error));
         setMessage(data.error);
+        alert.error(data.error);
         return;
       }
       dispatch(signInSuccess(data));
       setMessage("Logged in successfully!");
+      alert.success("Logged in successfully!");
       navigate("/Home");
     } catch (err) {
       dispatch(signInFailure(err));
+      setMessage(err);
+      alert.error(err);
     }
   };
   return (
