@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import RoboAstroEd from "../../Assets/RoboAstroEd.png";
 import { NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
+import { useAlert } from "react-alert";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -22,6 +23,7 @@ function Navbar() {
   const { cartItems } = useSelector((state) => state.cart);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
+  const alert = useAlert();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -41,12 +43,13 @@ function Navbar() {
       const data = await res.json();
 
       if (data.success === false) {
-        console.log(data.error);
         logoutFailure(data.error);
+        alert.error(data.error);
         return;
       }
       dispatch(logoutSuccess());
       localStorage.removeItem("access_token");
+      alert.success("Logged out successfully!");
       navigate("/home");
     } catch (error) {
       dispatch(logoutFailure(error));

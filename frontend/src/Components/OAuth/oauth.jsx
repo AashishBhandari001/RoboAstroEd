@@ -3,6 +3,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaGooglePlusG } from "react-icons/fa6";
+import { useAlert } from "react-alert";
 
 import app from "../../firebase";
 
@@ -17,6 +18,7 @@ const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const alert = useAlert();
   const handleGoogleClick = async () => {
     try {
       dispatch(signInStart());
@@ -37,16 +39,16 @@ function OAuth() {
       });
       const data = await res.json();
       if (data.success === false) {
-        // Check if there's an error
-        console.log(data.error);
         dispatch(signInFailure(data.error));
+        alert.error(data.error);
         return;
       }
       dispatch(signInSuccess(data));
-      navigate("/Home"); //if successful, navigate to Home
+      alert.success("Logged in successfully");
+      navigate("/Home");
     } catch (err) {
       dispatch(signInFailure(err));
-      console.log("Could not sign in with google", err);
+      alert.error(err.message);
     }
   };
 

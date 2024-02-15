@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function ForgetPassword() {
+  const alert = useAlert();
   const [message, setMessage] = useState(""); // email state
   const [newPassword, setNewPassword] = useState(""); // State for the new password
   const navigate = useNavigate(); // initialize navigation
@@ -27,11 +29,14 @@ function ForgetPassword() {
 
       if (res.ok) {
         setMessage("Password updated successfully!");
+        alert.success("Password updated successfully!");
+
         setTimeout(() => {
           navigate("/Account");
         }, 5000);
       } else {
         setMessage("Failed to update the password. Please try again.");
+        alert.error("Failed to update the password. Please try again.");
       }
 
       // Handle response accordingly, e.g., show success message
@@ -64,12 +69,12 @@ function ForgetPassword() {
                 className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
             </div>
-            <div className="flex flex-col ml-4 items-center space-y-2">
+            <div className="flex flex-col items-center space-y-2">
               <button
                 type="submit"
-                className="bg-[#B0F0F6] hover-bg-[#AEEBF1] text-black border-transparent p-2 rounded-lg w-full"
+                className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-md w-full"
               >
-                Send
+                Update
               </button>
             </div>
           </form>
