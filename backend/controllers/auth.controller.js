@@ -8,6 +8,8 @@ const nodeMailer = require("nodemailer");
 const dotenv = require("dotenv");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors.js");
 
+const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+
 dotenv.config();
 
 //config for email
@@ -43,7 +45,6 @@ const verifyEmail = async (req, res, next) => {
 const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
-  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
   if (!passwordRegex.test(password)) {
     return next(
       ErrorHandler(
@@ -222,34 +223,39 @@ const passwordreset = async (req, res, next) => {
   }
 };
 
-//forgetpassword controller function
 const forgetpassword = async (req, res, next) => {
   const { id, token } = req.params;
-
-  const { password } = req.body; // get the password from the request body
+  const { password } = req.body;
 
   try {
-    const validUser = await User.findOne({ _id: id }); // check if the user exists in the database
-
+    const validUser = await User.findOne({ _id: id });
     const validToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (!validUser && !validToken) {
-      return next(ErrorHandler(404, "User does not exist"));
+    if (!validUser || !validToken) {
+      return next(ErrorHandler(404, "User does not exist or invalid token"));
+    }
+
+    // Validate password against regex pattern
+    if (!passwordRegex.test(password)) {
+      return next(
+        ErrorHandler(
+          400,
+          "Password must contain at least one number and one symbol (!@#$%^&*) and be at least 8 characters long"
+        )
+      );
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const setpassword = await User.findByIdAndUpdate(
+      { _id: id },
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    if (setpassword) {
+      return next(ErrorHandler(200, "Password updated"));
     } else {
-      if (validUser && validToken) {
-        const hashedPassword = bcrypt.hashSync(password, 10); // 10 is the salt (how many times the password is hashed)
-        const setpassword = await User.findByIdAndUpdate(
-          { _id: id },
-          { password: hashedPassword },
-          { new: true }
-        );
-        if (setpassword) {
-          return next(ErrorHandler(200, "Password updated"));
-        } else {
-          console.log("Password not updated");
-          return next(ErrorHandler(400, "Password not updated"));
-        }
-      }
+      return next(ErrorHandler(400, "Password not updated"));
     }
   } catch (error) {
     next(error);
@@ -267,7 +273,6 @@ const changepassword = async (req, res, next) => {
       return next(ErrorHandler(404, "User does not exist"));
     }
 
-    // Check if the provided email matches the user's email
     if (validUser.email !== email) {
       return next(ErrorHandler(400, "Email does not match user's email"));
     }
@@ -278,7 +283,16 @@ const changepassword = async (req, res, next) => {
       return next(ErrorHandler(401, "Wrong Credentials"));
     }
 
-    // Check if the new password is different from the old one
+    // Validate new password against regex pattern
+    if (!passwordRegex.test(newpassword)) {
+      return next(
+        ErrorHandler(
+          400,
+          "New password must contain at least one number and one symbol (!@#$%^&*) and be at least 8 characters long"
+        )
+      );
+    }
+
     const isNewPasswordSameAsOld = bcrypt.compareSync(
       newpassword,
       validUser.password
@@ -304,7 +318,6 @@ const changepassword = async (req, res, next) => {
         .status(200)
         .json({ success: true, message: "Password updated" });
     } else {
-      // If setpassword is falsy, it means password was not updated
       return next(ErrorHandler(400, "Password not updated"));
     }
   } catch (error) {
