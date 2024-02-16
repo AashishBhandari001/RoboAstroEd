@@ -77,11 +77,13 @@ function ConfirmOrder() {
     state: shippingInfo.state,
   };
 
-  const orderData = {
-    id: order._id,
-    status: order.orderStatus,
-    createdAt: order.createdAt,
-  };
+  const orderData = order
+    ? {
+        id: order._id,
+        status: order.orderStatus,
+        createdAt: order.createdAt,
+      }
+    : null;
 
   const proceedToPaymentSubmitHandler = () => {
     const orderData = {
