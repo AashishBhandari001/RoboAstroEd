@@ -64,7 +64,7 @@ function GenerateInvoice() {
           </div>
 
           <div className="text-right">
-            <p> RoboAstroEd</p>
+            <p className="font-semibold"> RoboAstroEd</p>
             <p className="text-black text-sm">bhandariashish397@gmail.com</p>
             <p className="text-black text-sm mt-1">+977-9861607730</p>
             <p className="text-black text-sm mt-1">Sample VAT NUM: 0000000</p>
@@ -95,15 +95,20 @@ function GenerateInvoice() {
           </div>
 
           <div className="text-right">
-            <p className="">
-              Invoice number: <span className="text-black">{order?._id}</span>
+            <p>
+              <span className="font-bold">Invoice number:</span>{" "}
+              <span className="text-black">{order?._id}</span>
             </p>
             <p>
-              Invoice date:{" "}
+              <span className="font-bold">Invoice date: </span>
               <span className="text-black">{formatDate(invoiceDate)}</span>
               <br />
-              Due date:{" "}
-              <span className="text-black">{formatDate(dueDate)}</span>
+              {order?.paymentStatus !== "Completed" && (
+                <>
+                  <span className="font-bold">Due date: </span>
+                  <span className="text-black">{formatDate(dueDate)}</span>
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -221,7 +226,14 @@ function GenerateInvoice() {
 
         {/* Footer */}
         <div className="border-t-2 pt-4 text-xs text-black text-center mt-16">
-          Please pay the invoice before the due date.
+          {order?.paymentStatus === "Completed" ? (
+            <>
+              <p>Your order will be delivered within 2 working days. 😊</p>
+              <p>Thank you for your purchase!</p>
+            </>
+          ) : (
+            <p>Please pay the invoice before the due date.</p>
+          )}
         </div>
       </div>
       <div className="flex justify-center">
