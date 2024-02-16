@@ -20,8 +20,10 @@ function GenerateInvoice() {
     dispatch(generateInvoiceAction(id, { token }));
   }, [dispatch, id, token]);
 
-  // Function to format date as "YYYY-MM-DD"
   const formatDate = (date) => {
+    if (!date instanceof Date || isNaN(date)) {
+      return ""; // or whatever default value you want to return
+    }
     return date.toISOString().split("T")[0];
   };
 
