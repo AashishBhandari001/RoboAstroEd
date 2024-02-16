@@ -74,11 +74,15 @@ function GenerateInvoice() {
         <div className="grid grid-cols-2 items-center mt-8">
           <div>
             <p className="font-bold text-black">Bill to :</p>
-            <p className="text-black">
-              {order?.shippingInfo.address}, {order?.shippingInfo.city},{" "}
-              {order?.shippingInfo.state}, {order?.shippingInfo.country}
-            </p>
-            <p className="text-black">{order?.shippingInfo.phoneNo}</p>
+            {order?.shippingInfo && (
+              <>
+                <p className="text-black">
+                  {order?.shippingInfo.address}, {order?.shippingInfo.city},{" "}
+                  {order?.shippingInfo.state}, {order?.shippingInfo.country}
+                </p>
+                <p className="text-black">{order?.shippingInfo.phoneNo}</p>
+              </>
+            )}
 
             <p className="font-bold text-black">
               Payment Status:{" "}
@@ -175,7 +179,7 @@ function GenerateInvoice() {
               <tr>
                 <th
                   scope="row"
-                  colspan="3"
+                  colSpan="3"
                   className="pl-4 pr-3 pt-6 text-right text-sm font-normal text-black"
                 >
                   Subtotal
@@ -187,7 +191,7 @@ function GenerateInvoice() {
               <tr>
                 <th
                   scope="row"
-                  colspan="3"
+                  colSpan="3"
                   className="pl-4 pr-3 pt-4 text-right text-sm font-normal text-black"
                 >
                   Tax
@@ -199,7 +203,7 @@ function GenerateInvoice() {
               <tr>
                 <th
                   scope="row"
-                  colspan="3"
+                  colSpan="3"
                   className="pl-4 pr-3 pt-4 text-right text-sm font-normal text-black"
                 >
                   Shipping Price
@@ -211,7 +215,7 @@ function GenerateInvoice() {
               <tr>
                 <th
                   scope="row"
-                  colspan="3"
+                  colSpan="3"
                   className="pl-4 pr-3 pt-4 text-right text-sm font-semibold text-black"
                 >
                   Total
