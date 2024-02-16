@@ -42,6 +42,16 @@ const verifyEmail = async (req, res, next) => {
 // Signup Controller
 const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
+
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+  if (!passwordRegex.test(password)) {
+    return next(
+      ErrorHandler(
+        400,
+        "Password must contain at least one number and one symbol (!@#$%^&*) and be at least 8 characters long."
+      )
+    );
+  }
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   try {
