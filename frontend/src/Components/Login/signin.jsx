@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth";
 import MetaData from "../../Router/Metadata/metaData";
 import { useAlert } from "react-alert";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
 import {
@@ -20,6 +21,7 @@ function Signin() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(); // error handling
   const [loading, setLoading] = useState(false); // loading state
+  const [showPassword, setShowPassword] = useState(false); // state to toggle password visibility
   const navigate = useNavigate(); // initialize navigation
 
   const handleChange = (e) => {
@@ -56,6 +58,7 @@ function Signin() {
       alert.error(err);
     }
   };
+
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
       <MetaData title="Sign In" />
@@ -79,15 +82,26 @@ function Signin() {
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
             </div>
-            <div>
+            <div className="relative">
               <span className="mb-2 text-md">Password</span>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 onChange={handleChange}
                 required
                 className="w-full p-2 mb-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
+              <button
+                type="button"
+                className="absolute top-1/2 transform -translate-y-1/2 right-3 focus:outline-none"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <FaRegEyeSlash className="h-5 w-5 text-gray-500 mt-2" />
+                ) : (
+                  <FaRegEye className="h-5 w-5 text-gray-500 mt-2"  />
+                )}
+              </button>
             </div>
 
             <div>

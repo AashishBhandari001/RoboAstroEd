@@ -22,6 +22,11 @@ function PaymentMethod() {
   const { id } = useParams();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+  const {
+    loading: loadingKhalti,
+    error: errorKhalti,
+    success: successKhalti,
+  } = useSelector((state) => state.khalti);
   const { currentUser } = useSelector((state) => state.user);
   const { error, success, loading, order } = useSelector(
     (state) => state.newOrder
@@ -106,6 +111,14 @@ function PaymentMethod() {
       };
 
       dispatch(khaltiPaymentAction(paymentData));
+
+      if (errorKhalti) {
+        alert.error(errorKhalti);
+      }
+
+      if (successKhalti) {
+        alert.success("Redirecting to Khalti for payment");
+      }
     } else if (selectedPayment === "CashOnDelivery") {
       const orderId = order.order._id;
       const token = currentUser.token;

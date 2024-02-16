@@ -1,9 +1,9 @@
-import React from "react";
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../OAuth/oauth";
 import MetaData from "../../Router/Metadata/metaData";
+import { RxEyeOpen } from "react-icons/rx";
+import { FaRegEyeSlash } from "react-icons/fa6";
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -11,6 +11,7 @@ function Signup() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(); // error handling
   const [loading, setLoading] = useState(false); // loading state
+  const [showPassword, setShowPassword] = useState(false); // state to toggle password visibility
   const navigate = useNavigate(); // initialize navigation
 
   const handleChange = (e) => {
@@ -51,10 +52,17 @@ function Signup() {
     }
   };
 
+  // Password validation function
+  const isPasswordValid = (password) => {
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
       <MetaData title="Sign Up" />
-      <div className="flex flex-col space-y-2 bg-white shadow-2xl rounded-2xl">
+      <div className="flex flex-col space-y-2 bg-white shadow-2xl rounded-2xl max-w-sm">
         <div className="flex flex-col justify-center p-6 md:p-12">
           <span className="mb-2 text-2xl md:text-4xl font-bold">
             Join Us Today
@@ -84,16 +92,33 @@ function Signup() {
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
             </div>
-            <div>
+            <div className="relative">
               <span className="mb-2 text-md">Password</span>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 onChange={handleChange}
                 required
                 className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
               />
+              <button
+                type="button"
+                className="absolute top-1/2 transform -translate-y-1/2 right-3 focus:outline-none"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <RxEyeOpen className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <FaRegEyeSlash className="h-5 w-5 text-gray-500" />
+                )}
+              </button>
             </div>
+            {formData.password && !isPasswordValid(formData.password) && (
+              <div className="text-red-600 text-sm mb-2">
+                Password must contain at least one number and one symbol
+                (!@#$%^&*) and be at least 8 characters long.
+              </div>
+            )}
 
             <div className="flex flex-col space-y-2">
               <button
