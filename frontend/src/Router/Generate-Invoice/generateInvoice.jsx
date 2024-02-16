@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import companyLogo from "../../Assets/RoboAstroEd.png";
-import { generateInvoiceAction } from "../../Actions/orderAction";
+import { getOrderDetails, clearErrors } from "../../Actions/orderAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import jsPDF from "jspdf";
@@ -11,14 +11,22 @@ function GenerateInvoice() {
   const { id } = useParams();
   const pdfRef = useRef();
 
-  const { order, error } = useSelector((state) => state.generateInvoice);
+  const { order, error, loading } = useSelector((state) => state.orderDetails);
   const { currentUser } = useSelector((state) => state.user);
   const token = currentUser.token;
 
   useEffect(() => {
-    // Dispatch action to fetch data and then trigger PDF generation
-    dispatch(generateInvoiceAction(id, { token }));
-  }, [dispatch, id, token]);
+    const fetchOrderDetails = async () => {
+      try {
+        await dispatch(getOrderDetails(id, { token }));
+      } catch (fetchError) {
+        alert.error(fetchError.message);
+        dispatch(clearErrors());
+      }
+    };
+
+    fetchOrderDetails();
+  }, [dispatch, alert, id, token]);
 
   const formatDate = (date) => {
     if (!date instanceof Date || isNaN(date)) {
@@ -157,7 +165,7 @@ function GenerateInvoice() {
               </tr>
             </thead>
             <tbody>
-              {order?.orderItems.map((item) => (
+              {order?.orderItems?.map((item) => (
                 <tr key={item._id} className="border-b border-gray-200">
                   <td className="max-w-0 py-5 pl-4 pr-3 text-sm">
                     <div className="font-medium text-black">{item.name}</div>
@@ -177,6 +185,7 @@ function GenerateInvoice() {
                 </tr>
               ))}
             </tbody>
+
             <tfoot>
               <tr>
                 <th
