@@ -12,7 +12,6 @@ const {
   updateOrder,
   deleteOrder,
   confirmOrder,
-  generateInvoice,
 } = require("../controllers/order.controller.js");
 
 const {
@@ -27,7 +26,6 @@ router.route("/me").get(isAuthenticatedUser, myOrders);
 
 router.route("/:id").get(isAuthenticatedUser, getSingleOrder);
 
-router.route("/:id/invoice").get(isAuthenticatedUser, generateInvoice);
 
 router.route("/:id/initiate-payment").post(callKhalti);
 router.route("/:id/verify-payment").post(handleKhaltiCallback);

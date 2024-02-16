@@ -309,32 +309,3 @@ export const khaltiPaymentCallbackAction =
     }
   };
 
-//generate invoice
-export const generateInvoiceAction =
-  (id, { token }) =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: GENERATE_INVOICE_REQUEST });
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const { data } = await axios.get(
-        `${backendBaseUrl}/api/order/${id}/invoice`,
-        config
-      );
-
-      dispatch({
-        type: GENERATE_INVOICE_SUCCESS,
-        payload: data.order,
-      });
-    } catch (error) {
-      dispatch({
-        type: GENERATE_INVOICE_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };

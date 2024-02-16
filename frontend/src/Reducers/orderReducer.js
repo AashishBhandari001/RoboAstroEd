@@ -28,9 +28,6 @@ import {
   DELETE_ORDER_SUCCESS,
   DELETE_ORDER_RESET,
   DELETE_ORDER_FAIL,
-  GENERATE_INVOICE_REQUEST,
-  GENERATE_INVOICE_SUCCESS,
-  GENERATE_INVOICE_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/orderConstants";
 
@@ -277,38 +274,6 @@ export const khaltiCallbackReducer = (state = {}, action) => {
       return {
         ...state,
         error: action.payload,
-      };
-
-    default:
-      return state;
-  }
-};
-
-//generate invoice
-export const generateInvoiceReducer = (state = { order: {} }, action) => {
-  switch (action.type) {
-    case GENERATE_INVOICE_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case GENERATE_INVOICE_SUCCESS:
-      return {
-        loading: false,
-        order: action.payload,
-      };
-
-    case GENERATE_INVOICE_FAIL:
-      return {
-        ...state,
-        error: action.payload,
-      };
-
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
       };
 
     default:
