@@ -5,6 +5,8 @@ import { changePassword } from "../../Actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import { CHANGE_PASSWORD_RESET } from "../../Constants/userConstants";
+import { RxEyeOpen } from "react-icons/rx";
+import { FaRegEyeSlash } from "react-icons/fa6";
 
 function ChangePassword() {
   const alert = useAlert();
@@ -17,6 +19,11 @@ function ChangePassword() {
     confirmNewPassword: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    oldPassword: false,
+    newPassword: false,
+    confirmNewPassword: false,
+  });
 
   const { loading, error, isUpdated } = useSelector((state) => state.changePSW);
   const { currentUser } = useSelector((state) => state.user);
@@ -54,6 +61,10 @@ function ChangePassword() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const handleTogglePassword = (field) => {
+    setShowPassword({ ...showPassword, [field]: !showPassword[field] });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true); // Form has been submitted
@@ -81,7 +92,7 @@ function ChangePassword() {
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mb-4 bg-gray-100">
       <MetaData title="Change Password" />
-      <div className="flex flex-col space-y-2 bg-white shadow-2xl rounded-2xl">
+      <div className="flex flex-col space-y-2 bg-white shadow-2xl rounded-2xl max-w-md">
         <div className="flex flex-col justify-center p-6 md:p-12">
           <span className="mb-2 text-2xl md:text-4xl font-bold">
             Change Password
@@ -118,43 +129,73 @@ function ChangePassword() {
 
             <div>
               <span className="mb-2 text-md">Old Password</span>
-              <input
-                type="password"
-                id="oldPassword"
-                onChange={handleChange}
-                value={formData.oldPassword}
-                required
-                className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword.oldPassword ? "text" : "password"}
+                  id="oldPassword"
+                  onChange={handleChange}
+                  value={formData.oldPassword}
+                  required
+                  className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
+                />
+                <span
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={() => handleTogglePassword("oldPassword")}
+                >
+                  {showPassword.oldPassword ? <FaRegEyeSlash /> : <RxEyeOpen />}
+                </span>
+              </div>
             </div>
+
             <div>
               <span className="mb-2 text-md">New Password</span>
-              <input
-                type="password"
-                id="newPassword"
-                onChange={handleChange}
-                value={formData.newPassword}
-                required
-                className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword.newPassword ? "text" : "password"}
+                  id="newPassword"
+                  onChange={handleChange}
+                  value={formData.newPassword}
+                  required
+                  className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
+                />
+                <span
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={() => handleTogglePassword("newPassword")}
+                >
+                  {showPassword.newPassword ? <FaRegEyeSlash /> : <RxEyeOpen />}
+                </span>
+              </div>
             </div>
+
             <div>
               <span className="mb-2 text-md">Confirm New Password</span>
-              <input
-                type="password"
-                id="confirmNewPassword"
-                onChange={handleChange}
-                value={formData.confirmNewPassword}
-                required
-                className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword.confirmNewPassword ? "text" : "password"}
+                  id="confirmNewPassword"
+                  onChange={handleChange}
+                  value={formData.confirmNewPassword}
+                  required
+                  className="w-full p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
+                />
+                <span
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={() => handleTogglePassword("confirmNewPassword")}
+                >
+                  {showPassword.confirmNewPassword ? (
+                    <FaRegEyeSlash />
+                  ) : (
+                    <RxEyeOpen />
+                  )}
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-col">
               <button
                 disabled={loading}
                 type="submit"
-                className="bg-cyan-600 text-white  font-semibold p-2 rounded-md hover:bg-cyan-700 transition duration-300 ease-in-out w-full"
+                className="bg-cyan-600 text-white mt-2 font-semibold p-2 rounded-md hover:bg-cyan-700 transition duration-300 ease-in-out w-full"
               >
                 {loading ? "Loading..." : "Change Password"}
               </button>

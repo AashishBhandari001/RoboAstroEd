@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CardItemCard from "../../Elements/CartItemCard";
 import EmptyCart from "../../Elements/EmptyCart";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 function Cart() {
   const dispatch = useDispatch();
+  const alert = useAlert();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -14,9 +16,10 @@ function Cart() {
   const handleCheckout = () => {
     // Redirect to checkout page if authenticated
     if (isAuthenticated) {
-      navigate("/shipping"); // Use the navigate function
+      navigate("/shipping"); 
     } else {
-      navigate("/account"); // Use the navigate function
+      navigate("/account"); 
+      alert.info("Please login to proceed to checkout.");
     }
   };
 

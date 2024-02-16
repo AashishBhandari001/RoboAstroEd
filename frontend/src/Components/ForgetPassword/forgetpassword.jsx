@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { RxEyeOpen } from "react-icons/rx";
+import { FaRegEyeSlash } from "react-icons/fa6";
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -8,6 +10,8 @@ function ForgetPassword() {
   const alert = useAlert();
   const [message, setMessage] = useState(""); // email state
   const [newPassword, setNewPassword] = useState(""); // State for the new password
+  const [showPassword, setShowPassword] = useState(false); // State for showing password
+  const [error, setError] = useState(""); // State for password error
   const navigate = useNavigate(); // initialize navigation
 
   const { id, token } = useParams();
@@ -30,13 +34,12 @@ function ForgetPassword() {
       if (res.ok) {
         setMessage("Password updated successfully!");
         alert.success("Password updated successfully!");
+        navigate("/Account");
 
-        setTimeout(() => {
-          navigate("/Account");
-        }, 5000);
+        setTimeout(() => {}, 5000);
       } else {
-        setMessage("Failed to update the password. Please try again.");
-        alert.error("Failed to update the password. Please try again.");
+        const data = await res.json();
+        setError(data.error);
       }
 
       // Handle response accordingly, e.g., show success message
@@ -46,9 +49,13 @@ function ForgetPassword() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row justify-center items-center h-screen">
-      <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row">
+    <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row justify-center items-center h-screen ">
+      <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row max-w-sm">
         <div className="flex flex-col justify-center p-6 md:p-12">
           <span className="mb-6 text-2xl text-center md:text-4xl font-bold">
             Enter Your New Password
@@ -58,16 +65,30 @@ function ForgetPassword() {
           ) : (
             ""
           )}
+          {error && <p className="text-red-600 font-bold mb-2">{error}</p>}
           <form onSubmit={handleSubmit} className="flex flex-col text-sm">
             <div>
               <span className="mb-2 text-md">Password</span>
-              <input
-                type="password"
-                id="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)} // Update the new password state
-                className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)} // Update the new password state
+                  className="w-full mb-4 p-2 border border-gray-300 rounded-md placeholder-light text-gray-500"
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <FaRegEyeSlash className="mb-4" />
+                  ) : (
+                    <RxEyeOpen className="mb-4" />
+                  )}
+                </button>
+              </div>
             </div>
             <div className="flex flex-col items-center space-y-2">
               <button
