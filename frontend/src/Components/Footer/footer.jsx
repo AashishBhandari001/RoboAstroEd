@@ -68,7 +68,7 @@ function Footer() {
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                     to="/license"
                   >
-                    MIT License
+                    Company VAT
                   </Link>
                 </li>
                 <li>
@@ -90,7 +90,7 @@ function Footer() {
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/contact-us"
+                    to="/contact"
                   >
                     Contact Us
                   </Link>

@@ -12,6 +12,7 @@ import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import ChangePassword from "./Components/ChangePassword";
 import VerifyEmail from "./Components/VerifyEmail/verifyEmail";
 import Verification from "./Elements/Verification";
+import Terms from "./Router/Terms";
 
 import Products from "./Router/Productpage";
 import ProductDetails from "./Router/ProductDetails";
@@ -60,6 +61,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
 
             <Route path="/lessons" element={<Course />} />
             <Route path="/lessons/:id" element={<DetailCourse />} />
