@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Elements/Loading";
 
 import {
   Container,
@@ -115,7 +116,7 @@ function Courses() {
 
   const dispatch = useDispatch();
 
-  const { courses, error } = useSelector((state) => state.courses);
+  const { courses, error, loading } = useSelector((state) => state.courses);
   // const { currentUser } = useSelector((state) => state.user);
   // const token = currentUser.token;
 
@@ -162,28 +163,32 @@ function Courses() {
           </Button>
         ))}
       </HStack>
-      <Grid
-        templateColumns={["1fr", "1fr", "1fr", "1fr", "repeat(2, 1fr)"]}
-        gap={4}
-        justifyContent="center"
-      >
-        {courses &&
-          courses.map((item) => (
-            <Course
-              key={item._id}
-              title={item.title}
-              description={item.description}
-              views={item.views}
-              imageSrc={item.poster.url}
-              id={item._id}
-              creator={item.createdBy}
-              lectureCount={item.numOfVideos}
-              courseDetailsHandler={() => {
-                courseDetailsHandler(item._id, item.title, item.numOfVideos);
-              }}
-            />
-          ))}
-      </Grid>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Grid
+          templateColumns={["1fr", "1fr", "1fr", "1fr", "repeat(2, 1fr)"]}
+          gap={4}
+          justifyContent="center"
+        >
+          {courses &&
+            courses.map((item) => (
+              <Course
+                key={item._id}
+                title={item.title}
+                description={item.description}
+                views={item.views}
+                imageSrc={item.poster.url}
+                id={item._id}
+                creator={item.createdBy}
+                lectureCount={item.numOfVideos}
+                courseDetailsHandler={() => {
+                  courseDetailsHandler(item._id, item.title, item.numOfVideos);
+                }}
+              />
+            ))}
+        </Grid>
+      )}
     </Container>
   );
 }

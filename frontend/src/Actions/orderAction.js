@@ -28,9 +28,6 @@ import {
   COD_CONFIRM_REQUEST,
   COD_CONFIRM_SUCCESS,
   COD_CONFIRM_FAIL,
-  GENERATE_INVOICE_REQUEST,
-  GENERATE_INVOICE_SUCCESS,
-  GENERATE_INVOICE_FAIL,
   CLEAR_ERRORS,
 } from "../Constants/orderConstants";
 
@@ -308,4 +305,3 @@ export const khaltiPaymentCallbackAction =
       });
     }
   };
-
