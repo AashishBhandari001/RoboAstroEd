@@ -68,6 +68,7 @@ function CreateCourse() {
     try {
       await dispatch(createCourse(myForm, { token }));
       alert.success("Course created successfully!");
+      navigate("/admin/courses");
     } catch (error) {
       alert.error("Failed to create course. Please try again.");
     }

@@ -247,7 +247,7 @@ function GenerateInvoice() {
               <p>Thank you for your purchase!</p>
             </>
           ) : (
-            <p>Please pay the invoice before the due date.</p>
+            <p>Please pay the invoice before the due date for delivery 😊😊.</p>
           )}
         </div>
       </div>
