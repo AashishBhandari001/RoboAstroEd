@@ -53,9 +53,12 @@ function CartItemCard({ item }) {
                 type="number"
                 className="py-2 px-4 rounded-lg read-only text-center w-16"
                 value={item.quantity}
-                onChange={(e) =>
-                  updateQuantity(item.product, parseInt(e.target.value, 10))
-                }
+                onChange={(e) => {
+                  const newQty = parseInt(e.target.value, 10);
+                  if (!isNaN(newQty) && newQty > 0) {
+                    updateQuantity(item.product, newQty);
+                  }
+                }}
               />
               <button
                 className="bg-gray-200 py-2 px-4 rounded-lg text-cyan-700 text-3xl"

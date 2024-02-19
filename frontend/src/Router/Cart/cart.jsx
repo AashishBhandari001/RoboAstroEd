@@ -16,9 +16,9 @@ function Cart() {
   const handleCheckout = () => {
     // Redirect to checkout page if authenticated
     if (isAuthenticated) {
-      navigate("/shipping"); 
+      navigate("/shipping");
     } else {
-      navigate("/account"); 
+      navigate("/account");
       alert.info("Please login to proceed to checkout.");
     }
   };
@@ -37,7 +37,7 @@ function Cart() {
   const vatAmount = () => {
     const vatRate = 0.13;
     const total = calculateTotal();
-    const vatAmount = total * vatRate;
+    const vatAmount = (total * vatRate).toFixed(3);
     return vatAmount;
   };
 
