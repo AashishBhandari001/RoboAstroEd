@@ -43,9 +43,9 @@ function Cart() {
 
   const grandTotal = () => {
     const total = calculateTotal();
-    const vat = vatAmount();
+    const vat = parseFloat(vatAmount());
     const grandTotal = total + vat;
-    return grandTotal;
+    return grandTotal.toFixed(3);
   };
 
   return (
