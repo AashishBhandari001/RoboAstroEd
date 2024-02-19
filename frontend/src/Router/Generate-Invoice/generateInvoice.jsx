@@ -177,10 +177,10 @@ function GenerateInvoice() {
                     {item.quantity}
                   </td>
                   <td className="px-3 py-5 text-right text-sm text-black">
-                    NRs {item.price}
+                    NPR {item.price}
                   </td>
                   <td className="py-5 pl-3 pr-4 text-right text-sm text-black sm:pr-0">
-                    NRs {item.quantity * item.price}
+                    NPR {item.quantity * item.price}
                   </td>
                 </tr>
               ))}
@@ -196,7 +196,7 @@ function GenerateInvoice() {
                   Subtotal
                 </th>
                 <td className="pl-3 pr-6 pt-6 text-right text-sm text-black sm:pr-0">
-                  NRs {order?.itemsPrice}
+                  NPR {order?.itemsPrice}
                 </td>
               </tr>
               <tr>
@@ -208,7 +208,7 @@ function GenerateInvoice() {
                   Tax
                 </th>
                 <td className="pl-3 pr-6 pt-4 text-right text-sm text-black sm:pr-0">
-                  NRs {order?.taxPrice}
+                  NPR {order?.taxPrice}
                 </td>
               </tr>
               <tr>
@@ -220,7 +220,7 @@ function GenerateInvoice() {
                   Shipping Price
                 </th>
                 <td className="pl-3 pr-6 pt-4 text-right text-sm text-black sm:pr-0">
-                  NRs {order?.shippingPrice}
+                  NPR {order?.shippingPrice}
                 </td>
               </tr>
               <tr>
@@ -232,7 +232,7 @@ function GenerateInvoice() {
                   Total
                 </th>
                 <td className="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-black sm:pr-0">
-                  NRs {order?.totalPrice}
+                  NPR {order?.totalPrice}
                 </td>
               </tr>
             </tfoot>
