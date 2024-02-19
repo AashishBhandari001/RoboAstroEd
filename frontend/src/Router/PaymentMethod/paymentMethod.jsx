@@ -98,7 +98,7 @@ function PaymentMethod() {
     if (selectedPayment === "Khalti") {
       const paymentData = {
         return_url: `${window.location.protocol}//${window.location.host}/order/${order.order._id}/payment-success`,
-        website_url: `${reactFrontendBaseUrl}`,
+        website_url: `${window.location.protocol}//${window.location.host}`,
         amount: grandTotalInPaisa(),
         purchase_order_id: "PO-" + Math.floor(Math.random() * 100000),
         purchase_order_name: "Purchase Order",
