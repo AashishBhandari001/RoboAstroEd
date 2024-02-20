@@ -118,7 +118,7 @@ const signin = async (req, res, next) => {
     const validPassword = bcrypt.compareSync(password, validUser.password);
     if (!validPassword) return next(ErrorHandler(401, "Wrong Credentials"));
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "6h",
     });
 
     // Check if the email is verified
@@ -187,7 +187,7 @@ const passwordreset = async (req, res, next) => {
 
     // Token generation for password reset
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "3m",
     }); // create a token
 
     const setusertoken = await User.findByIdAndUpdate(
