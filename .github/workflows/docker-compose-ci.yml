@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Pull Docker Image
-        run: docker pull yourusername/backend:latest
+        run: docker pull np03cs4m210054248/roboastroed:latest
 
       - name: Tag Docker Image
         run: docker tag np03cs4m210054248/roboastroed:latest docker.io/np03cs4m210054248/roboastroed:v4
