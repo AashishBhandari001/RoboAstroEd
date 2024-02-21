@@ -32,5 +32,5 @@ jobs:
         uses: roboastroed/render-deploy-action@v1
         with:
           service-id: ${{ secrets.SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
+          api-key: ${{ secrets.RENDER_SECRET_KEY }}
           docker-image: docker.io/np03cs4m210054248/roboastroed:v4
