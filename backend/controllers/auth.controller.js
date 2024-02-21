@@ -72,7 +72,7 @@ const signup = async (req, res, next) => {
     const verificationToken = jwt.sign(
       { email: newUser.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "3m" }
     );
 
     // Save verification token to the user document
