@@ -30,7 +30,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ${{ github.sha }}
+          tags: np03cs4m210054248/roboastroed:${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # - name: Deploy to Render
