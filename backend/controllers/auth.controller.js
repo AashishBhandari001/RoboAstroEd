@@ -158,6 +158,7 @@ const google = async (req, res, next) => {
           Math.random().toString(36).slice(-4),
         email: req.body.email,
         password: hashedPassword,
+        verified: true,
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET); // create a token
@@ -382,8 +383,6 @@ const updateUser = async (req, res, next) => {
       role: req.body.role,
     };
 
-    console.log("new user data", newUserData);
-
     const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
       new: true,
       runValidators: true,
@@ -428,58 +427,58 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-//add to playlist
-const addToPlaylist = catchAsyncErrors(async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user._id);
+// //add to playlist
+// const addToPlaylist = catchAsyncErrors(async (req, res, next) => {
+//   try {
+//     const user = await User.findById(req.user._id);
 
-    const course = await Course.findById(req.body.id);
+//     const course = await Course.findById(req.body.id);
 
-    if (!course) {
-      next(ErrorHandler("invalid course id", 404));
-    }
+//     if (!course) {
+//       next(ErrorHandler("invalid course id", 404));
+//     }
 
-    const itemExist = user.playlist.find((item) => {
-      if (item.course.toString() === course._id.toString()) return true;
-    });
+//     const itemExist = user.playlist.find((item) => {
+//       if (item.course.toString() === course._id.toString()) return true;
+//     });
 
-    if (!itemExist) {
-      next(ErrorHandler("Course already added", 409));
-    }
-    // Ensure that user.playlist is initialized as an array
-    user.playlist = user.playlist || [];
+//     if (!itemExist) {
+//       next(ErrorHandler("Course already added", 409));
+//     }
+//     // Ensure that user.playlist is initialized as an array
+//     user.playlist = user.playlist || [];
 
-    user.playlist.push({
-      course: course._id,
-      poster: course.poster.url,
-    });
+//     user.playlist.push({
+//       course: course._id,
+//       poster: course.poster.url,
+//     });
 
-    await user.save();
+//     await user.save();
 
-    res.status(200).json({ success: true, message: "Added to playlist" });
-  } catch (error) {
-    next(error);
-  }
-});
+//     res.status(200).json({ success: true, message: "Added to playlist" });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
-//remove from playlist
-const removeFromPlaylist = catchAsyncErrors(async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user._id);
-    const course = await Course.findById(req.query.id);
+// //remove from playlist
+// const removeFromPlaylist = catchAsyncErrors(async (req, res, next) => {
+//   try {
+//     const user = await User.findById(req.user._id);
+//     const course = await Course.findById(req.query.id);
 
-    if (!course) return next(new ErrorHandler("Invalid course id", 404));
+//     if (!course) return next(new ErrorHandler("Invalid course id", 404));
 
-    // Use Mongoose's pull method to remove the specified item from the array
-    user.playlist.pull({ course: course._id });
+//     // Use Mongoose's pull method to remove the specified item from the array
+//     user.playlist.pull({ course: course._id });
 
-    await user.save();
+//     await user.save();
 
-    res.status(200).json({ success: true, message: "Removed from playlist" });
-  } catch (error) {
-    next(error);
-  }
-});
+//     res.status(200).json({ success: true, message: "Removed from playlist" });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = {
   signup,
@@ -494,6 +493,6 @@ module.exports = {
   getSingleUser,
   updateUser,
   deleteUser,
-  addToPlaylist,
-  removeFromPlaylist,
+  // addToPlaylist,
+  // removeFromPlaylist,
 };

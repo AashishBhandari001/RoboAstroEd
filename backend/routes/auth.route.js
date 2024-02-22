@@ -13,8 +13,8 @@ const {
   getSingleUser,
   updateUser,
   deleteUser,
-  addToPlaylist,
-  removeFromPlaylist,
+  // addToPlaylist,
+  // removeFromPlaylist,
 } = require("../controllers/auth.controller.js");
 
 const {
@@ -48,11 +48,11 @@ router
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteUser);
 
 //get tutor by id
-router
-  .route("/addtoplaylist")
-  .post(isAuthenticatedUser, authorizeRoles("admin"), addToPlaylist);
+// router
+//   .route("/addtoplaylist")
+//   .post(isAuthenticatedUser, authorizeRoles("admin"), addToPlaylist);
 
-router
-  .route("/removefromplaylist")
-  .delete(isAuthenticatedUser, authorizeRoles("admin"), removeFromPlaylist);
+// router
+//   .route("/removefromplaylist")
+//   .delete(isAuthenticatedUser, authorizeRoles("admin"), removeFromPlaylist);
 module.exports = router;
