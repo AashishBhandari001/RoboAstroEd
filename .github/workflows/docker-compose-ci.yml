@@ -33,9 +33,10 @@ jobs:
           tags: np03cs4m210054248/roboastroed:${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      # - name: Deploy to Render
-      #   uses: roboastroed/render-deploy-action@v1
-      #   with:
-      #     service-id: ${{ secrets.SERVICE_ID }}
-      #     api-key: ${{ secrets.RENDER_SECRET_KEY }}
-          # docker-image: docker.io/np03cs4m210054248/roboastroed:v4
+      - name: Deploy to Render
+        uses: roboastroed/render-deploy-action@v1
+        with:
+          service-id: ${{ secrets.SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_SECRET_KEY }}
+          docker-image: np03cs4m210054248/roboastroed:${{ github.sha }}
+
