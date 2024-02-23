@@ -77,14 +77,19 @@ function MyOrders() {
   const rows = [];
 
   orders &&
-    orders.map((item) => {
-      rows.push({
-        id: item._id,
-        status: item.orderStatus,
-        itemQty: item.orderItems.length,
-        amount: item.totalPrice,
+    orders
+      .filter(
+        (item) =>
+          !(item.paymentType === "COD" && item.CODStatus === "Not Confirmed")
+      )
+      .map((item) => {
+        rows.push({
+          id: item._id,
+          status: item.orderStatus,
+          itemQty: item.orderItems.length,
+          amount: item.totalPrice,
+        });
       });
-    });
 
   useEffect(() => {
     if (error) {
