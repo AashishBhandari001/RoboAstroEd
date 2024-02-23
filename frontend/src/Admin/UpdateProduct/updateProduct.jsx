@@ -13,6 +13,7 @@ import { LiaMoneyBillWaveAltSolid } from "react-icons/lia";
 import { IoReaderOutline } from "react-icons/io5";
 import { TbCategory2 } from "react-icons/tb";
 import { AiOutlineStock } from "react-icons/ai";
+import MetaData from "../../Router/Metadata/metaData";
 
 function UpdateProduct() {
   const dispatch = useDispatch();
@@ -105,6 +106,8 @@ function UpdateProduct() {
 
   return (
     <div className="dashboard ">
+      <MetaData title="Update Product" />
+
       <form
         onSubmit={createProductSubmitHandler}
         className="max-w-md mx-auto  border-spacing-1 md:mt-10 shadow-xl p-10 "

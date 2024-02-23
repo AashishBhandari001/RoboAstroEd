@@ -6,6 +6,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import Socials from "../../Elements/Socials";
 import Button from "../Button";
 import Robot from "../../Assets/Robot-Hello.png";
+import MetaData from "../../Router/Metadata/metaData";
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -103,6 +104,7 @@ function Contactus() {
 
   return (
     <div className="bg-white font-open-sans mt-20">
+      <MetaData title="contact us" />
       <div className="flex w-full min-h-screen justify-center item-center">
         <div className="flex flex-col md:flex-row md_space-x-6 md:space-y-0 space-y-6  w-full max-w-4xl p-8 rounded-xl shadow-lg mt-8">
           <div className="flex flex-col space-y-8 justify-between">

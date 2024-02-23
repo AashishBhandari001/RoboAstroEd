@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorPopup from "../../Elements/ErrorPopup";
+import MetaData from "../../Router/Metadata/metaData";
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -53,7 +54,8 @@ function PasswordReset() {
 
   return (
     <div className="flex items-center justify-center h-screen font-open-sans mt-14 mb-4 bg-gray-100">
-      {error ? ( // Check if there's an error
+      <MetaData title="password reset" />
+      {error ? ( 
         <div className="text-center">
           <ErrorPopup error={error} onBack={handleBack} />
         </div>

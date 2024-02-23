@@ -30,6 +30,7 @@ function ProductDetails({ match }) {
 
   return (
     <div>
+      <MetaData title="Product Detail" />
       {loading ? (
         <Loading />
       ) : (

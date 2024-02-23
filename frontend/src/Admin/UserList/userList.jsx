@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllUsers, clearErrors, deleteUser } from "../../Actions/userAction";
 import { DELETE_USER_RESET } from "../../Constants/userConstants";
 import { useAlert } from "react-alert";
+import MetaData from "../../Router/Metadata/metaData";
 
 function UserList() {
   const dispatch = useDispatch();
@@ -108,6 +109,8 @@ function UserList() {
 
   return (
     <div>
+      <MetaData title="All User" />
+
       <div className="productcontainer">
         <DataGrid
           rows={rows.reverse()}

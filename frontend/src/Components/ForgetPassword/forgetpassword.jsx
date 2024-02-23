@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { RxEyeOpen } from "react-icons/rx";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import MetaData from "../../Router/Metadata/metaData";
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -55,6 +56,7 @@ function ForgetPassword() {
 
   return (
     <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row justify-center items-center h-screen ">
+      <MetaData title="forget password" />
       <div className="flex md:space-y-2 bg-white shadow-2xl rounded-2xl flex-row max-w-sm">
         <div className="flex flex-col justify-center p-6 md:p-12">
           <span className="mb-6 text-2xl text-center md:text-4xl font-bold">

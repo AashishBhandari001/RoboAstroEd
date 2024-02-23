@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Elements/Loading";
+import MetaData from "../Router/Metadata/metaData";
 
 import {
   Container,
@@ -146,6 +147,8 @@ function Courses() {
       maxW="container.lg"
       paddingY={"8"}
     >
+      <MetaData title="Courses" />
+
       <Heading children="All Courses" margin={"8"} />
 
       <Input

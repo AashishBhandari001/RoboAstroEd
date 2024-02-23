@@ -12,6 +12,7 @@ import { Button } from "@mui/material";
 import { DELETE_PRODUCTS_RESET } from "../../Constants/productConstants";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
+import MetaData from "../../Router/Metadata/metaData";
 
 function AdminProducts() {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ function AdminProducts() {
 
   return (
     <div>
+      <MetaData title="admin products" />
       <div className="productcontainer">
         <DataGrid
           rows={rows.reverse()}

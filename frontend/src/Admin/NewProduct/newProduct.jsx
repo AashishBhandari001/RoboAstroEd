@@ -14,6 +14,7 @@ import { AiOutlineStock } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../../Router/Metadata/metaData";
 
 function NewProduct() {
   const dispatch = useDispatch();
@@ -116,6 +117,8 @@ function NewProduct() {
 
   return (
     <div className="dashboard ">
+      <MetaData title="Add Product" />
+
       <form
         onSubmit={createProductSubmitHandler}
         className="max-w-md mx-auto  border-spacing-1 md:mt-10 shadow-xl p-10 "

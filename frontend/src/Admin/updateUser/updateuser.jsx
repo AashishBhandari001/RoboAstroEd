@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import MetaData from "../../Router/Metadata/metaData";
 
 function UpdateUser() {
   const dispatch = useDispatch();
@@ -81,6 +82,8 @@ function UpdateUser() {
 
   return (
     <div className="dashboard ">
+      <MetaData title="Update User" />
+
       <form
         onSubmit={updateUserSubmitHandler}
         className="max-w-md mx-auto  border-spacing-1 md:mt-10 shadow-xl p-10 "

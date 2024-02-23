@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import MetaData from "../Metadata/metaData";
 
 function GenerateInvoice() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function GenerateInvoice() {
 
   return (
     <div className="bg-white mb-6 mt-28 max-w-3xl mx-auto">
+      <MetaData title="Invoice" />
       <div
         className=" p-6 bg-white rounded shadow-sm my-6  border border-gray-200"
         id="invoice"

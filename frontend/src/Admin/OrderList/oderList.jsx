@@ -13,6 +13,7 @@ import {
   clearErrors,
 } from "../../Actions/orderAction";
 import { DELETE_ORDER_RESET } from "../../Constants/orderConstants";
+import MetaData from "../../Router/Metadata/metaData";
 
 function OrderList() {
   const dispatch = useDispatch();
@@ -150,6 +151,8 @@ function OrderList() {
 
   return (
     <div>
+      <MetaData title="All Order" />
+
       <div className="productcontainer">
         <DataGrid
           rows={rows.reverse()}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import CheckOutSteps from "../../Elements/CheckOutSteps";
 import checkbox from "../../Assets/checkbox.png";
+import MetaData from "../../Router/Metadata/metaData";
 
 function CodOrderSuccess() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ function CodOrderSuccess() {
   };
   return (
     <div className="mt-32">
+      <MetaData title="Order Success" />
+
       <CheckOutSteps activeStep={3} />
 
       <div className="flex flex-col items-center justify-center mt-28 mb-28">

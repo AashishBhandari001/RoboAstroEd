@@ -10,6 +10,7 @@ import {
   updateOrder,
   clearErrors,
 } from "../../Actions/orderAction";
+import MetaData from "../../Router/Metadata/metaData";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
@@ -59,6 +60,8 @@ const OrderDetail = () => {
 
   return (
     <div className="container mx-auto ml-10">
+      <MetaData title="Order Detail" />
+
       <div className="flex flex-row gap-10">
         <div className="flex flex-col">
           <div

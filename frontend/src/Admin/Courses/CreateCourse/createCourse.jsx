@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCourse } from "../../../Actions/courseAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../../../Router/Metadata/metaData";
 
 function CreateCourse() {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ function CreateCourse() {
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
+      <MetaData title="create course" />
       <Container>
         <Heading
           textTransform={"uppercase"}

@@ -3,6 +3,8 @@ import { Trash2 } from "lucide-react";
 import CourseModel from "../CourseModel";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
+import MetaData from "../../../Router/Metadata/metaData";
+
 import {
   deleteCourse,
   getAllCourses,
@@ -84,6 +86,7 @@ function AllCourses() {
 
   return (
     <Grid minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]}>
+      <MetaData title="All Courses" />
       <Box p={["0", "2"]} overflow="auto">
         <TableContainer w={["100vm", "full"]}>
           <Table variant="simple" size="lg">

@@ -5,6 +5,7 @@ import { MdOutlineBorderColor } from "react-icons/md";
 import { RiUserSearchLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../Actions/userAction";
+import MetaData from "../../Router/Metadata/metaData";
 
 function DashboardStatsGrid() {
   const dispatch = useDispatch();
@@ -31,6 +32,8 @@ function DashboardStatsGrid() {
 
   return (
     <div className="flex gap-4 w-full">
+      <MetaData title="Admin" />
+
       <BoxWrapper>
         <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-600">
           <FaSackDollar className="text-xl text-white" />
