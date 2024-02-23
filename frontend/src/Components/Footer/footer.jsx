@@ -27,7 +27,7 @@ function Footer() {
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/about"
+                    to="/home"
                   >
                     About Us
                   </Link>
@@ -35,23 +35,23 @@ function Footer() {
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/blog"
+                    to="/products"
                   >
-                    Blog
+                    Products
                   </Link>
                 </li>
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/github"
+                    to="/lessons"
                   >
-                    Github
+                    Online Courses
                   </Link>
                 </li>
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/free-products"
+                    to="/products"
                   >
                     Free Products
                   </Link>
@@ -66,7 +66,7 @@ function Footer() {
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/license"
+                    to="/terms"
                   >
                     Company VAT
                   </Link>
@@ -82,7 +82,7 @@ function Footer() {
                 <li>
                   <Link
                     className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                    to="/privacy-policy"
+                    to="/terms"
                   >
                     Privacy Policy
                   </Link>
