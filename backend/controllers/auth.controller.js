@@ -149,9 +149,9 @@ const google = async (req, res, next) => {
         Math.random().toString(36).slice(-8); // generate a random password
       const hashedPassword = bcrypt.hashSync(generatedPassword, 10); // hash the password
       const newUser = new User({
-        username:
-          req.body.name.split(" ").join(" ").toLowerCase() +
-          Math.random().toString(36).slice(-4),
+        username: req.body.name,
+        // req.body.name.split(" ").join(" ").toLowerCase() +
+        // Math.random().toString(36).slice(-4),
         email: req.body.email,
         password: hashedPassword,
         verified: true, // Set verified to true for Google sign-up
