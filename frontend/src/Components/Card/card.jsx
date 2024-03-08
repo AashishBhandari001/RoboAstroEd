@@ -7,7 +7,6 @@ import Picture1 from "../../Assets/child-robo.jpeg"; //card1
 import Picture2 from "../../Assets/Student2.png"; //card 2
 import Picture3 from "../../Assets/Student3.png";
 
-
 function Card() {
   const settings = {
     dots: true,
@@ -34,7 +33,7 @@ function Card() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 mt-4">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 mt-4 mb-8">
       <div>
         <h1 className="flex flex-row justify-center text-center item-center text-xl md:text-6xl text-cyan-600 my-1 mx-2">
           Transforming young minds into innovators

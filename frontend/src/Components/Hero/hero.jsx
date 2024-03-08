@@ -27,7 +27,7 @@ function Hero() {
           </div>
         </div>
         <div className="flex-col md:flex lg:w-1/2">
-          <div className="w-96 p-4 border rounded-lg bg-white">
+          <div className="w-96 p-4 rounded-lg bg-white">
             <img src={Student} alt="" className="w-full h-auto" />
           </div>
         </div>
