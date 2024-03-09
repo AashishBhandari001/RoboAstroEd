@@ -8,10 +8,10 @@ const OurDetail = () => {
     <div className="font-open-sans bg-cyan-700 p-6">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col text-white text-center items-center justify-center p-4">
-          <h2 className="text-[22px] font-bold mb-2">
+          <h2 className="md:text-[22px] text-[19px] font-bold mb-2">
             Robotics and Astronomy Education
           </h2>
-          <p className="text-lg text-center mt-2 max-w-5xl sm:mb-2">
+          <p className="text-lg text-justify md:text-center  mt-2 max-w-5xl sm:mb-2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
             ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod

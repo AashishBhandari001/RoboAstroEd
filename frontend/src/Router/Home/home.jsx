@@ -18,9 +18,9 @@ function Home() {
         <Hero />
         <Branding />
         <Card />
-        {/* <Testimonials /> */}
         <Detail />
         <Highlight />
+        <Testimonials />
         <LogoCarousel />
       </div>
     </>

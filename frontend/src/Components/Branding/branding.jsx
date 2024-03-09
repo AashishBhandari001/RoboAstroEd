@@ -67,7 +67,7 @@ function Branding() {
         </div>
 
         {/* Teacher */}
-        <div className="flex flex-col w-44 h-48 pr-2 pl-2 pb-2 bg-white/80 shadow-lg rounded-md justify-center items-center border">
+        <div className="hidden md:flex flex-col w-44 h-48 pr-2 pl-2 pb-2 bg-white/80 shadow-lg rounded-md justify-center items-center border">
           <FaChalkboardTeacher className="text-[#0F7173] w-16 h-16" />
           <h2 className="mt-2 text-lg font-bold text-gray-600">
             {teacherCount > 100 ? "100+" : teacherCount} +
