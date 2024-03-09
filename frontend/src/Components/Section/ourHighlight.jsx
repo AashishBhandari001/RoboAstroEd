@@ -29,7 +29,7 @@ const OurHighlight = () => {
           officia magnam doloribus, quis voluptate pariatur atque? Nesciunt,
         </p>
         {/* another */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl text-center mx-auto py-2 px-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-6xl text-center mx-auto py-2 px-2">
           <div className="flex flex-col justify-center items-center">
             <img
               src="https://source.unsplash.com/1600x900/?education"

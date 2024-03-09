@@ -22,7 +22,7 @@ function Branding() {
       setRobotCount((prevCount) => (prevCount < 1000 ? prevCount + 50 : 1000));
       setTeacherCount((prevCount) => (prevCount < 100 ? prevCount + 5 : 100));
       setProjectCount((prevCount) =>
-        prevCount < 1000 ? prevCount + 100 : 1000
+        prevCount < 1000 ? prevCount + 50 : 1000
       );
     }, 100);
 

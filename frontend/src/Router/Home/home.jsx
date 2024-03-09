@@ -7,6 +7,7 @@ import Branding from "../../Components/Branding/branding";
 import Card from "../../Components/Card/card";
 import Detail from "../../Components/Section/ourDetail";
 import Highlight from "../../Components/Section/ourHighlight";
+import Projects from "../../Components/Section/studetsProject";
 
 import MetaData from "../../Router/Metadata/metaData"; // Importing MetaData
 
@@ -20,6 +21,7 @@ function Home() {
         <Card />
         <Detail />
         <Highlight />
+        <Projects />
         <Testimonials />
         <LogoCarousel />
       </div>
